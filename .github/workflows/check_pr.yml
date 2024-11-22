@@ -45,6 +45,7 @@ jobs:
 
   check_formatter:
     name: Check Format
+    runs-on: ubuntu-latest
     steps:
       - name: Formatting
         uses: axel-op/googlejavaformat-action@v3
