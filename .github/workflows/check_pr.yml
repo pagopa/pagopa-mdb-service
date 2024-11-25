@@ -47,7 +47,16 @@ jobs:
     name: Check Format
     runs-on: ubuntu-latest
     steps:
-      - name: Formatting
+      - name: Checkout code
+        uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4 # required to make the script available for next step
+      - name: Find incorrectly formatted file
+        uses: axel-op/googlejavaformat-action@v3
+        with:
+          args: "--replace"
+          skip-commit: true
+      - name: Print diffs
+        run: git --no-pager diff --exit-code
+      - name: Check Format
         uses: axel-op/googlejavaformat-action@v3
         with:
           args: "--set-exit-if-changed"
