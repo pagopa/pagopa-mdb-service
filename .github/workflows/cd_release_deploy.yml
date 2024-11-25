@@ -112,6 +112,7 @@ jobs:
       - uses: axel-op/googlejavaformat-action@v3
         with:
           args: "--replace"
+          github-token: ${{ secrets.BOT_TOKEN_GITHUB }}
       - name: Make Release
         id: release
         uses: pagopa/github-actions-template/maven-release@4a4c25ce28feeec9e619b3132b5327f52023d441 # v1.14.2
