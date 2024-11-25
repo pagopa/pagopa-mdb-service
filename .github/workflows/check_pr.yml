@@ -65,7 +65,7 @@ jobs:
           git config --global user.email "github-bot@pagopa.it"
           git config --global user.name "pagopa-github-bot"
           git commit -m "formatting" || exit 0
-          git push origin ${{ github.ref_name}}
+          git push origin HEAD:${{ github.event.pull_request.head.ref }}
 
 
   check_size:
