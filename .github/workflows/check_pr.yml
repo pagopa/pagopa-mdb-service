@@ -11,6 +11,9 @@ on:
 
 
 permissions:
+  contents: read
+  checks: write
+  issues: write
   pull-requests: write
 
 
@@ -43,8 +46,8 @@ jobs:
             const script = require('./.github/workflows/github_scripts/check_required_labels.js')
             script({github, context, core})
 
-  check_formatter:
-    name: Check Format
+  formatter:
+    name: Formatter
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -59,7 +62,11 @@ jobs:
           args: "--replace"
           skip-commit: true
       - name: Print diffs
-        run: git --no-pager diff --exit-code
+        run: git --no-pager diff
+      - name: suggester / google-java-format
+        uses: reviewdog/action-suggester@v1
+        with:
+          tool_name: google-java-format
       - name: Check Format
         uses: axel-op/googlejavaformat-action@v3
         with:
