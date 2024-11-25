@@ -50,10 +50,7 @@ public class OpenApiConfig {
   public OpenApiCustomiser sortOperationsAlphabetically() {
     return openApi -> {
       Paths paths =
-          openApi
-              .getPaths()
-              .entrySet()
-              .stream()
+          openApi.getPaths().entrySet().stream()
               .sorted(Map.Entry.comparingByKey())
               .collect(
                   Paths::new,
@@ -67,10 +64,7 @@ public class OpenApiConfig {
                   .forEach(
                       operation -> {
                         var responses =
-                            operation
-                                .getResponses()
-                                .entrySet()
-                                .stream()
+                            operation.getResponses().entrySet().stream()
                                 .sorted(Map.Entry.comparingByKey())
                                 .collect(
                                     ApiResponses::new,
