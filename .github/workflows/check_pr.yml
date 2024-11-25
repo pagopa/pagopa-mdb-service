@@ -12,6 +12,8 @@ on:
 
 permissions:
   pull-requests: write
+  contents: write
+  id-token: write
 
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
@@ -58,7 +60,7 @@ jobs:
         with:
           args: "--replace"
           skip-commit: true
-      - name: Push New Version
+      - name: Push
         shell: bash
         run: |
           git add .
