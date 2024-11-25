@@ -43,8 +43,8 @@ jobs:
             const script = require('./.github/workflows/github_scripts/check_required_labels.js')
             script({github, context, core})
 
-  check_formatter:
-    name: Check Format
+  formatter:
+    name: Formatter
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -57,6 +57,16 @@ jobs:
         uses: axel-op/googlejavaformat-action@v3
         with:
           args: "--replace"
+          skip-commit: true
+      - name: Push New Version
+        shell: bash
+        run: |
+          git add .
+          git config --global user.email "github-bot@pagopa.it"
+          git config --global user.name "pagopa-github-bot"
+          git commit -m "formatting" || exit 0
+          git push origin ${{ github.ref_name}}
+
 
   check_size:
     runs-on: ubuntu-latest
