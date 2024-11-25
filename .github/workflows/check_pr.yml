@@ -63,7 +63,7 @@ jobs:
           skip-commit: true
       - name: Print diffs
         run: git --no-pager diff --exit-code
-      - name: suggester /
+      - name: suggester / google-java-format
         uses: reviewdog/action-suggester@v1
         with:
           tool_name: google-java-format
