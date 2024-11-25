@@ -18,7 +18,7 @@ on:
   workflow_dispatch:
 
 env:
-  PROJECT_KEY: # TODO
+  PROJECT_KEY: pagopa-mbd-service
 
 permissions:
   id-token: write
@@ -43,7 +43,8 @@ jobs:
           coverage_exclusions: "**/config/*,**/*Mock*,**/model/**,**/entity/*,**/exception/**"
           cpd_exclusions: "**/model/**,**/entity/*"
           java_version: 17
-      - name: suggester / swagger
+
+      - name: suggester / junit
         uses: reviewdog/action-suggester@v1
         with:
           tool_name: junit

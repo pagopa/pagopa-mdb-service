@@ -46,6 +46,7 @@ jobs:
             const script = require('./.github/workflows/github_scripts/check_required_labels.js')
             script({github, context, core})
 
+
   formatter:
     name: Formatter
     runs-on: ubuntu-latest
