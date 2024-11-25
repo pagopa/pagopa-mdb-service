@@ -63,6 +63,7 @@ jobs:
       - name: Push
         shell: bash
         run: |
+          git fetch origin
           git checkout ${{ github.event.pull_request.head.ref }}
           git add .
           git config --global user.email "github-bot@pagopa.it"
