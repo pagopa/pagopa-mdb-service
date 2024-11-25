@@ -113,6 +113,7 @@ jobs:
         with:
           args: "--replace"
           github-token: ${{ secrets.BOT_TOKEN_GITHUB }}
+          skip-commit: true
       - name: Make Release
         id: release
         uses: pagopa/github-actions-template/maven-release@4a4c25ce28feeec9e619b3132b5327f52023d441 # v1.14.2
