@@ -10,8 +10,7 @@ repos:
         language_version: python3
         stages: [ commit ]
 
-  - repo: https://github.com/Poeschl/google-style-precommit-hook
-    rev: 5692558a72bc1208d9e7a6da00fe8dc67b6eee07
+  - repo: https://github.com/pagopa/google-style-precommit-hook
+    rev: be92ca3b151dda05fb027ee738509ebf68786bc1
     hooks:
       - id: google-style-java
-        args: [--version, 1.25.0]

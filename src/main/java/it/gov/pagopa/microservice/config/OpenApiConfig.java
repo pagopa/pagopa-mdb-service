@@ -99,9 +99,9 @@ public class OpenApiConfig {
                             .name(HEADER_REQUEST_ID)
                             .schema(new StringSchema())
                             .description(
-                                "This header identifies the call, if not passed it is self-generated. This ID is returned in the response."));
+                                "This header identifies the call, if not passed it is"
+                                    + " self-generated. This ID is returned in the response."));
                   }
-
                   // add Request-ID as response header
                   value
                       .readOperations()
