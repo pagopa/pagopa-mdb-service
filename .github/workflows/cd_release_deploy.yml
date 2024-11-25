@@ -124,7 +124,7 @@ jobs:
           git config --global user.name "GitHub Action"
           git config --global user.email "action@github.com" 
           git commit -am "google java format [skip-ci]" || echo "No changes to commit"
-          git push ${{ github.ref_name}}
+          git push origin ${{ github.ref_name}}
       - name: Make Release
         id: release
         uses: pagopa/github-actions-template/maven-release@4a4c25ce28feeec9e619b3132b5327f52023d441 # v1.14.2
