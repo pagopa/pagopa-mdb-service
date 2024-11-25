@@ -98,26 +98,6 @@ jobs:
         name: Set Output
         run: echo "environment=${{env.ENVIRNOMENT}}" >> $GITHUB_OUTPUT
 
-  update_code:
-    name: Update Code
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3
-        with:
-          ref: ${{ github.ref_name}}
-          token: ${{ secrets.BOT_TOKEN_GITHUB }}
-      - name: Setup JDK
-        uses: actions/setup-java@v4
-        with:
-          distribution: 'temurin' # See 'Supported distributions' for available options
-          java-version: '21'
-      - name: Google Java Format
-        uses: axel-op/googlejavaformat-action@v3
-        with:
-          args: "--replace"
-          commit-message: "Google Java Format [skip-ci]"
-
   release:
     name: Create a New Release
     runs-on: ubuntu-latest
