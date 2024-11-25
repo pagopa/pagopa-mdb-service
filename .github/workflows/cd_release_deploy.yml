@@ -107,7 +107,8 @@ jobs:
     outputs:
       version: ${{ steps.release.outputs.version }}
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4 # required to make the script available for next step
       - uses: axel-op/googlejavaformat-action@v3
         with:
           args: "--replace"
