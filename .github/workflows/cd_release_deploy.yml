@@ -109,8 +109,8 @@ jobs:
     steps:
       - uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3
         with:
+          ref: ${{ github.ref_name}}
           token: ${{ secrets.BOT_TOKEN_GITHUB }}
-      - run: git pull ${{ github.ref_name}}
       - uses: actions/setup-java@v4
         with:
           distribution: 'temurin' # See 'Supported distributions' for available options
@@ -118,7 +118,13 @@ jobs:
       - uses: axel-op/googlejavaformat-action@v3
         with:
           args: "--replace"
-          github-token: ${{ secrets.BOT_TOKEN_GITHUB }}
+          skip_commit: true
+      - run: |
+          git add .
+          git config --global user.name "GitHub Action"
+          git config --global user.email "action@github.com" 
+          git commit -am "google java format [skip-ci]" || echo "No changes to commit"
+          git push ${{ github.ref_name}}
       - name: Make Release
         id: release
         uses: pagopa/github-actions-template/maven-release@4a4c25ce28feeec9e619b3132b5327f52023d441 # v1.14.2
