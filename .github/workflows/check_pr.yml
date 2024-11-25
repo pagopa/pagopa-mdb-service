@@ -11,9 +11,10 @@ on:
 
 
 permissions:
+  contents: read
+  checks: write
+  issues: write
   pull-requests: write
-  contents: write
-  id-token: write
 
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
@@ -60,17 +61,16 @@ jobs:
         with:
           args: "--replace"
           skip-commit: true
-      - name: Push
-        shell: bash
-        run: |
-          git fetch origin
-          git checkout ${{ github.event.pull_request.head.ref }}
-          git add .
-          git config --global user.email "github-bot@pagopa.it"
-          git config --global user.name "pagopa-github-bot"
-          git commit -m "formatting" || exit 0
-          git push origin
-
+      - name: Print diffs
+        run: git --no-pager diff --exit-code
+      - name: suggester /
+        uses: reviewdog/action-suggester@v1
+        with:
+          tool_name: google-java-format
+      - name: Check Format
+        uses: axel-op/googlejavaformat-action@v3
+        with:
+          args: "--set-exit-if-changed"
 
   check_size:
     runs-on: ubuntu-latest
