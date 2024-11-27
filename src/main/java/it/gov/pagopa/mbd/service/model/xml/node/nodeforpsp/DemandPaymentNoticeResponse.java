@@ -12,6 +12,10 @@ import it.gov.pagopa.mbd.service.model.xml.xsd.common_types.v1_0.CtFaultBean;
 import it.gov.pagopa.mbd.service.model.xml.xsd.common_types.v1_0.CtResponse;
 import it.gov.pagopa.mbd.service.model.xml.xsd.common_types.v1_0.StOutcome;
 import jakarta.xml.bind.annotation.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 
 /**
@@ -49,6 +53,10 @@ import jakarta.xml.bind.annotation.*;
     "companyName",
     "officeName"
 })
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class DemandPaymentNoticeResponse
     extends CtResponse
 {

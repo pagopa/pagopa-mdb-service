@@ -2,6 +2,7 @@ package it.gov.pagopa.mbd.service.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import it.gov.pagopa.mbd.service.model.carts.GetCartErrorResponse;
 import it.gov.pagopa.mbd.service.model.carts.GetCartRequest;
 import it.gov.pagopa.mbd.service.model.carts.GetCartResponse;
 import it.gov.pagopa.mbd.service.model.mdb.GetMdbRequest;
@@ -19,6 +20,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.reactive.server.WebTestClient;
 import org.springframework.test.web.servlet.MockMvc;
@@ -55,23 +57,23 @@ class MbdControllerTest {
     @Test
     void getMdbShouldReturnCheckoutUrlOnPositiveRequest() throws Exception {
         when(mbdService.getMdb(any())).thenAnswer(item ->
-                Mono.just(ServerResponse.ok().bodyValue(GetCartResponse.builder()
+                Mono.just(ResponseEntity.ok().body(GetCartResponse.builder()
                         .checkoutRedirectUrl("testUrl").build())));
         webClient.post().uri("/mbd").bodyValue(
                 objectMapper.writeValueAsBytes(GetMdbRequest.builder()
-                        .idCiService("test")
+                        .idCIService("test")
                         .paymentNotices(Collections.singletonList(
                                 PaymentNotice.builder().build()
                         ))
                         .returnUrls(ReturnUrls.builder().build())
                         .build())).header("Content-Type",MediaType.APPLICATION_JSON_VALUE)
-                .exchange().expectStatus().is2xxSuccessful();
-        //                .consumeWith(result -> {
-//                    GetCartResponse getCartResponse = result.getResponseBody();
-//                    assertNotNull(getCartResponse);
-//                    assertNotNull(getCartResponse.getCheckoutRedirectUrl());
-//                    assertEquals(getCartResponse.getCheckoutRedirectUrl(), "testUrl");
-//                });
+                .exchange().expectStatus().is2xxSuccessful()
+                .expectBody(GetCartResponse.class).consumeWith(result -> {
+                    GetCartResponse getCartResponse = result.getResponseBody();
+                    assertNotNull(getCartResponse);
+                    assertNotNull(getCartResponse.getCheckoutRedirectUrl());
+                    assertEquals(getCartResponse.getCheckoutRedirectUrl(), "testUrl");
+                });
 
     }
 
@@ -81,29 +83,34 @@ class MbdControllerTest {
                 Mono.error(new RuntimeException("")));
         webClient.post().uri("/mbd").bodyValue(
                         objectMapper.writeValueAsBytes(GetMdbRequest.builder()
-                                .idCiService("test")
+                                .idCIService("test")
                                 .paymentNotices(Collections.singletonList(
                                         PaymentNotice.builder().build()
                                 ))
-                                .returnUrls(ReturnUrls.builder().errorUrl("test").build())
+                                .returnUrls(ReturnUrls.builder().errorUrl("testUrl").build())
                                 .build())).header("Content-Type",MediaType.APPLICATION_JSON_VALUE)
                 .exchange().expectStatus().is5xxServerError()
-                .expectBody(GetCartResponse.class)
+                .expectBody(GetCartErrorResponse.class)
                 .consumeWith(result -> {
-                    GetCartResponse getCartResponse = result.getResponseBody();
+                    GetCartErrorResponse getCartResponse = result.getResponseBody();
                     assertNotNull(getCartResponse);
-                    assertNotNull(getCartResponse.getCheckoutRedirectUrl());
-                    assertEquals(getCartResponse.getCheckoutRedirectUrl(), "testUrl");
+                    assertNotNull(getCartResponse.getErrorUrl());
+                    assertEquals(getCartResponse.getErrorUrl(), "testUrl");
                 });
     }
 
     @Test
-    void getPaymentReceipts() throws Exception {
+    void getPaymentReceiptsShouldRetunrContentOnValidCall() throws Exception {
         when(mbdService.getPaymentReceipts(any(),any())).thenAnswer(item ->
-                Mono.just(ServerResponse.ok().bodyValue("".getBytes())));
-//        mvc.perform(get("/mbd-payments/test/receipt/30000000001")
-//                        .contentType(MediaType.APPLICATION_JSON))
-//                .andExpect(status().is2xxSuccessful());
+                Mono.just(ResponseEntity.ok().body("ABC".getBytes())));
+        webClient.get().uri("/mbd-payments/test/receipt/30000000001")
+                .exchange().expectStatus().is2xxSuccessful()
+                .expectBody(String.class)
+                .consumeWith(result -> {
+                    String body = result.getResponseBody();
+                    assertNotNull(body);
+                    assertEquals(body, "ABC");
+                });
     }
 
 }

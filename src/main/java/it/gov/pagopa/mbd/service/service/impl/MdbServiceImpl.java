@@ -12,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 import org.springframework.stereotype.Service;
@@ -77,14 +78,16 @@ public class MdbServiceImpl implements MdbService {
     }
 
     @Override
-    public Mono<ServerResponse> getPaymentReceipts(String fiscalCode, String nav) {
+    public Mono<ResponseEntity> getPaymentReceipts(String fiscalCode, String nav) {
         return Mono.zip(Mono.just(fiscalCode),Mono.just(nav).map(item -> nav.substring(1)))
                 .flatMap(tuple -> reactiveSoapClient.getPaymentReceipt(tuple.getT1(),tuple.getT2()))
                 .onErrorResume(e -> {
                     log.error("Encountered an error during getPaymentReceiptCall Call: {}", e.getMessage());
                     return Mono.error(new AppException(AppError.PAYMENT_RECEIPTS_CALL_ERROR, e));
                 })
-                .flatMap(item -> ServerResponse.ok().bodyValue(item.getMBDAttachment()));
+                .map(item -> ResponseEntity.ok()
+                        .header("Content-Type", MediaType.APPLICATION_XML_VALUE)
+                        .body(item.getMBDAttachment()));
     }
 
 }

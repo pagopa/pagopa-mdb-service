@@ -9,6 +9,6 @@ public interface MdbService {
 
     Mono<ResponseEntity> getMdb(GetMdbRequest request);
 
-    Mono<ServerResponse> getPaymentReceipts(String fiscalCode, String nav);
+    Mono<ResponseEntity> getPaymentReceipts(String fiscalCode, String nav);
 
 }
