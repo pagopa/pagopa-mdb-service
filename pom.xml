@@ -101,7 +101,7 @@
     <dependency>
       <groupId>org.springframework.cloud</groupId>
       <artifactId>spring-cloud-starter-openfeign</artifactId>
-      <version>4.0.3</version>
+      <version>4.1.1</version>
     </dependency>
 
     <!-- utilities -->
@@ -149,9 +149,10 @@
             </executions>
             <configuration>
                 <sources>
-                    <source>${project.basedir}/src/main/resources/nodo-for-psp.xsd</source>
-                    <source>${project.basedir}/src/main/resources/nodo-for-pa.xsd</source>
-                    <source>${project.basedir}/src/main/resources/MarcaDaBollo.xsd</source>
+                    <source>${project.basedir}/src/main/resources/envelope.xsd</source>
+<!--                    <source>${project.basedir}/src/main/resources/nodo-for-psp.xsd</source>-->
+<!--                    <source>${project.basedir}/src/main/resources/nodo-for-pa.xsd</source>-->
+<!--                    <source>${project.basedir}/src/main/resources/MarcaDaBollo.xsd</source>-->
                 </sources>
             </configuration>
         </plugin>
