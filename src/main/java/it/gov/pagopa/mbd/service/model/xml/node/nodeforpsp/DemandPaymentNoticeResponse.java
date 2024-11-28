@@ -44,8 +44,6 @@ import lombok.NoArgsConstructor;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "demandPaymentNoticeResponse", propOrder = {
-    "outcome",
-    "fault",
     "qrCode",
     "paymentList",
     "paymentDescription",
@@ -66,12 +64,6 @@ public class DemandPaymentNoticeResponse
     protected String fiscalCodePA;
     protected String companyName;
     protected String officeName;
-
-    @XmlElement(required = true)
-    @XmlSchemaType(name = "string")
-    protected StOutcome outcome;
-
-    protected CtFaultBean fault;
 
     /**
      * Recupera il valore della proprietà qrCode.

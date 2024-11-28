@@ -32,10 +32,6 @@ import jakarta.xml.bind.annotation.XmlRegistry;
 @XmlRegistry
 public class ObjectFactory {
 
-    private final static QName _Envelope_QNAME = new QName("http://schemas.xmlsoap.org/soap/envelope/", "Envelope");
-    private final static QName _Header_QNAME = new QName("http://schemas.xmlsoap.org/soap/envelope/", "Header");
-    private final static QName _Body_QNAME = new QName("http://schemas.xmlsoap.org/soap/envelope/", "Body");
-    private final static QName _Fault_QNAME = new QName("http://schemas.xmlsoap.org/soap/envelope/", "Fault");
     private final static QName _DemandPaymentNoticeRequest_QNAME = new QName("http://pagopa-api.pagopa.gov.it/node/nodeForPsp.xsd", "demandPaymentNoticeRequest");
     private final static QName _DemandPaymentNoticeResponse_QNAME = new QName("http://pagopa-api.pagopa.gov.it/node/nodeForPsp.xsd", "demandPaymentNoticeResponse");
 
@@ -118,58 +114,6 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://pagopa-api.pagopa.gov.it/node/nodeForPsp.xsd", name = "demandPaymentNoticeResponse")
     public JAXBElement<DemandPaymentNoticeResponse> createDemandPaymentNoticeResponse(DemandPaymentNoticeResponse value) {
         return new JAXBElement<DemandPaymentNoticeResponse>(_DemandPaymentNoticeResponse_QNAME, DemandPaymentNoticeResponse.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link it.gov.pagopa.mbd.service.model.xml.node.nodeforpsp.Envelope }{@code >}
-     *
-     * @param value
-     *     Java instance representing xml element's value.
-     * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link it.gov.pagopa.mbd.service.model.xml.node.nodeforpsp.Envelope }{@code >}
-     */
-    @XmlElementDecl(namespace = "http://schemas.xmlsoap.org/soap/envelope/", name = "Envelope")
-    public JAXBElement<it.gov.pagopa.mbd.service.model.xml.node.nodeforpsp.Envelope> createEnvelope(it.gov.pagopa.mbd.service.model.xml.node.nodeforpsp.Envelope value) {
-        return new JAXBElement<it.gov.pagopa.mbd.service.model.xml.node.nodeforpsp.Envelope>(_Envelope_QNAME, Envelope.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link it.gov.pagopa.mbd.service.model.xml.node.nodeforpsp.Header }{@code >}
-     *
-     * @param value
-     *     Java instance representing xml element's value.
-     * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link it.gov.pagopa.mbd.service.model.xml.node.nodeforpsp.Header }{@code >}
-     */
-    @XmlElementDecl(namespace = "http://schemas.xmlsoap.org/soap/envelope/", name = "Header")
-    public JAXBElement<it.gov.pagopa.mbd.service.model.xml.node.nodeforpsp.Header> createHeader(it.gov.pagopa.mbd.service.model.xml.node.nodeforpsp.Header value) {
-        return new JAXBElement<it.gov.pagopa.mbd.service.model.xml.node.nodeforpsp.Header>(_Header_QNAME, Header.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link it.gov.pagopa.mbd.service.model.xml.node.nodeforpsp.Body }{@code >}
-     *
-     * @param value
-     *     Java instance representing xml element's value.
-     * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link it.gov.pagopa.mbd.service.model.xml.node.nodeforpsp.Body }{@code >}
-     */
-    @XmlElementDecl(namespace = "http://schemas.xmlsoap.org/soap/envelope/", name = "Body")
-    public JAXBElement<it.gov.pagopa.mbd.service.model.xml.node.nodeforpsp.Body> createBody(it.gov.pagopa.mbd.service.model.xml.node.nodeforpsp.Body value) {
-        return new JAXBElement<>(_Body_QNAME, Body.class, null, value);
-    }
-
-    /**
-     * Create an instance of {@link JAXBElement }{@code <}{@link it.gov.pagopa.mbd.service.model.xml.node.nodeforpsp.Fault }{@code >}
-     *
-     * @param value
-     *     Java instance representing xml element's value.
-     * @return
-     *     the new instance of {@link JAXBElement }{@code <}{@link it.gov.pagopa.mbd.service.model.xml.node.nodeforpsp.Fault }{@code >}
-     */
-    @XmlElementDecl(namespace = "http://schemas.xmlsoap.org/soap/envelope/", name = "Fault")
-    public JAXBElement<it.gov.pagopa.mbd.service.model.xml.node.nodeforpsp.Fault> createFault(it.gov.pagopa.mbd.service.model.xml.node.nodeforpsp.Fault value) {
-        return new JAXBElement<>(_Fault_QNAME, Fault.class, null, value);
     }
 
 }

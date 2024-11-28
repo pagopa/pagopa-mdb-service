@@ -2,11 +2,11 @@
 // Questo file è stato generato dall'Eclipse Implementation of JAXB, v3.0.0 
 // Vedere https://eclipse-ee4j.github.io/jaxb-ri 
 // Qualsiasi modifica a questo file andrà persa durante la ricompilazione dello schema di origine. 
-// Generato il: 2024.11.27 alle 04:50:09 PM CET 
+// Generato il: 2024.11.28 alle 03:55:01 PM CET 
 //
 
 
-package it.gov.pagopa.mbd.service.model.xml.node.nodeforpsp;
+package it.gov.pagopa.mbd.service.model.xml.node.soap.envelope;
 
 import jakarta.xml.bind.annotation.*;
 import org.w3c.dom.Element;
@@ -19,18 +19,18 @@ import java.util.Map;
 
 
 /**
- * <p>Classe Java per Header complex type.
+ * <p>Classe Java per detail complex type.
  * 
  * <p>Il seguente frammento di schema specifica il contenuto previsto contenuto in questa classe.
  * 
  * <pre>
- * &lt;complexType name="Header"&gt;
+ * &lt;complexType name="detail"&gt;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;any processContents='lax' namespace='##other' maxOccurs="unbounded" minOccurs="0"/&gt;
+ *         &lt;any processContents='lax' maxOccurs="unbounded" minOccurs="0"/&gt;
  *       &lt;/sequence&gt;
- *       &lt;anyAttribute processContents='lax' namespace='##other'/&gt;
+ *       &lt;anyAttribute processContents='lax'/&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
@@ -39,10 +39,10 @@ import java.util.Map;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "Header", propOrder = {
+@XmlType(name = "detail", propOrder = {
     "any"
 })
-public class Header {
+public class Detail {
 
     @XmlAnyElement(lax = true)
     protected List<Object> any;

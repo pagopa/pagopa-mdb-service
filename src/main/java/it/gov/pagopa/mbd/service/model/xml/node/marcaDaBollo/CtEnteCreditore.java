@@ -2,7 +2,7 @@
 // Questo file è stato generato dall'Eclipse Implementation of JAXB, v3.0.0 
 // Vedere https://eclipse-ee4j.github.io/jaxb-ri 
 // Qualsiasi modifica a questo file andrà persa durante la ricompilazione dello schema di origine. 
-// Generato il: 2024.11.25 alle 11:12:15 AM CET 
+// Generato il: 2024.11.28 alle 03:00:54 PM CET 
 //
 
 
@@ -37,14 +37,14 @@ import lombok.NoArgsConstructor;
  * 
  * 
  */
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "ctEnteCreditore", propOrder = {
     "codiceFiscaleEnte"
 })
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+@Data
 public class CtEnteCreditore {
 
     @XmlElement(required = true)

@@ -6,7 +6,7 @@ import it.gov.pagopa.mbd.service.model.mdb.PaymentNotice;
 import it.gov.pagopa.mbd.service.model.xml.node.marcaDaBollo.CtDebitore;
 import it.gov.pagopa.mbd.service.model.xml.node.marcaDaBollo.CtEnteCreditore;
 import it.gov.pagopa.mbd.service.model.xml.node.marcaDaBollo.CtHashDocumento;
-import it.gov.pagopa.mbd.service.model.xml.node.marcaDaBollo.CtMarcaDaBollo;
+import it.gov.pagopa.mbd.service.model.xml.node.marcaDaBollo.Ctebollo;
 import it.gov.pagopa.mbd.service.model.carts.ReturnUrls;
 import it.gov.pagopa.mbd.service.model.mdb.GetMdbRequest;
 import it.gov.pagopa.mbd.service.model.xml.node.nodeforpsp.CtPaymentOptionDescription;
@@ -29,8 +29,8 @@ public class RequestMapper {
 
         PaymentNotice paymentNotice = getMdbRequest.getPaymentNotices().get(0);
 
-        CtMarcaDaBollo ctMarcaDaBollo =
-                CtMarcaDaBollo.builder()
+        Ctebollo ctMarcaDaBollo =
+                Ctebollo.builder()
                         .debitore(CtDebitore.builder()
                                 .codiceFiscaleDebitore(paymentNotice.getFiscalCode())
                                 .nomeDebitore(paymentNotice.getFirstName())
@@ -50,11 +50,11 @@ public class RequestMapper {
         marshaller.marshal(ctMarcaDaBollo, sw);
 
         return DemandPaymentNoticeRequest.builder()
-                .idPSP("AGID_01")
-                .idBrokerPSP("97735020584")
-                .idChannel("97735020584_XX")
+                .idPSP("ABI50004")
+                .idBrokerPSP("99999000011")
+                .idChannel("99999000011_03")
                 .idSoggettoServizio(getMdbRequest.getIdCIService())
-                .password("")
+                .password("ABDCDEFGHLMN")
                 .datiSpecificiServizio(Base64.getMimeEncoder().encode(sw.toString().getBytes()))
                 .build();
     }

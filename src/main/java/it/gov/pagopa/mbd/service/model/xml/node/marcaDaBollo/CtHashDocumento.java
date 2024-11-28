@@ -2,7 +2,7 @@
 // Questo file è stato generato dall'Eclipse Implementation of JAXB, v3.0.0 
 // Vedere https://eclipse-ee4j.github.io/jaxb-ri 
 // Qualsiasi modifica a questo file andrà persa durante la ricompilazione dello schema di origine. 
-// Generato il: 2024.11.25 alle 11:12:15 AM CET 
+// Generato il: 2024.11.28 alle 03:00:54 PM CET 
 //
 
 
@@ -28,7 +28,7 @@ import lombok.NoArgsConstructor;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="hashDocumento" type="{}stTextBase64"/&gt;
+ *         &lt;element name="hashDocumento" type="{http://PuntoAccessoPSP.spcoop.gov.it/ebollo}stTextBase64"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -37,14 +37,14 @@ import lombok.NoArgsConstructor;
  * 
  * 
  */
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "ctHashDocumento", propOrder = {
     "hashDocumento"
 })
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
+@Builder
 public class CtHashDocumento {
 
     @XmlElement(required = true)

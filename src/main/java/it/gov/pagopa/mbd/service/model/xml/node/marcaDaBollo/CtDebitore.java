@@ -2,7 +2,7 @@
 // Questo file è stato generato dall'Eclipse Implementation of JAXB, v3.0.0 
 // Vedere https://eclipse-ee4j.github.io/jaxb-ri 
 // Qualsiasi modifica a questo file andrà persa durante la ricompilazione dello schema di origine. 
-// Generato il: 2024.11.25 alle 11:12:15 AM CET 
+// Generato il: 2024.11.28 alle 03:00:54 PM CET 
 //
 
 
@@ -29,8 +29,8 @@ import lombok.NoArgsConstructor;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
  *         &lt;element name="codiceFiscaleDebitore" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
- *         &lt;element name="nomeDebitore" type="{}stText50"/&gt;
- *         &lt;element name="cognomeDebitore" type="{}stText50"/&gt;
+ *         &lt;element name="nomeDebitore" type="{http://PuntoAccessoPSP.spcoop.gov.it/ebollo}stText50"/&gt;
+ *         &lt;element name="cognomeDebitore" type="{http://PuntoAccessoPSP.spcoop.gov.it/ebollo}stText50"/&gt;
  *         &lt;element name="emailDebitore" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *         &lt;element name="provinciaResidenza" type="{http://www.w3.org/2001/XMLSchema}string"/&gt;
  *       &lt;/sequence&gt;
@@ -41,10 +41,6 @@ import lombok.NoArgsConstructor;
  * 
  * 
  */
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "ctDebitore", propOrder = {
     "codiceFiscaleDebitore",
@@ -53,6 +49,10 @@ import lombok.NoArgsConstructor;
     "emailDebitore",
     "provinciaResidenza"
 })
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+@Data
 public class CtDebitore {
 
     @XmlElement(required = true)

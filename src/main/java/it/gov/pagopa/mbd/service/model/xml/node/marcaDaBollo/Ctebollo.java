@@ -2,7 +2,7 @@
 // Questo file è stato generato dall'Eclipse Implementation of JAXB, v3.0.0 
 // Vedere https://eclipse-ee4j.github.io/jaxb-ri 
 // Qualsiasi modifica a questo file andrà persa durante la ricompilazione dello schema di origine. 
-// Generato il: 2024.11.25 alle 11:12:15 AM CET 
+// Generato il: 2024.11.28 alle 03:00:54 PM CET 
 //
 
 
@@ -16,18 +16,18 @@ import lombok.NoArgsConstructor;
 
 
 /**
- * <p>Classe Java per ctMarcaDaBollo complex type.
+ * <p>Classe Java per ctebollo complex type.
  * 
  * <p>Il seguente frammento di schema specifica il contenuto previsto contenuto in questa classe.
  * 
  * <pre>
- * &lt;complexType name="ctMarcaDaBollo"&gt;
+ * &lt;complexType name="ctebollo"&gt;
  *   &lt;complexContent&gt;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType"&gt;
  *       &lt;sequence&gt;
- *         &lt;element name="debitore" type="{}ctDebitore"/&gt;
- *         &lt;element name="enteCreditore" type="{}ctEnteCreditore"/&gt;
- *         &lt;element name="hashDocumento" type="{}ctHashDocumento"/&gt;
+ *         &lt;element name="debitore" type="{http://PuntoAccessoPSP.spcoop.gov.it/ebollo}ctDebitore"/&gt;
+ *         &lt;element name="enteCreditore" type="{http://PuntoAccessoPSP.spcoop.gov.it/ebollo}ctEnteCreditore"/&gt;
+ *         &lt;element name="hashDocumento" type="{http://PuntoAccessoPSP.spcoop.gov.it/ebollo}ctHashDocumento"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -36,19 +36,18 @@ import lombok.NoArgsConstructor;
  * 
  * 
  */
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "ctMarcaDaBollo", propOrder = {
+@XmlType(name = "ctebollo", propOrder = {
     "debitore",
     "enteCreditore",
     "hashDocumento"
 })
 @XmlRootElement
-@XmlSeeAlso({CtDebitore.class, CtEnteCreditore.class, CtHashDocumento.class})
-public class CtMarcaDaBollo {
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
+@Builder
+public class Ctebollo {
 
     @XmlElement(required = true)
     protected CtDebitore debitore;
