@@ -9,7 +9,7 @@ microservice-chart:
   livenessProbe:
     handlerType: httpGet
     httpGet:
-      path: /q/health/live
+      path: /actuator/health/liveness
       port: 8080
     initialDelaySeconds: 90
     failureThreshold: 6
@@ -17,7 +17,7 @@ microservice-chart:
   readinessProbe:
     handlerType: httpGet
     httpGet:
-      path: /q/health/ready
+      path: /actuator/health/readiness
       port: 8080
     initialDelaySeconds: 90
     failureThreshold: 6
@@ -48,13 +48,6 @@ microservice-chart:
     capabilities:
       drop:
         - all
-  tmpVolumeMount:
-    create: true
-    mounts:
-      - name: temp
-        mountPath: /temp
-      - name: logs
-        mountPath: /logs
   resources:
     requests:
       memory: "512Mi"
@@ -74,11 +67,6 @@ microservice-chart:
           # Required
           type: Utilization # Allowed types are 'Utilization' or 'AverageValue'
           value: "75"
-      - type: memory
-        metadata:
-          # Required
-          type: Utilization # Allowed types are 'Utilization' or 'AverageValue'
-          value: "70"
   envConfig:
     APP_NAME: "mbd-service"
     APP_ENVIRONMENT: "dev"
