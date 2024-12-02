@@ -3,7 +3,7 @@ locals {
     // GPD Payments Pull
     display_name          = "Marca da Bollo Digitale"
     description           = "API for eBollo 2.0"
-    path                  = "mbd/service"
+    path                  = "pagopa-mbd-service"
     subscription_required = true
     service_url           = null
   }

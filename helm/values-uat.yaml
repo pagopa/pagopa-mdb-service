@@ -32,7 +32,7 @@ microservice-chart:
   ingress:
     create: true
     host: "ebollo.itn.internal.uat.platform.pagopa.it"
-    path: /mbd-service/(.*)
+    path: /pagopa-mbd-service/(.*)
     servicePort: 8080
   serviceAccount:
     name: "ebollo-workload-identity"
