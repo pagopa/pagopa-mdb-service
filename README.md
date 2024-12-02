@@ -2,7 +2,7 @@
 
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=pagopa_pagopa-mbd-service&metric=alert_status)](https://sonarcloud.io/dashboard?id=pagopa_pagopa-mbd-service)
 
-Expose APIs that will be used by end user to pay a digital stamp
+Expose APIs that will be used by end user to pay a digital "marca da bollo"
 
 ---
 
