@@ -11,10 +11,10 @@
   </parent>
 
   <groupId>it.gov.pagopa.ebollo</groupId>
-  <artifactId>mdb-service</artifactId>
+  <artifactId>mbd-service</artifactId>
   <version>0.0.2</version>
-  <name>MDB Service</name>
-  <description>MDB Service</description>
+  <name>MBD Service</name>
+  <description>MBD Service</description>
 
   <properties>
     <java.version>17</java.version>
