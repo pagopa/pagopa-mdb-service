@@ -1,5 +1,6 @@
 package it.gov.pagopa.mbd.service.mapper;
 
+import it.gov.pagopa.mbd.service.exception.CartMappingException;
 import it.gov.pagopa.mbd.service.model.carts.CartPaymentNotice;
 import it.gov.pagopa.mbd.service.model.carts.GetCartRequest;
 import it.gov.pagopa.mbd.service.model.mdb.PaymentNotice;
@@ -25,7 +26,9 @@ import static org.hibernate.validator.internal.util.Contracts.assertTrue;
 
 public class RequestMapper {
 
-    public static DemandPaymentNoticeRequest mapDemandPaymentNoticeRequest(Jaxb2Marshaller marshaller, GetMdbRequest getMdbRequest) {
+    public static DemandPaymentNoticeRequest mapDemandPaymentNoticeRequest(
+            String idPsp, String idBrokerPsp, String idChannel,
+            Jaxb2Marshaller marshaller, GetMdbRequest getMdbRequest) {
 
         PaymentNotice paymentNotice = getMdbRequest.getPaymentNotices().get(0);
 
@@ -50,42 +53,47 @@ public class RequestMapper {
         marshaller.marshal(ctMarcaDaBollo, sw);
 
         return DemandPaymentNoticeRequest.builder()
-                .idPSP("ABI50004")
-                .idBrokerPSP("99999000011")
-                .idChannel("99999000011_03")
+                .idPSP(idPsp)
+                .idBrokerPSP(idBrokerPsp)
+                .idChannel(idChannel)
                 .idSoggettoServizio(getMdbRequest.getIdCIService())
-                .password("ABDCDEFGHLMN")
+                .password("")
                 .datiSpecificiServizio(Base64.getMimeEncoder().encode(sw.toString().getBytes()))
                 .build();
     }
 
-    public static GetCartRequest mapCartRequest(GetMdbRequest request, DemandPaymentNoticeResponse demandPaymentNoticeResponse) {
-        assertNotNull(demandPaymentNoticeResponse);
-        CtPaymentOptionsDescriptionList ctPaymentOptionsDescriptionList = demandPaymentNoticeResponse.getPaymentList();
-        assertNotNull(ctPaymentOptionsDescriptionList);
-        List<CtPaymentOptionDescription> ctPaymentOptionsDescriptions =
-                ctPaymentOptionsDescriptionList.getPaymentOptionDescription();
-        assertNotNull(ctPaymentOptionsDescriptions);
-        assertTrue(!ctPaymentOptionsDescriptions.isEmpty(), "Missing PaymentOption");
-        CtPaymentOptionDescription ctPaymentOptionDescription = ctPaymentOptionsDescriptions.get(0);
-        assertNotNull(demandPaymentNoticeResponse.getQrCode());
-        return GetCartRequest.builder()
-                .emailNotice(request.getPaymentNotices().get(0).getEmail())
-                .returnUrls(ReturnUrls.builder()
-                        .cancelUrl(request.getReturnUrls().getCancelUrl())
-                        .errorUrl(request.getReturnUrls().getErrorUrl())
-                        .successUrl(request.getReturnUrls().getSuccessUrl())
-                        .build())
-                .paymentNotices(Collections.singletonList(
-                        CartPaymentNotice.builder()
-                                .fiscalCode(demandPaymentNoticeResponse.getQrCode().getFiscalCode())
-                                .amount(ctPaymentOptionDescription.getAmount().toBigIntegerExact().longValue())
-                                .companyName(demandPaymentNoticeResponse.getOfficeName())
-                                .description(demandPaymentNoticeResponse.getPaymentDescription())
-                                .noticeNumber(demandPaymentNoticeResponse.getQrCode().getNoticeNumber())
-                                .build()
-                ))
-                .build();
+    public static GetCartRequest mapCartRequest(
+            GetMdbRequest request, DemandPaymentNoticeResponse demandPaymentNoticeResponse) {
+        try {
+            assertNotNull(demandPaymentNoticeResponse);
+            CtPaymentOptionsDescriptionList ctPaymentOptionsDescriptionList = demandPaymentNoticeResponse.getPaymentList();
+            assertNotNull(ctPaymentOptionsDescriptionList);
+            List<CtPaymentOptionDescription> ctPaymentOptionsDescriptions =
+                    ctPaymentOptionsDescriptionList.getPaymentOptionDescription();
+            assertNotNull(ctPaymentOptionsDescriptions);
+            assertTrue(!ctPaymentOptionsDescriptions.isEmpty(), "Missing PaymentOption");
+            CtPaymentOptionDescription ctPaymentOptionDescription = ctPaymentOptionsDescriptions.get(0);
+            assertNotNull(demandPaymentNoticeResponse.getQrCode());
+            return GetCartRequest.builder()
+                    .emailNotice(request.getPaymentNotices().get(0).getEmail())
+                    .returnUrls(ReturnUrls.builder()
+                            .cancelUrl(request.getReturnUrls().getCancelUrl())
+                            .errorUrl(request.getReturnUrls().getErrorUrl())
+                            .successUrl(request.getReturnUrls().getSuccessUrl())
+                            .build())
+                    .paymentNotices(Collections.singletonList(
+                            CartPaymentNotice.builder()
+                                    .fiscalCode(demandPaymentNoticeResponse.getQrCode().getFiscalCode())
+                                    .amount(ctPaymentOptionDescription.getAmount().toBigIntegerExact().longValue())
+                                    .companyName(demandPaymentNoticeResponse.getOfficeName())
+                                    .description(demandPaymentNoticeResponse.getPaymentDescription())
+                                    .noticeNumber(demandPaymentNoticeResponse.getQrCode().getNoticeNumber())
+                                    .build()
+                    ))
+                    .build();
+        } catch (Exception e) {
+            throw new CartMappingException(e.getMessage(), e);
+        }
     }
 
 }

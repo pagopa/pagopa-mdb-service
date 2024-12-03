@@ -4,6 +4,7 @@ import it.gov.pagopa.mbd.service.exception.AppException;
 import it.gov.pagopa.mbd.service.model.carts.GetCartErrorResponse;
 import it.gov.pagopa.mbd.service.service.MdbService;
 import it.gov.pagopa.mbd.service.model.mdb.GetMdbRequest;
+import jakarta.validation.ConstraintViolationException;
 import jakarta.websocket.server.PathParam;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -27,6 +28,9 @@ public class MbdController {
     @PostMapping(value = "/mbd", produces = MediaType.APPLICATION_JSON_VALUE)
     public Mono<ResponseEntity> getMdb(@RequestBody GetMdbRequest request) {
         return mdbService.getMdb(request).onErrorResume(e -> {
+            if (e instanceof ConstraintViolationException) {
+               return Mono.error(e);
+            }
             if (e instanceof AppException) {
                 return Mono.just(ResponseEntity.status(((AppException) e).getHttpStatus())
                         .header("Content-Type", MediaType.APPLICATION_JSON_VALUE)

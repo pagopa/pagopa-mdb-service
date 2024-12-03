@@ -15,6 +15,10 @@ import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlSchemaType;
 import jakarta.xml.bind.annotation.XmlSeeAlso;
 import jakarta.xml.bind.annotation.XmlType;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 
 /**
@@ -45,6 +49,10 @@ import jakarta.xml.bind.annotation.XmlType;
 @XmlSeeAlso({
     DemandPaymentNoticeResponse.class
 })
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
+@Builder
 public class CtResponse {
 
     @XmlElement(required = true)

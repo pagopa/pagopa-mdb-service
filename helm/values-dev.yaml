@@ -73,10 +73,19 @@ microservice-chart:
     WEBSITE_SITE_NAME: 'mbd-service' # required to show cloud role name in application insights
     APP_LOG_LEVEL: 'DEBUG'
     DEFAULT_LOGGING_LEVEL: 'INFO'
+    DEMAND_PAYMENT_ENDPOINT: 'https://api.dev.platform.pagopa.it/nodo-auth/node-for-psp/v1'
+    CART_ENDPOINT: 'https://api.dev.platform.pagopa.it/checkout/carts-auth/v1/carts'
+    PAYMENT_RECEIPT_ENDPOINT: 'https://api.dev.platform.pagopa.it/gpd/payments-receipts-service/v1'
+    MBD_BASE_URL: 'https://api.platform.pagopa.it/mbd/mbd-payment/v1/'
+    MBD_ID_PSP: 'ABI50004'
+    MBD_ID_BROKER_PSP: '99999000011'
+    MBD_CHANNEL_ID: '99999000011_03'
   envSecret:
     # required
     APPLICATIONINSIGHTS_CONNECTION_STRING: 'app-insight-connection-string'
-    # TODO ADD ENVS
+    DEMAND_PAYMENT_SUBKEY: 'nodo-auth'
+    CART_SUBKEY: 'checkout-carts'
+    PAYMENT_RECEIPT_SUBKEY: 'gpd-payments-rest-aks'
   keyvault:
     name: "pagopa-d-itn-ebollo-kv"
     tenantId: "7788edaf-0346-4068-9d79-c868aed15b3d"

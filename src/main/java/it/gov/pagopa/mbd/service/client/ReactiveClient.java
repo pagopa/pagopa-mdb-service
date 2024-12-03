@@ -1,10 +1,10 @@
 package it.gov.pagopa.mbd.service.client;
 
+import it.gov.pagopa.mbd.service.exception.WebClientException;
 import it.gov.pagopa.mbd.service.model.carts.GetCartRequest;
 import it.gov.pagopa.mbd.service.model.carts.GetCartResponse;
 import it.gov.pagopa.mbd.service.model.xml.node.nodeforpsp.DemandPaymentNoticeRequest;
 import it.gov.pagopa.mbd.service.model.xml.node.nodeforpsp.DemandPaymentNoticeResponse;
-import it.gov.pagopa.mbd.service.model.xml.node.soap.envelope.Body;
 import it.gov.pagopa.mbd.service.model.xml.node.soap.envelope.Envelope;
 import it.gov.pagopa.mbd.service.model.xml.node.pafornode.CtTransferPAReceiptV2;
 import it.gov.pagopa.mbd.service.model.xml.xsd.common_types.v1_0.StOutcome;
@@ -57,7 +57,7 @@ public class ReactiveClient {
                         throw new RuntimeException("Encountered KO while calling demandPayment");
                     }
                     return item.getBody().getDemandPaymentNoticeResponse();
-                });
+                }).onErrorMap(e -> new WebClientException(e.getMessage(), e));
 
     }
 
@@ -69,17 +69,19 @@ public class ReactiveClient {
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 .body(Mono.just(getCartRequest), GetCartRequest.class)
                 .retrieve()
-                .bodyToMono(GetCartResponse.class);
+                .bodyToMono(GetCartResponse.class)
+                .onErrorMap(e -> new WebClientException(e.getMessage(), e));
 
     }
 
     public Mono<CtTransferPAReceiptV2> getPaymentReceipt(String fiscalCode, String iuv) {
 
         return webClient.post()
-                .uri(clientDataConfig.getGetPaymentReceiptEndpoint())
+                .uri(String.format(clientDataConfig.getGetPaymentReceiptEndpoint(), fiscalCode, iuv))
                 .header(OCP_SUBSCRIPTION_KEY, clientDataConfig.getGetPaymentReceiptSubscriptionKey())
                 .retrieve()
-                .bodyToMono(CtTransferPAReceiptV2.class);
+                .bodyToMono(CtTransferPAReceiptV2.class)
+                .onErrorMap(e -> new WebClientException(e.getMessage(), e));
 
     }
 
