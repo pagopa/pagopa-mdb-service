@@ -51,6 +51,10 @@ import lombok.NoArgsConstructor;
     "companyName",
     "officeName"
 })
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
+@Builder
 public class DemandPaymentNoticeResponse
     extends CtResponse
 {

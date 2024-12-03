@@ -52,7 +52,7 @@ public class ReactiveClient {
                         "</Envelope>")
                 .retrieve()
                 .bodyToMono(Envelope.class).map(item -> {
-                    if (item.getBody() == null || item.getBody().getDemandPaymentNoticeResponse() != null ||
+                    if (item.getBody() == null || item.getBody().getDemandPaymentNoticeResponse() == null ||
                             StOutcome.KO.equals(item.getBody().getDemandPaymentNoticeResponse().getOutcome())) {
                         throw new RuntimeException("Encountered KO while calling demandPayment");
                     }
@@ -76,7 +76,7 @@ public class ReactiveClient {
 
     public Mono<CtTransferPAReceiptV2> getPaymentReceipt(String fiscalCode, String iuv) {
 
-        return webClient.post()
+        return webClient.get()
                 .uri(String.format(clientDataConfig.getGetPaymentReceiptEndpoint(), fiscalCode, iuv))
                 .header(OCP_SUBSCRIPTION_KEY, clientDataConfig.getGetPaymentReceiptSubscriptionKey())
                 .retrieve()

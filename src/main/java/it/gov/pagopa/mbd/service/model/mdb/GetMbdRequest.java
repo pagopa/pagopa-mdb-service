@@ -8,8 +8,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.validation.annotation.Validated;
 
 import java.util.List;
 
@@ -18,7 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @Valid
-public class GetMdbRequest {
+public class GetMbdRequest {
 
     @Size(min = 1, max = 1)
     @Valid

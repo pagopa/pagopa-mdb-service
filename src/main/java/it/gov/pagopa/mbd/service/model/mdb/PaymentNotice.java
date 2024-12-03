@@ -1,9 +1,6 @@
 package it.gov.pagopa.mbd.service.model.mdb;
 
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -29,8 +26,8 @@ public class PaymentNotice {
     private Long amount;
     @NotBlank
     private String province;
-    @Min(44)
-    @Max(44)
+
+    @Size(min = 44, max = 44)
     private String documentHash;
 
 }

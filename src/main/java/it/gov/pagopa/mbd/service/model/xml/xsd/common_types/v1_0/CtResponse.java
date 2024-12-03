@@ -49,10 +49,6 @@ import lombok.NoArgsConstructor;
 @XmlSeeAlso({
     DemandPaymentNoticeResponse.class
 })
-@AllArgsConstructor
-@NoArgsConstructor
-@Data
-@Builder
 public class CtResponse {
 
     @XmlElement(required = true)

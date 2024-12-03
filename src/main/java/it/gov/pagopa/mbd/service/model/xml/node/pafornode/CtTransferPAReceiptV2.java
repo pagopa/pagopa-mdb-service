@@ -13,6 +13,10 @@ import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlType;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 
@@ -58,6 +62,10 @@ import java.math.BigDecimal;
     "transferCategory",
     "metadata"
 })
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
+@Builder
 public class CtTransferPAReceiptV2 {
 
     protected int idTransfer;

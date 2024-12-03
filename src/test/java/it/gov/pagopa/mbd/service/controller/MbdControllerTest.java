@@ -1,14 +1,12 @@
 package it.gov.pagopa.mbd.service.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import it.gov.pagopa.mbd.service.model.carts.GetCartErrorResponse;
-import it.gov.pagopa.mbd.service.model.carts.GetCartRequest;
 import it.gov.pagopa.mbd.service.model.carts.GetCartResponse;
-import it.gov.pagopa.mbd.service.model.mdb.GetMdbRequest;
+import it.gov.pagopa.mbd.service.model.mdb.GetMbdRequest;
 import it.gov.pagopa.mbd.service.model.mdb.PaymentNotice;
 import it.gov.pagopa.mbd.service.model.mdb.ReturnUrls;
-import it.gov.pagopa.mbd.service.service.MdbService;
+import it.gov.pagopa.mbd.service.service.MbdService;
 import jakarta.inject.Inject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,15 +14,11 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.reactive.server.WebTestClient;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Mono;
 
 import java.util.Collections;
@@ -34,14 +28,13 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(SpringExtension.class)
 @WebFluxTest(controllers = MbdController.class)
 class MbdControllerTest {
 
     @MockBean
-    private MdbService mbdService;
+    private MbdService mbdService;
 
     @Autowired
     private WebTestClient webClient;
@@ -56,11 +49,11 @@ class MbdControllerTest {
 
     @Test
     void getMdbShouldReturnCheckoutUrlOnPositiveRequest() throws Exception {
-        when(mbdService.getMdb(any())).thenAnswer(item ->
+        when(mbdService.getMbd(any())).thenAnswer(item ->
                 Mono.just(ResponseEntity.ok().body(GetCartResponse.builder()
                         .checkoutRedirectUrl("testUrl").build())));
         webClient.post().uri("/mbd").bodyValue(
-                objectMapper.writeValueAsBytes(GetMdbRequest.builder()
+                objectMapper.writeValueAsBytes(GetMbdRequest.builder()
                         .idCIService("test")
                         .paymentNotices(Collections.singletonList(
                                 PaymentNotice.builder().build()
@@ -79,10 +72,10 @@ class MbdControllerTest {
 
     @Test
     void getMdbShouldReturnErrorUrlOnKoRequest() throws Exception {
-        when(mbdService.getMdb(any())).thenAnswer(item ->
+        when(mbdService.getMbd(any())).thenAnswer(item ->
                 Mono.error(new RuntimeException("")));
         webClient.post().uri("/mbd").bodyValue(
-                        objectMapper.writeValueAsBytes(GetMdbRequest.builder()
+                        objectMapper.writeValueAsBytes(GetMbdRequest.builder()
                                 .idCIService("test")
                                 .paymentNotices(Collections.singletonList(
                                         PaymentNotice.builder().build()

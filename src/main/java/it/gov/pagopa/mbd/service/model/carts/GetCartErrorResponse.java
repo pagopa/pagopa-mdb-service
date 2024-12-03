@@ -12,7 +12,5 @@ import lombok.NoArgsConstructor;
 public class GetCartErrorResponse {
 
     private String errorUrl;
-    private String code;
-    private String message;
 
 }

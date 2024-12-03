@@ -9,7 +9,7 @@ import it.gov.pagopa.mbd.service.model.xml.node.marcaDaBollo.CtEnteCreditore;
 import it.gov.pagopa.mbd.service.model.xml.node.marcaDaBollo.CtHashDocumento;
 import it.gov.pagopa.mbd.service.model.xml.node.marcaDaBollo.Ctebollo;
 import it.gov.pagopa.mbd.service.model.carts.ReturnUrls;
-import it.gov.pagopa.mbd.service.model.mdb.GetMdbRequest;
+import it.gov.pagopa.mbd.service.model.mdb.GetMbdRequest;
 import it.gov.pagopa.mbd.service.model.xml.node.nodeforpsp.CtPaymentOptionDescription;
 import it.gov.pagopa.mbd.service.model.xml.node.nodeforpsp.CtPaymentOptionsDescriptionList;
 import it.gov.pagopa.mbd.service.model.xml.node.nodeforpsp.DemandPaymentNoticeRequest;
@@ -28,7 +28,7 @@ public class RequestMapper {
 
     public static DemandPaymentNoticeRequest mapDemandPaymentNoticeRequest(
             String idPsp, String idBrokerPsp, String idChannel,
-            Jaxb2Marshaller marshaller, GetMdbRequest getMdbRequest) {
+            Jaxb2Marshaller marshaller, GetMbdRequest getMdbRequest) {
 
         PaymentNotice paymentNotice = getMdbRequest.getPaymentNotices().get(0);
 
@@ -63,7 +63,7 @@ public class RequestMapper {
     }
 
     public static GetCartRequest mapCartRequest(
-            GetMdbRequest request, DemandPaymentNoticeResponse demandPaymentNoticeResponse) {
+            GetMbdRequest request, DemandPaymentNoticeResponse demandPaymentNoticeResponse) {
         try {
             assertNotNull(demandPaymentNoticeResponse);
             CtPaymentOptionsDescriptionList ctPaymentOptionsDescriptionList = demandPaymentNoticeResponse.getPaymentList();

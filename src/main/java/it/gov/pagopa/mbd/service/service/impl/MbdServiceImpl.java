@@ -6,9 +6,9 @@ import it.gov.pagopa.mbd.service.exception.AppException;
 import it.gov.pagopa.mbd.service.exception.CartMappingException;
 import it.gov.pagopa.mbd.service.exception.WebClientException;
 import it.gov.pagopa.mbd.service.mapper.RequestMapper;
-import it.gov.pagopa.mbd.service.model.mdb.GetMdbRequest;
+import it.gov.pagopa.mbd.service.model.mdb.GetMbdRequest;
 import it.gov.pagopa.mbd.service.model.xml.node.nodeforpsp.DemandPaymentNoticeResponse;
-import it.gov.pagopa.mbd.service.service.MdbService;
+import it.gov.pagopa.mbd.service.service.MbdService;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.Validator;
@@ -28,7 +28,7 @@ import java.util.Set;
 
 @Service
 @Slf4j
-public class MdbServiceImpl implements MdbService {
+public class MbdServiceImpl implements MbdService {
 
     private final Validator validator;
     private final ReactiveClient reactiveSoapClient;
@@ -42,7 +42,7 @@ public class MdbServiceImpl implements MdbService {
     private final String channelId;
 
     @Autowired
-    public MdbServiceImpl(
+    public MbdServiceImpl(
             Validator validator, ReactiveClient reactiveSoapClient,
             Jaxb2Marshaller jaxb2Marshaller,
             @Value("mbd.link.baseUrl")
@@ -63,11 +63,11 @@ public class MdbServiceImpl implements MdbService {
     }
 
     @Override
-    public Mono<ResponseEntity> getMdb(GetMdbRequest request) {
+    public Mono<ResponseEntity> getMbd(GetMbdRequest request) {
         HashMap<String, DemandPaymentNoticeResponse> hashMap = new HashMap();
         return Mono.just(request)
                 .doFirst(() -> {
-                    Set<ConstraintViolation<GetMdbRequest>> errors = validator.validate(request);
+                    Set<ConstraintViolation<GetMbdRequest>> errors = validator.validate(request);
                     if (!errors.isEmpty()) {
                        throw new ConstraintViolationException(errors);
                     }
@@ -88,7 +88,7 @@ public class MdbServiceImpl implements MdbService {
                     return new AppException(AppError.PAYMENT_NOTICE_REQUEST_CALL_ERROR, e);
                 })
                 .map(demandPaymentNoticeResponse -> {
-                    hashMap.put("demandPaymentResponse", demandPaymentNoticeResponse);
+                    hashMap.put("demandPaymentNoticeResponse", demandPaymentNoticeResponse);
                     return RequestMapper.mapCartRequest(request, demandPaymentNoticeResponse);
                 })
                 .onErrorMap(CartMappingException.class, e -> {
