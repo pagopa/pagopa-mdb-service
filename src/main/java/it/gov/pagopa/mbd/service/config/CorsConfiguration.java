@@ -14,7 +14,6 @@ public class CorsConfiguration implements WebFluxConfigurer {
     @Value("${cors.configuration}")
     private String corsConfiguration;
 
-
     @Override
     @SneakyThrows
     public void addCorsMappings(CorsRegistry registry) {

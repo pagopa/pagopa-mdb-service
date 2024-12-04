@@ -10,8 +10,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 import jakarta.annotation.PostConstruct;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+//import jakarta.servlet.http.HttpServletRequest;
+//import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -42,9 +42,9 @@ public class LoggingAspect {
   public static final String OPERATION_ID = "operationId";
   public static final String ARGS = "args";
 
-  @Autowired HttpServletRequest httRequest;
-
-  @Autowired HttpServletResponse httpResponse;
+//  @Autowired HttpServletRequest httRequest;
+//
+//  @Autowired HttpServletResponse httpResponse;
 
   @Value("${info.application.name}")
   private String name;
@@ -125,7 +125,7 @@ public class LoggingAspect {
     Object result = joinPoint.proceed();
 
     MDC.put(STATUS, "OK");
-    MDC.put(CODE, String.valueOf(httpResponse.getStatus()));
+    //MDC.put(CODE, String.valueOf(httpResponse.getStatus()));
     MDC.put(RESPONSE_TIME, getExecutionTime());
     log.info(
         "Successful API operation {} - result: {}", joinPoint.getSignature().getName(), result);

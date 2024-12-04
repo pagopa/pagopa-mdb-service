@@ -13,7 +13,6 @@ import it.gov.pagopa.mbd.service.model.carts.GetCartResponse;
 import it.gov.pagopa.mbd.service.service.MbdService;
 import it.gov.pagopa.mbd.service.model.mdb.GetMbdRequest;
 import jakarta.validation.ConstraintViolationException;
-import jakarta.websocket.server.PathParam;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -92,8 +91,8 @@ public class MbdController {
                     schema = @Schema(implementation = ProblemJson.class)))
     })
     @GetMapping(value = "/mbd-payments/{fiscalCode}/receipt/{nav}", produces = MediaType.APPLICATION_XML_VALUE)
-    public Mono<ResponseEntity> getPaymentReceipts(@PathParam("fiscalCode") String fiscalCode,
-                                                   @PathParam("nav") String nav) {
+    public Mono<ResponseEntity> getPaymentReceipts(@PathVariable("fiscalCode") String fiscalCode,
+                                                   @PathVariable("nav") String nav) {
         return mdbService.getPaymentReceipts(fiscalCode, nav);
     }
 

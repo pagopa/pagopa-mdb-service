@@ -2,6 +2,7 @@ package it.gov.pagopa.mbd.service.config;
 
 import static it.gov.pagopa.mbd.service.util.Constants.HEADER_REQUEST_ID;
 
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.Paths;
@@ -15,7 +16,7 @@ import java.util.Collections;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
-import org.springdoc.core.customizers.OpenApiCustomiser;
+import org.springdoc.core.customizers.OpenApiCustomizer;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -47,7 +48,7 @@ public class OpenApiConfig {
   }
 
   @Bean
-  public OpenApiCustomiser sortOperationsAlphabetically() {
+  public OpenApiCustomizer sortOperationsAlphabetically() {
     return openApi -> {
       Paths paths =
           openApi.getPaths().entrySet().stream()
@@ -78,7 +79,7 @@ public class OpenApiConfig {
   }
 
   @Bean
-  public OpenApiCustomiser addCommonHeaders() {
+  public OpenApiCustomizer addCommonHeaders() {
     return openApi ->
         openApi
             .getPaths()

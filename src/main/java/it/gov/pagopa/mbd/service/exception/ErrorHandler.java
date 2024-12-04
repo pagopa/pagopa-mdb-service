@@ -23,7 +23,10 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
-import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+import org.springframework.web.reactive.result.method.annotation.ResponseEntityExceptionHandler;
+import org.springframework.web.server.ServerWebExchange;
+import org.springframework.web.server.UnsatisfiedRequestParameterException;
+import reactor.core.publisher.Mono;
 
 /** All Exceptions are handled by this class */
 @ControllerAdvice
@@ -39,9 +42,10 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
    * @param request from frontend
    * @return a {@link ProblemJson} as response with the cause and with a 400 as HTTP status
    */
-  @Override
-  protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex, HttpHeaders headers, HttpStatusCode status,
-      WebRequest request) {
+  @ExceptionHandler({HttpMessageNotReadableException.class})
+
+  protected Mono<ResponseEntity<Object>> handleHttpMessageNotReadable(HttpMessageNotReadableException ex, HttpHeaders headers, HttpStatusCode status,
+      ServerWebExchange request) {
     log.warn("Input not readable: ", ex);
     var errorResponse =
         ProblemJson.builder()
@@ -49,7 +53,31 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
             .title(AppError.BAD_REQUEST.getTitle())
             .detail("Invalid input format")
             .build();
-    return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+    return Mono.just(new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST));
+  }
+
+  /**
+   * Customize the response for TypeMismatchException.
+   *
+   * @param ex the exception
+   * @param headers the headers to be written to the response
+   * @param status the selected response status
+   * @param request the current request
+   * @return a {@code ResponseEntity} instance
+   */
+  @ExceptionHandler({TypeMismatchException.class})
+  protected Mono<ResponseEntity<Object>> handleTypeMismatch(TypeMismatchException ex, HttpHeaders headers, HttpStatusCode status, ServerWebExchange request) {
+    log.warn("Type mismatch: ", ex);
+    var errorResponse =
+            ProblemJson.builder()
+                    .status(HttpStatus.BAD_REQUEST.value())
+                    .title(AppError.BAD_REQUEST.getTitle())
+                    .detail(
+                            String.format(
+                                    "Invalid value %s for property %s",
+                                    ex.getValue(), ((MethodArgumentTypeMismatchException) ex).getName()))
+                    .build();
+    return Mono.just(new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST));
   }
 
   /**
@@ -62,40 +90,17 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
    * @return a {@link ProblemJson} as response with the cause and with a 400 as HTTP status
    */
   @Override
-  protected ResponseEntity<Object> handleMissingServletRequestParameter(MissingServletRequestParameterException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
-    log.warn("Missing request parameter: ", ex);
+  protected Mono<ResponseEntity<Object>> handleUnsatisfiedRequestParameterException(UnsatisfiedRequestParameterException ex, HttpHeaders headers, HttpStatusCode status, ServerWebExchange exchange) {
+    log.warn("Unsatisfied request parameter: ", ex);
     var errorResponse =
         ProblemJson.builder()
             .status(HttpStatus.BAD_REQUEST.value())
             .title(AppError.BAD_REQUEST.getTitle())
             .detail(ex.getMessage())
             .build();
-    return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+    return Mono.just(new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST));
   }
 
-  /**
-   * Customize the response for TypeMismatchException.
-   *
-   * @param ex the exception
-   * @param headers the headers to be written to the response
-   * @param status the selected response status
-   * @param request the current request
-   * @return a {@code ResponseEntity} instance
-   */
-  @Override
-  protected ResponseEntity<Object> handleTypeMismatch(TypeMismatchException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
-    log.warn("Type mismatch: ", ex);
-    var errorResponse =
-        ProblemJson.builder()
-            .status(HttpStatus.BAD_REQUEST.value())
-            .title(AppError.BAD_REQUEST.getTitle())
-            .detail(
-                String.format(
-                    "Invalid value %s for property %s",
-                    ex.getValue(), ((MethodArgumentTypeMismatchException) ex).getName()))
-            .build();
-    return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
-  }
 
   /**
    * Handle if validation constraints are unsatisfied
@@ -106,9 +111,9 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
    * @param request from frontend
    * @return a {@link ProblemJson} as response with the cause and with a 400 as HTTP status
    */
-  @Override
-  protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatusCode status,
-      WebRequest request) {
+  @ExceptionHandler({MethodArgumentNotValidException.class})
+  protected Mono<ResponseEntity<Object>> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatusCode status,
+                                                                      ServerWebExchange request) {
     List<String> details = new ArrayList<>();
     for (FieldError error : ex.getBindingResult().getFieldErrors()) {
       details.add(error.getField() + ": " + error.getDefaultMessage());
@@ -121,12 +126,11 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
             .title(AppError.BAD_REQUEST.getTitle())
             .detail(detailsMessage)
             .build();
-    return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+    return Mono.just(new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST));
   }
 
   @ExceptionHandler({ConstraintViolationException.class})
-  public ResponseEntity<ProblemJson> handleConstraintViolationException(
-      final ConstraintViolationException ex, final WebRequest request) {
+  public Mono<ResponseEntity<ProblemJson>> handleMyException(ConstraintViolationException ex, ServerWebExchange exchange) {
     log.warn("Validation Error raised:", ex);
     var errorResponse =
         ProblemJson.builder()
@@ -134,7 +138,7 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
             .title(AppError.BAD_REQUEST.getTitle())
             .detail(ex.getMessage())
             .build();
-    return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+    return Mono.just(new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST));
   }
 
   /**
@@ -145,8 +149,8 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
    * @return a {@link ProblemJson} as response with the cause and with an appropriated HTTP status
    */
   @ExceptionHandler({FeignException.class})
-  public ResponseEntity<ProblemJson> handleFeignException(
-      final FeignException ex, final WebRequest request) {
+  public Mono<ResponseEntity<ProblemJson>> handleFeignException(
+      final FeignException ex, final ServerWebExchange request) {
     log.warn("FeignException raised: ", ex);
 
     ProblemJson problem;
@@ -171,7 +175,7 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
               .build();
     }
 
-    return new ResponseEntity<>(problem, HttpStatus.valueOf(problem.getStatus()));
+    return Mono.just(new ResponseEntity<>(problem, HttpStatus.valueOf(problem.getStatus())));
   }
 
   /**
@@ -208,8 +212,8 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
    * @return a {@link ProblemJson} as response with the cause and with 500 as HTTP status
    */
   @ExceptionHandler({Exception.class})
-  public ResponseEntity<ProblemJson> handleGenericException(
-      final Exception ex, final WebRequest request) {
+  public Mono<ResponseEntity<ProblemJson>> handleGenericException(
+      final Exception ex, final ServerWebExchange request) {
     log.error("Generic Exception raised:", ex);
     var errorResponse =
         ProblemJson.builder()
@@ -217,6 +221,6 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
             .title(AppError.INTERNAL_SERVER_ERROR.getTitle())
             .detail(ex.getMessage())
             .build();
-    return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+    return Mono.just(new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR));
   }
 }

@@ -10,7 +10,6 @@ import it.gov.pagopa.mbd.service.model.carts.GetCartResponse;
 import it.gov.pagopa.mbd.service.model.xml.node.nodeforpsp.DemandPaymentNoticeRequest;
 import it.gov.pagopa.mbd.service.model.xml.node.nodeforpsp.DemandPaymentNoticeResponse;
 import it.gov.pagopa.mbd.service.model.xml.node.pafornode.CtTransferPAReceiptV2;
-import it.gov.pagopa.mbd.service.model.xml.node.soap.envelope.Body;
 import jakarta.inject.Inject;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.Test;
@@ -119,11 +118,21 @@ class ReactiveClientTest {
 
     @Test
     void getPaymentReceiptWithOk() throws JsonProcessingException {
-        WIRE_MOCK_EXTENSION.stubFor(get("/receipt/payments/test/receipts/test").withHeader("Content-Type", matching(APPLICATION_JSON_VALUE))
+        WIRE_MOCK_EXTENSION.stubFor(get(urlMatching("/receipt/.*"))
                 .willReturn(aResponse().withStatus(200).withHeader("Content-Type", APPLICATION_JSON_VALUE)
                         .withBody(mapper.writeValueAsString(CtTransferPAReceiptV2.builder().build()))));
         Mono<CtTransferPAReceiptV2> getResponseMono = reactiveClient.getPaymentReceipt("test","test");
         CtTransferPAReceiptV2 getResponse = getResponseMono.block();
         assertNotNull(getResponse);
     }
+
+    @Test
+    void getPaymentReceiptWithKO() throws JsonProcessingException {
+        WIRE_MOCK_EXTENSION.stubFor(get(urlMatching("/receipt/.*"))
+                .willReturn(aResponse().withStatus(500).withHeader("Content-Type", APPLICATION_JSON_VALUE)
+                        .withBody(mapper.writeValueAsString(CtTransferPAReceiptV2.builder().build()))));
+        Mono<CtTransferPAReceiptV2> getResponseMono = reactiveClient.getPaymentReceipt("test","test");
+        assertThrows(WebClientException.class, () -> getResponseMono.block());
+    }
+
 }
