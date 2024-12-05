@@ -7,6 +7,33 @@ on:
         required: true
         description: The name of the environment where to deploy
         type: string
+      helm_options:
+        default: ''
+        required: false
+        type: string
+        description: 'helm upgrade options'
+      terraform_options:
+        default: ''
+        required: false
+        type: string
+        description: 'terraform upgrade options'
+      branch:
+        required: false
+        default: ${{ github.ref_name }}
+        type: string
+      suffix_name:
+        required: false
+        default: ''
+        type: string
+      pr_number:
+        required: false
+        default: ''
+        type: string
+      uninstall:
+        description: 'true if you want to uninstall instead of install'
+        required: false
+        type: boolean
+        default: false
 
 env:
   APP_NAME: pagopa-mbd-service
@@ -18,14 +45,15 @@ permissions:
 
 jobs:
   deploy:
-    runs-on: [ self-hosted-job ]
+    runs-on: [ self-hosted-job, "${{ inputs.environment }}" ]
     name: Deploy on AKS
     environment: ${{ inputs.environment }}
     steps:
       - name: Deploy
+        if: ${{ inputs.uninstall  == 'false' ||  inputs.uninstall  == false }}
         uses: pagopa/github-actions-template/aks-deploy@main
         with:
-          branch: ${{ github.ref_name }}
+          branch: ${{ inputs.branch }}
           client_id: ${{ secrets.CLIENT_ID }}
           subscription_id: ${{ secrets.SUBSCRIPTION_ID }}
           tenant_id: ${{ secrets.TENANT_ID }}
@@ -33,8 +61,15 @@ jobs:
           namespace: ${{ vars.NAMESPACE }}
           cluster_name: ${{ vars.CLUSTER_NAME }}
           resource_group: ${{ vars.CLUSTER_RESOURCE_GROUP }}
-          app_name: ${{ env.APP_NAME }}
-          helm_upgrade_options: '--debug --set microservice-chart.azure.workloadIdentityClientId=${{vars.WORKLOAD_IDENTITY_ID}}'
+          app_name: ${{ env.APP_NAME }}${{inputs.suffix_name}}
+          helm_upgrade_options: '--debug --set microservice-chart.azure.workloadIdentityClientId=${{vars.WORKLOAD_IDENTITY_ID}} ${{inputs.helm_options}}'
+          timeout: '10m0s'
+
+      - name: Remove deployment
+        if: ${{ inputs.uninstall == 'true' ||  inputs.uninstall  == true}}
+        shell: bash
+        run: |
+          helm uninstall ${{ env.APP_NAME }}${{inputs.suffix_name}} -n ${{ vars.NAMESPACE }}
 
   update_openapi:
     needs: [ deploy ]
@@ -75,4 +110,4 @@ jobs:
           export ARM_USE_OIDC=true
           export ARM_ACCESS_KEY=$(az storage account keys list --resource-group io-infra-rg --account-name pagopainfraterraform${{inputs.environment}} --query '[0].value' -o tsv)
           bash ./terraform.sh init itn-${{ inputs.environment }}
-          bash ./terraform.sh apply itn-${{ inputs.environment }} -auto-approve
+          bash ./terraform.sh apply itn-${{ inputs.environment }} ${{inputs.terraform_options}} -auto-approve
