@@ -4,7 +4,7 @@ microservice-chart:
   fullnameOverride: "mbd-service"
   image:
     repository: ghcr.io/pagopa/pagopa-mbd-service
-    tag: "0.0.2"
+    tag: "0.0.3"
     pullPolicy: Always
   livenessProbe:
     handlerType: httpGet
@@ -80,6 +80,15 @@ microservice-chart:
     MBD_ID_PSP: 'ABI50004'
     MBD_ID_BROKER_PSP: '99999000011'
     MBD_CHANNEL_ID: '99999000011_03'
+    CORS_CONFIGURATION: '{"origins": ["*"], "methods": ["*"]}'
+    OTEL_SERVICE_NAME: "pagopa-mbd-service"
+    OTEL_RESOURCE_ATTRIBUTES: "deployment.environment=uat"
+    OTEL_EXPORTER_OTLP_ENDPOINT: "http://otel-collector.elastic-system.svc:4317"
+    OTEL_TRACES_EXPORTER: otlp
+    OTEL_METRICS_EXPORTER: otlp
+    OTEL_LOGS_EXPORTER: none
+    OTEL_TRACES_SAMPLER: "always_on"
+    ENV: 'azure-uat'
   envSecret:
     # required
     APPLICATIONINSIGHTS_CONNECTION_STRING: 'app-insight-connection-string'
