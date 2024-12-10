@@ -1,7 +1,7 @@
 microservice-chart:
   namespace: "ebollo"
   nameOverride: ""
-  fullnameOverride: "mbd-service"
+  fullnameOverride: "pagopa-mbd-service"
   image:
     repository: ghcr.io/pagopa/pagopa-mbd-service
     tag: "1.0.0"
@@ -80,6 +80,7 @@ microservice-chart:
     MBD_ID_PSP: 'ABI50004'
     MBD_ID_BROKER_PSP: '99999000011'
     MBD_CHANNEL_ID: '99999000011_03'
+    ENV: 'azure-uat'
     CORS_CONFIGURATION: '{"origins": ["*"], "methods": ["*"]}'
     OTEL_SERVICE_NAME: "pagopa-mbd-service"
     OTEL_RESOURCE_ATTRIBUTES: "deployment.environment=uat"
@@ -88,7 +89,6 @@ microservice-chart:
     OTEL_METRICS_EXPORTER: otlp
     OTEL_LOGS_EXPORTER: none
     OTEL_TRACES_SAMPLER: "always_on"
-    ENV: 'azure-uat'
   envSecret:
     # required
     APPLICATIONINSIGHTS_CONNECTION_STRING: 'app-insight-connection-string'
