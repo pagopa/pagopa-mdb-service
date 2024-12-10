@@ -11,12 +11,20 @@
     "description" : "Generated server url"
   } ],
   "paths" : {
-    "/mbd" : {
+    "/organizations/{fiscalCodeEC}/mbd" : {
       "post" : {
         "tags" : [ "mbd-controller" ],
         "summary" : "getMbd",
         "description" : "Return mbd data for payment on requirement ",
         "operationId" : "getMdb",
+        "parameters" : [ {
+          "name" : "fiscalCodeEC",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        } ],
         "requestBody" : {
           "content" : {
             "application/json" : {
@@ -147,7 +155,7 @@
         }
       } ]
     },
-    "/mbd-payments/{fiscalCode}/receipt/{nav}" : {
+    "/organizations/{fiscalCode}/receipt/{nav}" : {
       "get" : {
         "tags" : [ "mbd-controller" ],
         "summary" : "getPaymentReceipt",
@@ -180,7 +188,11 @@
               }
             },
             "content" : {
-              "application/xml" : { }
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/GetMdbReceipt"
+                }
+              }
             }
           },
           "400" : {
@@ -315,7 +327,7 @@
         }
       },
       "PaymentNotice" : {
-        "required" : [ "amount", "email", "firstName", "fiscalCode", "fiscalCodeEC", "lastName", "province" ],
+        "required" : [ "amount", "email", "firstName", "fiscalCode", "lastName", "province" ],
         "type" : "object",
         "properties" : {
           "firstName" : {
@@ -328,9 +340,6 @@
             "type" : "string"
           },
           "email" : {
-            "type" : "string"
-          },
-          "fiscalCodeEC" : {
             "type" : "string"
           },
           "amount" : {
@@ -397,6 +406,18 @@
         "properties" : {
           "checkoutRedirectUrl" : {
             "type" : "string"
+          }
+        }
+      },
+      "GetMdbReceipt" : {
+        "type" : "object",
+        "properties" : {
+          "content" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string",
+              "format" : "byte"
+            }
           }
         }
       }

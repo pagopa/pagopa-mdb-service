@@ -7,6 +7,7 @@ import it.gov.pagopa.mbd.service.exception.CartMappingException;
 import it.gov.pagopa.mbd.service.exception.WebClientException;
 import it.gov.pagopa.mbd.service.mapper.RequestMapper;
 import it.gov.pagopa.mbd.service.model.mdb.GetMbdRequest;
+import it.gov.pagopa.mbd.service.model.mdb.GetMdbReceipt;
 import it.gov.pagopa.mbd.service.model.xml.node.nodeforpsp.DemandPaymentNoticeResponse;
 import it.gov.pagopa.mbd.service.service.MbdService;
 import jakarta.validation.ConstraintViolation;
@@ -63,7 +64,7 @@ public class MbdServiceImpl implements MbdService {
     }
 
     @Override
-    public Mono<ResponseEntity> getMbd(GetMbdRequest request) {
+    public Mono<ResponseEntity> getMbd(String fiscalCodeEC, GetMbdRequest request) {
         HashMap<String, DemandPaymentNoticeResponse> hashMap = new HashMap();
         return Mono.just(request)
                 .doFirst(() -> {
@@ -76,7 +77,7 @@ public class MbdServiceImpl implements MbdService {
                     log.error("Encountered an error during demandPaymentNotice Validation: {}", e.getMessage());
                     return e;
                 })
-                .map(item -> RequestMapper.mapDemandPaymentNoticeRequest(idPsp, idBrokerPsp, channelId,
+                .map(item -> RequestMapper.mapDemandPaymentNoticeRequest(idPsp, idBrokerPsp, channelId, fiscalCodeEC,
                         jaxb2Marshaller, item))
                 .onErrorMap(XmlMappingException.class, e -> {
                     log.error("Encountered an error during demandPaymentNotice Request Mapping: {}", e.getMessage());
@@ -103,8 +104,8 @@ public class MbdServiceImpl implements MbdService {
                 .map(item -> ResponseEntity.ok()
                         .header("MBD-Link",
                                 StringUtils.joinWith("/", mdbLinkBaseUrl,
-                                        "mbd/mbd-payment/v1", request.getPaymentNotices().get(0).getFiscalCodeEC()),
-                                        "receipt", hashMap.get("demandPaymentNoticeResponse").getQrCode().getNoticeNumber())
+                                        "mbd/v1/organizations", fiscalCodeEC,
+                                        "receipt", hashMap.get("demandPaymentNoticeResponse").getQrCode().getNoticeNumber()))
                         .header( "MBD-NAV", hashMap.get("demandPaymentNoticeResponse").getQrCode()
                                 .getNoticeNumber())
                 .body(item));
@@ -120,8 +121,8 @@ public class MbdServiceImpl implements MbdService {
                     return Mono.error(new AppException(AppError.PAYMENT_RECEIPTS_CALL_ERROR, e));
                 })
                 .map(item -> ResponseEntity.ok()
-                        .header("Content-Type", MediaType.APPLICATION_XML_VALUE)
-                        .body(item.getMBDAttachment()));
+                        .header("Content-Type", MediaType.APPLICATION_JSON_VALUE)
+                        .body(GetMdbReceipt.builder().content(item.getMBDAttachment()).build()));
     }
 
 

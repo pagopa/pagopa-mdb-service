@@ -10,6 +10,7 @@ import it.gov.pagopa.mbd.service.exception.AppException;
 import it.gov.pagopa.mbd.service.model.ProblemJson;
 import it.gov.pagopa.mbd.service.model.carts.GetCartErrorResponse;
 import it.gov.pagopa.mbd.service.model.carts.GetCartResponse;
+import it.gov.pagopa.mbd.service.model.mdb.GetMdbReceipt;
 import it.gov.pagopa.mbd.service.service.MbdService;
 import it.gov.pagopa.mbd.service.model.mdb.GetMbdRequest;
 import jakarta.validation.ConstraintViolationException;
@@ -50,9 +51,10 @@ public class MbdController {
                     description = "Service unavailable", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
                     schema = @Schema(implementation = GetCartErrorResponse.class)))
     })
-    @PostMapping(value = "/mbd", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Mono<ResponseEntity> getMdb(@RequestBody GetMbdRequest request) {
-        return mdbService.getMbd(request).onErrorResume(e -> {
+    @PostMapping(value = "/organizations/{fiscalCodeEC}/mbd", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Mono<ResponseEntity> getMdb(@PathVariable("fiscalCodeEC") String fiscalCodeEC,
+                                       @RequestBody GetMbdRequest request) {
+        return mdbService.getMbd(fiscalCodeEC,request).onErrorResume(e -> {
             if (e instanceof ConstraintViolationException) {
                return Mono.error(e);
             }
@@ -72,7 +74,8 @@ public class MbdController {
             security = {@SecurityRequirement(name = "ApiKey")})
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK",
-                    content = @Content(mediaType = MediaType.APPLICATION_XML_VALUE)),
+                    content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
+                            schema = @Schema(implementation = GetMdbReceipt.class))),
             @ApiResponse(responseCode = "400", description = "Bad Request",
                     content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
                             schema = @Schema(implementation = ProblemJson.class))),
@@ -90,7 +93,7 @@ public class MbdController {
                     description = "Service unavailable", content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
                     schema = @Schema(implementation = ProblemJson.class)))
     })
-    @GetMapping(value = "/mbd-payments/{fiscalCode}/receipt/{nav}", produces = MediaType.APPLICATION_XML_VALUE)
+    @GetMapping(value = "/organizations/{fiscalCode}/receipt/{nav}", produces = MediaType.APPLICATION_XML_VALUE)
     public Mono<ResponseEntity> getPaymentReceipts(@PathVariable("fiscalCode") String fiscalCode,
                                                    @PathVariable("nav") String nav) {
         return mdbService.getPaymentReceipts(fiscalCode, nav);

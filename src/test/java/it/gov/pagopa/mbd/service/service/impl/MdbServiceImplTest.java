@@ -3,7 +3,6 @@ package it.gov.pagopa.mbd.service.service.impl;
 import it.gov.pagopa.mbd.service.client.ReactiveClient;
 import it.gov.pagopa.mbd.service.exception.AppException;
 import it.gov.pagopa.mbd.service.exception.WebClientException;
-import it.gov.pagopa.mbd.service.model.carts.GetCartErrorResponse;
 import it.gov.pagopa.mbd.service.model.carts.GetCartResponse;
 import it.gov.pagopa.mbd.service.model.mdb.GetMbdRequest;
 import it.gov.pagopa.mbd.service.model.mdb.PaymentNotice;
@@ -15,18 +14,13 @@ import it.gov.pagopa.mbd.service.service.MbdService;
 import jakarta.inject.Inject;
 import jakarta.validation.ConstraintViolationException;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.Import;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import reactor.core.publisher.Mono;
 
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
-import javax.xml.datatype.XMLGregorianCalendar;
 import java.math.BigDecimal;
 import java.util.Collections;
 
@@ -67,7 +61,7 @@ class MdbServiceImplTest {
         GetCartResponse getCartResponse = GetCartResponse.builder().checkoutRedirectUrl("testUrl").build();
         when(reactiveClient.getCart(any())).thenAnswer(item -> Mono.just(getCartResponse));
 
-        Mono<ResponseEntity> responseEntityMono = mbdService.getMbd(GetMbdRequest.builder()
+        Mono<ResponseEntity> responseEntityMono = mbdService.getMbd("test",GetMbdRequest.builder()
                         .idCIService("1000")
                         .paymentNotices(Collections.singletonList(
                                 PaymentNotice.builder()
@@ -75,7 +69,6 @@ class MdbServiceImplTest {
                                         .documentHash("1".repeat(44))
                                         .email("test@gmail.com")
                                         .fiscalCode("AAAAAAAAAAAAA01")
-                                        .fiscalCodeEC("AAAAAAAAAAA01")
                                         .lastName("test")
                                         .firstName("test")
                                         .province("RM")
@@ -117,7 +110,7 @@ class MdbServiceImplTest {
 
         when(reactiveClient.getCart(any())).thenAnswer(item -> Mono.error(new WebClientException("Error", null)));
 
-        Mono<ResponseEntity> responseEntityMono = mbdService.getMbd(GetMbdRequest.builder()
+        Mono<ResponseEntity> responseEntityMono = mbdService.getMbd("test",GetMbdRequest.builder()
                 .idCIService("1000")
                 .paymentNotices(Collections.singletonList(
                         PaymentNotice.builder()
@@ -125,7 +118,6 @@ class MdbServiceImplTest {
                                 .documentHash("1".repeat(44))
                                 .email("test@gmail.com")
                                 .fiscalCode("AAAAAAAAAAAAA01")
-                                .fiscalCodeEC("AAAAAAAAAAA01")
                                 .lastName("test")
                                 .firstName("test")
                                 .province("RM")
@@ -166,7 +158,7 @@ class MdbServiceImplTest {
         GetCartResponse getCartResponse = GetCartResponse.builder().checkoutRedirectUrl("testUrl").build();
         when(reactiveClient.getCart(any())).thenAnswer(item -> Mono.just(getCartResponse));
 
-        Mono<ResponseEntity> responseEntityMono = mbdService.getMbd(GetMbdRequest.builder()
+        Mono<ResponseEntity> responseEntityMono = mbdService.getMbd("test",GetMbdRequest.builder()
                 .idCIService("1000")
                 .paymentNotices(Collections.singletonList(
                         PaymentNotice.builder()
@@ -174,7 +166,6 @@ class MdbServiceImplTest {
                                 .documentHash("1".repeat(10))
                                 .email("test@gmail.com")
                                 .fiscalCode("AAAAAAAAAAAAA01")
-                                .fiscalCodeEC("AAAAAAAAAAA01")
                                 .lastName("test")
                                 .firstName("test")
                                 .province("RM")

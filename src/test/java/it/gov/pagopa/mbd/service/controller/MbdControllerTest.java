@@ -49,10 +49,10 @@ class MbdControllerTest {
 
     @Test
     void getMdbShouldReturnCheckoutUrlOnPositiveRequest() throws Exception {
-        when(mbdService.getMbd(any())).thenAnswer(item ->
+        when(mbdService.getMbd(any(),any())).thenAnswer(item ->
                 Mono.just(ResponseEntity.ok().body(GetCartResponse.builder()
                         .checkoutRedirectUrl("testUrl").build())));
-        webClient.post().uri("/mbd").bodyValue(
+        webClient.post().uri("/organizations/test/mbd").bodyValue(
                 objectMapper.writeValueAsBytes(GetMbdRequest.builder()
                         .idCIService("test")
                         .paymentNotices(Collections.singletonList(
@@ -72,9 +72,9 @@ class MbdControllerTest {
 
     @Test
     void getMdbShouldReturnErrorUrlOnKoRequest() throws Exception {
-        when(mbdService.getMbd(any())).thenAnswer(item ->
+        when(mbdService.getMbd(any(),any())).thenAnswer(item ->
                 Mono.error(new RuntimeException("")));
-        webClient.post().uri("/mbd").bodyValue(
+        webClient.post().uri("/organizations/test/mbd").bodyValue(
                         objectMapper.writeValueAsBytes(GetMbdRequest.builder()
                                 .idCIService("test")
                                 .paymentNotices(Collections.singletonList(
@@ -96,7 +96,7 @@ class MbdControllerTest {
     void getPaymentReceiptsShouldRetunrContentOnValidCall() throws Exception {
         when(mbdService.getPaymentReceipts(any(),any())).thenAnswer(item ->
                 Mono.just(ResponseEntity.ok().body("ABC".getBytes())));
-        webClient.get().uri("/mbd-payments/test/receipt/30000000001")
+        webClient.get().uri("/organizations/test/receipt/30000000001")
                 .exchange().expectStatus().is2xxSuccessful()
                 .expectBody(String.class)
                 .consumeWith(result -> {

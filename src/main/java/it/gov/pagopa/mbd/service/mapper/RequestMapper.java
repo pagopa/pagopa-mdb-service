@@ -27,7 +27,7 @@ import static org.hibernate.validator.internal.util.Contracts.assertTrue;
 public class RequestMapper {
 
     public static DemandPaymentNoticeRequest mapDemandPaymentNoticeRequest(
-            String idPsp, String idBrokerPsp, String idChannel,
+            String idPsp, String idBrokerPsp, String idChannel, String fiscalCodeEC,
             Jaxb2Marshaller marshaller, GetMbdRequest getMdbRequest) {
 
         PaymentNotice paymentNotice = getMdbRequest.getPaymentNotices().get(0);
@@ -42,7 +42,7 @@ public class RequestMapper {
                                 .provinciaResidenza(paymentNotice.getProvince())
                                 .build())
                         .enteCreditore(CtEnteCreditore.builder()
-                                        .codiceFiscaleEnte(paymentNotice.getFiscalCodeEC())
+                                        .codiceFiscaleEnte(fiscalCodeEC)
                                         .build())
                         .hashDocumento(CtHashDocumento.builder()
                                 .hashDocumento(paymentNotice.getDocumentHash())

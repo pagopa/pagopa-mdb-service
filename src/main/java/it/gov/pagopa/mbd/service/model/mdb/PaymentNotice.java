@@ -20,8 +20,6 @@ public class PaymentNotice {
     private String fiscalCode;
     @NotBlank
     private String email;
-    @NotBlank
-    private String fiscalCodeEC;
     @NotNull
     private Long amount;
     @NotBlank
