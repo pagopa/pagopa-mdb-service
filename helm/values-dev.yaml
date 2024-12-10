@@ -92,9 +92,9 @@ microservice-chart:
   envSecret:
     # required
     APPLICATIONINSIGHTS_CONNECTION_STRING: 'app-insight-connection-string'
-    DEMAND_PAYMENT_SUBKEY: 'nodo-auth'
-    CART_SUBKEY: 'checkout-carts'
-    PAYMENT_RECEIPT_SUBKEY: 'gpd-payments-rest-aks'
+    DEMAND_PAYMENT_SUBKEY: 'apikey-node-for-psp'
+    CART_SUBKEY: 'apikey-checkout-carts'
+    PAYMENT_RECEIPT_SUBKEY: 'apikey-gpd-payments'
   keyvault:
     name: "pagopa-d-itn-ebollo-kv"
     tenantId: "7788edaf-0346-4068-9d79-c868aed15b3d"
