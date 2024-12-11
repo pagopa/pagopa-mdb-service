@@ -2,8 +2,9 @@
   "environment": [
     {
       "env": "local",
-      "host": "http://localhost:8080",
-      "basePath": ""
+      "mbdServiceUri": "http://localhost:8080/organizations",
+      "fiscalCodeEC": "77777777",
+      "nav": "TBD"
     }
   ]
 }

@@ -1,9 +1,21 @@
 import http from 'k6/http';
 
-export function example(rootUrl, params) {
-  const url = `${rootUrl}/`
+const subKey = `${__ENV.OCP_APIM_SUBSCRIPTION_KEY}`;
 
-  const payload = {}
+export function getMBD(url, fiscalCode) {
 
-  return http.post(url, JSON.stringify(payload), params);
+  let headers = {
+    'Ocp-Apim-Subscription-Key': subKey,
+  };
+
+  return http.get(url + fiscalCode + "/mbd", { headers, responseType: "text"});
+}
+
+export function getReceipt(url, fiscalCode,nav) {
+
+  let headers = {
+    'Ocp-Apim-Subscription-Key': subKey,
+  };
+
+  return http.get(url + fiscalCode + "/receipt" + nav, { headers, responseType: "text"});
 }

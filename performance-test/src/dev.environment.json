@@ -1,0 +1,10 @@
+{
+  "environment": [
+    {
+      "env": "dev",
+      "mbdServiceUri": "https://api.dev.platform.pagopa.it/pagopa-mbd-service/v1/organizations",
+      "fiscalCodeEC": "77777777",
+      "nav": "TBD"
+    }
+  ]
+}

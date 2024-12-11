@@ -19,13 +19,13 @@ parameters:
       - "spike"
       - "stress"
       - "constant"
-      - # TODO: add your values
     default: "constant"
   - name: "SCRIPT"
     displayName: "Script name"
     type: string
     values:
-      - yourscriptname # TODO: add your script
+      - get_mbd
+      - get_receipt
 variables:
   ${{ if eq(parameters['ENVIRONMENT'], 'dev') }}:
     poolImage: 'pagopa-dev-loadtest-linux'
@@ -44,8 +44,7 @@ steps:
       docker pull grafana/k6
     displayName: Pull k6 image
 
-    # TODO: add your env params
   - script: |
       cd ./performance-test
-      sh ./run_performance_test.sh ${{ parameters.ENVIRONMENT }} ${{ parameters.TEST_TYPE }} ${{ parameters.SCRIPT }} afmcalculatork6 $(API_SUBSCRIPTION_KEY)
+      sh ./run_performance_test.sh ${{ parameters.ENVIRONMENT }} ${{ parameters.TEST_TYPE }} ${{ parameters.SCRIPT }} pagopa-mbd-service $(API_SUBSCRIPTION_KEY)
     displayName: Run k6 ${{ parameters.SCRIPT }} on ${{ parameters.ENVIRONMENT }}
