@@ -54,7 +54,12 @@ public class ReactiveClient {
                 .bodyToMono(Envelope.class).map(item -> {
                     if (item.getBody() == null || item.getBody().getDemandPaymentNoticeResponse() == null ||
                             StOutcome.KO.equals(item.getBody().getDemandPaymentNoticeResponse().getOutcome())) {
-                        throw new RuntimeException("Encountered KO while calling demandPayment");
+                        throw new RuntimeException("Encountered KO while calling demandPayment " +
+                                (item.getBody() != null && item.getBody().getDemandPaymentNoticeResponse() != null &&
+                                        item.getBody().getDemandPaymentNoticeResponse().getFault() != null ?
+                                        item.getBody().getDemandPaymentNoticeResponse().getFault().getFaultCode() + " - "
+                                        + item.getBody().getDemandPaymentNoticeResponse().getFault().getDescription() : "")
+                        );
                     }
                     return item.getBody().getDemandPaymentNoticeResponse();
                 }).onErrorMap(e -> new WebClientException(e.getMessage(), e));
