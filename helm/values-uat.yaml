@@ -92,6 +92,7 @@ microservice-chart:
   envSecret:
     # required
     APPLICATIONINSIGHTS_CONNECTION_STRING: 'app-insight-connection-string'
+    OTEL_EXPORTER_OTLP_HEADERS: elastic-apm-secret-token
     DEMAND_PAYMENT_SUBKEY: 'apikey-node-for-psp'
     CART_SUBKEY: 'apikey-checkout-carts'
     PAYMENT_RECEIPT_SUBKEY: 'apikey-gpd-payments'
