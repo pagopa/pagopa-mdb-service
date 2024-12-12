@@ -46,13 +46,13 @@ public class MbdServiceImpl implements MbdService {
     public MbdServiceImpl(
             Validator validator, ReactiveClient reactiveSoapClient,
             Jaxb2Marshaller jaxb2Marshaller,
-            @Value("mbd.link.baseUrl")
+            @Value("${mbd.link.baseUrl}")
             String mdbLinkBaseUrl,
-            @Value("mbd.mapper.idPsp")
+            @Value("${mbd.mapper.idPsp}")
             String idPsp,
-            @Value("mbd.mapper.idBrokerPsp")
+            @Value("${mbd.mapper.idBrokerPsp}")
             String idBrokerPsp,
-            @Value("mbd.mapper.channelId")
+            @Value("${mbd.mapper.channelId}")
             String channelId) {
         this.validator = validator;
         this.reactiveSoapClient = reactiveSoapClient;
