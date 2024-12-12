@@ -3,13 +3,10 @@ package it.gov.pagopa.mbd.service.mapper;
 import it.gov.pagopa.mbd.service.exception.CartMappingException;
 import it.gov.pagopa.mbd.service.model.carts.CartPaymentNotice;
 import it.gov.pagopa.mbd.service.model.carts.GetCartRequest;
-import it.gov.pagopa.mbd.service.model.mdb.PaymentNotice;
-import it.gov.pagopa.mbd.service.model.xml.node.marcaDaBollo.CtDebitore;
-import it.gov.pagopa.mbd.service.model.xml.node.marcaDaBollo.CtEnteCreditore;
-import it.gov.pagopa.mbd.service.model.xml.node.marcaDaBollo.CtHashDocumento;
-import it.gov.pagopa.mbd.service.model.xml.node.marcaDaBollo.Ctebollo;
 import it.gov.pagopa.mbd.service.model.carts.ReturnUrls;
 import it.gov.pagopa.mbd.service.model.mdb.GetMbdRequest;
+import it.gov.pagopa.mbd.service.model.mdb.PaymentNotice;
+import it.gov.pagopa.mbd.service.model.xml.node.marcaDaBollo.CtService;
 import it.gov.pagopa.mbd.service.model.xml.node.nodeforpsp.CtPaymentOptionDescription;
 import it.gov.pagopa.mbd.service.model.xml.node.nodeforpsp.CtPaymentOptionsDescriptionList;
 import it.gov.pagopa.mbd.service.model.xml.node.nodeforpsp.DemandPaymentNoticeRequest;
@@ -32,25 +29,16 @@ public class RequestMapper {
 
         PaymentNotice paymentNotice = getMdbRequest.getPaymentNotices().get(0);
 
-        Ctebollo ctMarcaDaBollo =
-                Ctebollo.builder()
-                        .debitore(CtDebitore.builder()
-                                .codiceFiscaleDebitore(paymentNotice.getFiscalCode())
-                                .nomeDebitore(paymentNotice.getFirstName())
-                                .cognomeDebitore(paymentNotice.getLastName())
-                                .emailDebitore(paymentNotice.getEmail())
-                                .provinciaResidenza(paymentNotice.getProvince())
-                                .build())
-                        .enteCreditore(CtEnteCreditore.builder()
-                                        .codiceFiscaleEnte(fiscalCodeEC)
-                                        .build())
-                        .hashDocumento(CtHashDocumento.builder()
-                                .hashDocumento(paymentNotice.getDocumentHash())
-                                .build())
+        CtService ctMarcaDaBollo =
+                CtService.builder()
+                        .debtorFiscalCode(paymentNotice.getFiscalCode())
+                        .debtorName(paymentNotice.getFirstName())
+                        .debtorSurname(paymentNotice.getLastName())
+                        .debtorEmail(paymentNotice.getEmail())
+                        .debtorProvince(paymentNotice.getProvince())
+                        .ciFiscalCode(fiscalCodeEC)
+                        .documentHash(paymentNotice.getDocumentHash())
                         .build();
-
-        StringResult sw = new StringResult();
-        marshaller.marshal(ctMarcaDaBollo, sw);
 
         return DemandPaymentNoticeRequest.builder()
                 .idPSP(idPsp)
@@ -58,7 +46,18 @@ public class RequestMapper {
                 .idChannel(idChannel)
                 .idSoggettoServizio(getMdbRequest.getIdCIService())
                 .password("")
-                .datiSpecificiServizio(Base64.getMimeEncoder().encode(sw.toString().getBytes()))
+                .datiSpecificiServizio(Base64.getMimeEncoder().encode(
+                    ("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n" +
+                     "<service xmlns=\"http://PuntoAccessoPSP.spcoop.gov.it/GeneralService\" xsi:schemaLocation=\"http://PuntoAccessoPSP.spcoop.gov.it/GeneralService schema.xsd\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n" +
+                      "  <debtorFiscalCode>"+ctMarcaDaBollo.getDebtorFiscalCode()+"</debtorFiscalCode>\n" +
+                      "  <debtorName>"+ctMarcaDaBollo.getDebtorName()+"</debtorName>\n" +
+                      "  <debtorSurname>"+ctMarcaDaBollo.getDebtorSurname()+"</debtorSurname>\n" +
+                      "  <debtorEmail>"+ctMarcaDaBollo.getDebtorEmail()+"</debtorEmail>\n" +
+                      "  <debtorProvince>"+ctMarcaDaBollo.getDebtorProvince()+"</debtorProvince>\n" +
+                      "  <ciFiscalCode>"+ctMarcaDaBollo.getCiFiscalCode()+"</ciFiscalCode>\n" +
+                      "  <documentHash>"+ctMarcaDaBollo.getDocumentHash()+"</documentHash>\n" +
+                      "</service>").getBytes()
+                ))
                 .build();
     }
 

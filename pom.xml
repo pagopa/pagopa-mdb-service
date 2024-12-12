@@ -161,7 +161,7 @@
             </executions>
             <configuration>
                 <sources>
-                    <source>${project.basedir}/src/main/resources/envelope.xsd</source>
+                    <source>${project.basedir}/src/main/resources/service.xsd</source>
 <!--                    <source>${project.basedir}/src/main/resources/nodo-for-psp.xsd</source>-->
 <!--                    <source>${project.basedir}/src/main/resources/nodo-for-pa.xsd</source>-->
 <!--                    <source>${project.basedir}/src/main/resources/MarcaDaBollo.xsd</source>-->
