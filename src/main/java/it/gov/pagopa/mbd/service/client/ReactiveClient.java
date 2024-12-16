@@ -23,16 +23,13 @@ public class ReactiveClient {
 
     private final ClientDataConfig clientDataConfig;
 
-    private final ObjectMapper objectMapper;
-
     private final String OCP_SUBSCRIPTION_KEY = "ocp-apim-subscription-key";
 
 
     @Autowired
-    public ReactiveClient(WebClient webClient, ClientDataConfig clientDataConfig, ObjectMapper objectMapper) {
+    public ReactiveClient(WebClient webClient, ClientDataConfig clientDataConfig) {
         this.webClient = webClient;
         this.clientDataConfig = clientDataConfig;
-        this.objectMapper = objectMapper;
     }
 
     public Mono<DemandPaymentNoticeResponse> demandPaymentNotice(DemandPaymentNoticeRequest demandPaymentNoticeRequest) {
