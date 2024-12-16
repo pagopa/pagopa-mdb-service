@@ -1,10 +1,10 @@
 microservice-chart:
   namespace: "ebollo"
   nameOverride: ""
-  fullnameOverride: "mbd-service"
+  fullnameOverride: "pagopa-mbd-service"
   image:
     repository: ghcr.io/pagopa/pagopa-mbd-service
-    tag: "0.0.3"
+    tag: "1.0.1-4-fix-dati-servizio"
     pullPolicy: Always
   livenessProbe:
     handlerType: httpGet
@@ -43,8 +43,8 @@ microservice-chart:
     seccompProfile:
       type: RuntimeDefault
   securityContext:
+    allowPrivilegeEscalation: false
     readOnlyRootFilesystem: false
-    allowPrivilegeEscalation: true
     capabilities:
       drop:
         - all
@@ -54,7 +54,7 @@ microservice-chart:
       cpu: "0.5"
     limits:
       memory: "512Mi"
-      cpu: "0.5"
+      cpu: "0.7"
   autoscaling:
     enable: true
     minReplica: 1
@@ -73,15 +73,14 @@ microservice-chart:
     WEBSITE_SITE_NAME: 'mbd-service' # required to show cloud role name in application insights
     APP_LOG_LEVEL: 'DEBUG'
     DEFAULT_LOGGING_LEVEL: 'INFO'
-    DEMAND_PAYMENT_ENDPOINT: 'https://api.dev.platform.pagopa.it/nodo-auth/node-for-psp/v1'
-    CART_ENDPOINT: 'https://api.dev.platform.pagopa.it/checkout/carts-auth/v1/carts'
-    PAYMENT_RECEIPT_ENDPOINT: 'https://api.dev.platform.pagopa.it/gpd/payments-receipts-service/v1'
-    MBD_BASE_URL: 'https://api.platform.pagopa.it/mbd/mbd-payment/v1/'
+    DEMAND_PAYMENT_ENDPOINT: 'https://api.uat.platform.pagopa.it/nodo-auth/node-for-psp/v1'
+    CART_ENDPOINT: 'https://api.uat.platform.pagopa.it/checkout/carts-auth/v1/carts'
+    PAYMENT_RECEIPT_ENDPOINT: 'https://api.uat.platform.pagopa.it/gpd/payments-receipts-service/v1'
+    MBD_BASE_URL: 'https://api.dev.platform.pagopa.it/pagopa-mbd-service/v1'
     MBD_ID_PSP: 'ABI50004'
     MBD_ID_BROKER_PSP: '99999000011'
     MBD_CHANNEL_ID: '99999000011_03'
-    ENV: "azure-dev"
-    OTEL_SERVICE_NAME: "pagopa-mbd-service"
+    ENV: 'azure-dev'
     CORS_CONFIGURATION: '{"origins": ["*"], "methods": ["*"]}'
     OTEL_SERVICE_NAME: "pagopa-mbd-service"
     OTEL_RESOURCE_ATTRIBUTES: "deployment.environment=dev"
@@ -93,9 +92,10 @@ microservice-chart:
   envSecret:
     # required
     APPLICATIONINSIGHTS_CONNECTION_STRING: 'app-insight-connection-string'
-    DEMAND_PAYMENT_SUBKEY: 'nodo-auth'
-    CART_SUBKEY: 'checkout-carts'
-    PAYMENT_RECEIPT_SUBKEY: 'gpd-payments-rest-aks'
+    OTEL_EXPORTER_OTLP_HEADERS: elastic-apm-secret-token
+    DEMAND_PAYMENT_SUBKEY: 'apikey-node-for-psp'
+    CART_SUBKEY: 'apikey-checkout-carts'
+    PAYMENT_RECEIPT_SUBKEY: 'apikey-gpd-payments'
   keyvault:
     name: "pagopa-d-itn-ebollo-kv"
     tenantId: "7788edaf-0346-4068-9d79-c868aed15b3d"

@@ -1,5 +1,6 @@
 package it.gov.pagopa.mbd.service.client;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import it.gov.pagopa.mbd.service.exception.WebClientException;
 import it.gov.pagopa.mbd.service.model.carts.GetCartRequest;
 import it.gov.pagopa.mbd.service.model.carts.GetCartResponse;
@@ -54,7 +55,12 @@ public class ReactiveClient {
                 .bodyToMono(Envelope.class).map(item -> {
                     if (item.getBody() == null || item.getBody().getDemandPaymentNoticeResponse() == null ||
                             StOutcome.KO.equals(item.getBody().getDemandPaymentNoticeResponse().getOutcome())) {
-                        throw new RuntimeException("Encountered KO while calling demandPayment");
+                        throw new RuntimeException("Encountered KO while calling demandPayment " +
+                                (item.getBody() != null && item.getBody().getDemandPaymentNoticeResponse() != null &&
+                                        item.getBody().getDemandPaymentNoticeResponse().getFault() != null ?
+                                        item.getBody().getDemandPaymentNoticeResponse().getFault().getFaultCode() + " - "
+                                        + item.getBody().getDemandPaymentNoticeResponse().getFault().getDescription() : "")
+                        );
                     }
                     return item.getBody().getDemandPaymentNoticeResponse();
                 }).onErrorMap(e -> new WebClientException(e.getMessage(), e));

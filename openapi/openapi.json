@@ -2,15 +2,54 @@
   "openapi" : "3.0.1",
   "info" : {
     "title" : "mbd-service",
-    "description" : "MBD Service",
+    "description" : "@project.description@",
     "termsOfService" : "https://www.pagopa.gov.it/",
-    "version" : "0.0.2"
+    "version" : "1.0.1-4-fix-dati-servizio"
   },
   "servers" : [ {
     "url" : "",
     "description" : "Generated server url"
   } ],
   "paths" : {
+    "/info" : {
+      "get" : {
+        "tags" : [ "Home" ],
+        "summary" : "health check",
+        "description" : "Return OK if application is started",
+        "operationId" : "healthCheck",
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "headers" : {
+              "X-Request-Id" : {
+                "description" : "This header identifies the call",
+                "schema" : {
+                  "type" : "string"
+                }
+              }
+            },
+            "content" : {
+              "*/*" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/AppInfo"
+                }
+              }
+            }
+          }
+        },
+        "security" : [ {
+          "ApiKey" : [ ]
+        } ]
+      },
+      "parameters" : [ {
+        "name" : "X-Request-Id",
+        "in" : "header",
+        "description" : "This header identifies the call, if not passed it is self-generated. This ID is returned in the response.",
+        "schema" : {
+          "type" : "string"
+        }
+      } ]
+    },
     "/organizations/{fiscalCodeEC}/mbd" : {
       "post" : {
         "tags" : [ "mbd-controller" ],
@@ -393,18 +432,24 @@
           }
         }
       },
-      "GetCartErrorResponse" : {
-        "type" : "object",
-        "properties" : {
-          "errorUrl" : {
-            "type" : "string"
-          }
-        }
-      },
       "GetCartResponse" : {
         "type" : "object",
         "properties" : {
           "checkoutRedirectUrl" : {
+            "type" : "string"
+          },
+          "navDownloadLink" : {
+            "type" : "string"
+          },
+          "mbdNav" : {
+            "type" : "string"
+          }
+        }
+      },
+      "GetCartErrorResponse" : {
+        "type" : "object",
+        "properties" : {
+          "errorUrl" : {
             "type" : "string"
           }
         }
@@ -418,6 +463,20 @@
               "type" : "string",
               "format" : "byte"
             }
+          }
+        }
+      },
+      "AppInfo" : {
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "type" : "string"
+          },
+          "version" : {
+            "type" : "string"
+          },
+          "environment" : {
+            "type" : "string"
           }
         }
       }
