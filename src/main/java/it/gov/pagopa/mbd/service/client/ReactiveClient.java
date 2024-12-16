@@ -1,5 +1,6 @@
 package it.gov.pagopa.mbd.service.client;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import it.gov.pagopa.mbd.service.exception.WebClientException;
 import it.gov.pagopa.mbd.service.model.carts.GetCartRequest;
 import it.gov.pagopa.mbd.service.model.carts.GetCartResponse;
@@ -22,13 +23,16 @@ public class ReactiveClient {
 
     private final ClientDataConfig clientDataConfig;
 
+    private final ObjectMapper objectMapper;
+
     private final String OCP_SUBSCRIPTION_KEY = "ocp-apim-subscription-key";
 
 
     @Autowired
-    public ReactiveClient(WebClient webClient, ClientDataConfig clientDataConfig) {
+    public ReactiveClient(WebClient webClient, ClientDataConfig clientDataConfig, ObjectMapper objectMapper) {
         this.webClient = webClient;
         this.clientDataConfig = clientDataConfig;
+        this.objectMapper = objectMapper;
     }
 
     public Mono<DemandPaymentNoticeResponse> demandPaymentNotice(DemandPaymentNoticeRequest demandPaymentNoticeRequest) {
@@ -71,6 +75,7 @@ public class ReactiveClient {
         return webClient.post()
                 .uri(clientDataConfig.getGetCartEndpoint())
                 .header(OCP_SUBSCRIPTION_KEY, clientDataConfig.getGetCartSubscriptionKey())
+                .header("x-client-id", "pagopa-mbd-service")
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 .body(Mono.just(getCartRequest), GetCartRequest.class)
                 .retrieve()

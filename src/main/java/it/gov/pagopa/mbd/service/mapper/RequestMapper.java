@@ -14,6 +14,7 @@ import it.gov.pagopa.mbd.service.model.xml.node.nodeforpsp.DemandPaymentNoticeRe
 import org.springframework.oxm.jaxb.Jaxb2Marshaller;
 import org.springframework.xml.transform.StringResult;
 
+import java.math.RoundingMode;
 import java.util.Base64;
 import java.util.Collections;
 import java.util.List;
@@ -49,6 +50,7 @@ public class RequestMapper {
                 .datiSpecificiServizio(Base64.getMimeEncoder().encode(
                     ("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n" +
                      "<service xmlns=\"http://PuntoAccessoPSP.spcoop.gov.it/GeneralService\" xsi:schemaLocation=\"http://PuntoAccessoPSP.spcoop.gov.it/GeneralService schema.xsd\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\">\n" +
+                      "  <amount>"+getMdbRequest.getPaymentNotices().get(0).getAmount()+"</amount>\n" +
                       "  <debtorFiscalCode>"+ctMarcaDaBollo.getDebtorFiscalCode()+"</debtorFiscalCode>\n" +
                       "  <debtorName>"+ctMarcaDaBollo.getDebtorName()+"</debtorName>\n" +
                       "  <debtorSurname>"+ctMarcaDaBollo.getDebtorSurname()+"</debtorSurname>\n" +
@@ -71,20 +73,19 @@ public class RequestMapper {
                     ctPaymentOptionsDescriptionList.getPaymentOptionDescription();
             assertNotNull(ctPaymentOptionsDescriptions);
             assertTrue(!ctPaymentOptionsDescriptions.isEmpty(), "Missing PaymentOption");
-            CtPaymentOptionDescription ctPaymentOptionDescription = ctPaymentOptionsDescriptions.get(0);
             assertNotNull(demandPaymentNoticeResponse.getQrCode());
             return GetCartRequest.builder()
                     .emailNotice(request.getPaymentNotices().get(0).getEmail())
                     .returnUrls(ReturnUrls.builder()
-                            .cancelUrl(request.getReturnUrls().getCancelUrl())
-                            .errorUrl(request.getReturnUrls().getErrorUrl())
-                            .successUrl(request.getReturnUrls().getSuccessUrl())
+                            .returnCancelUrl(request.getReturnUrls().getCancelUrl())
+                            .returnErrorUrl(request.getReturnUrls().getErrorUrl())
+                            .returnOkUrl(request.getReturnUrls().getSuccessUrl())
                             .build())
                     .paymentNotices(Collections.singletonList(
                             CartPaymentNotice.builder()
                                     .fiscalCode(demandPaymentNoticeResponse.getQrCode().getFiscalCode())
-                                    .amount(ctPaymentOptionDescription.getAmount().toBigIntegerExact().longValue())
-                                    .companyName(demandPaymentNoticeResponse.getOfficeName())
+                                    .amount(request.getPaymentNotices().get(0).getAmount())
+                                    .companyName(demandPaymentNoticeResponse.getCompanyName())
                                     .description(demandPaymentNoticeResponse.getPaymentDescription())
                                     .noticeNumber(demandPaymentNoticeResponse.getQrCode().getNoticeNumber())
                                     .build()

@@ -104,7 +104,7 @@ public class MbdServiceImpl implements MbdService {
                 .map(item -> ResponseEntity.ok()
                         .header("MBD-Link",
                                 StringUtils.joinWith("/", mdbLinkBaseUrl,
-                                        "mbd/v1/organizations", fiscalCodeEC,
+                                        "organizations", fiscalCodeEC,
                                         "receipt", hashMap.get("demandPaymentNoticeResponse").getQrCode().getNoticeNumber()))
                         .header( "MBD-NAV", hashMap.get("demandPaymentNoticeResponse").getQrCode()
                                 .getNoticeNumber())
