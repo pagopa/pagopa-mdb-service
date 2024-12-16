@@ -72,7 +72,6 @@ public class ReactiveClient {
         return webClient.post()
                 .uri(clientDataConfig.getGetCartEndpoint())
                 .header(OCP_SUBSCRIPTION_KEY, clientDataConfig.getGetCartSubscriptionKey())
-                .header("x-client-id", "pagopa-mbd-service")
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 .body(Mono.just(getCartRequest), GetCartRequest.class)
                 .retrieve()
