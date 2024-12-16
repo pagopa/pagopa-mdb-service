@@ -1,6 +1,6 @@
 const assert = require('assert');
 const { Given, When, Then, After } = require('@cucumber/cucumber');
-const {getMDB, getBody, getPayPosition, payReceipt, getDebtPositions, deleteDebtPosition} = require("./common.js");
+const {getMDB, getMdbReceipt, getBody, getPayPosition, payReceipt, getDebtPositions, deleteDebtPosition} = require("./common.js");
 
 const fiscalCodeEC = process.env.FISCAL_CODE_EC;
 
@@ -52,13 +52,13 @@ Then('response body contains checkoutUrl', function () {
   assert.notNull(this.response?.data?.checkoutUrl);
 });
 
-Then('response contains mdb link header', function () {
-  assert.notNull(this.response?.headers?.["MDB-Link"]);
+Then('response contains mdb link', function () {
+  assert.notNull(this.response?.data?.navDownloadLink);
 });
 
-Then('response contains mdb nav header', function () {
-  assert.notNull(this.response?.headers?.["MDB-Nav"]);
-  this.correctNav = this.response?.headers?.["MDB-Nav"];
+Then('response contains mdb nav', function () {
+  assert.notNull(this.response?.data?.mbdNav);
+  this.correctNav = this.response?.data?.mbdNav;
 });
 
 Given('a receipt of the former MDB payment being payed', async function () {
@@ -83,7 +83,7 @@ When('an Http GET request is sent to the mdb-service getMDBReceipt with fiscalCo
     switch(inputType) {
 
       case "correct":
-          nav = this.response?.headers?.["MDB-Nav"];
+          nav = this.response?.data?.mbdNav;
           break;
       case "wrong":
           nav = "AAAAAAAA";

@@ -1,5 +1,6 @@
 package it.gov.pagopa.mbd.service.client;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import it.gov.pagopa.mbd.service.exception.WebClientException;
 import it.gov.pagopa.mbd.service.model.carts.GetCartRequest;
 import it.gov.pagopa.mbd.service.model.carts.GetCartResponse;

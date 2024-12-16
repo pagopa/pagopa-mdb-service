@@ -127,5 +127,5 @@ async function getMdbReceipt(organizationalFiscalCode, nav) {
 }
 
 module.exports = {
-	getMDB, getBody, getPayPosition, payReceipt, getDebtPositions, deleteDebtPosition
+	getMDB, getMdbReceipt, getBody, getPayPosition, payReceipt, getDebtPositions, deleteDebtPosition
 }
