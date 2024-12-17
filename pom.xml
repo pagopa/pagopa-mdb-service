@@ -13,7 +13,7 @@
 
   <groupId>it.gov.pagopa.ebollo</groupId>
   <artifactId>mbd-service</artifactId>
-  <version>1.0.1-4-fix-dati-servizio</version>
+  <version>1.1.0</version>
   <name>MBD Service</name>
   <description>MBD Service</description>
 
