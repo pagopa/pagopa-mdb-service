@@ -17,6 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.oxm.XmlMappingException;
@@ -26,6 +27,9 @@ import reactor.core.publisher.Mono;
 
 import java.util.HashMap;
 import java.util.Set;
+
+import static org.apache.http.HttpHeaders.CONTENT_TYPE;
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @Service
 @Slf4j
@@ -101,14 +105,14 @@ public class MbdServiceImpl implements MbdService {
                     log.error("Encountered an error during getCart Call: {}", e.getMessage());
                     return new AppException(AppError.CART_REQUEST_CALL_ERROR, e);
                 })
-                .map(item -> ResponseEntity.ok()
-                        .header("MBD-Link",
-                                StringUtils.joinWith("/", mdbLinkBaseUrl,
-                                        "mbd/v1/organizations", fiscalCodeEC,
-                                        "receipt", hashMap.get("demandPaymentNoticeResponse").getQrCode().getNoticeNumber()))
-                        .header( "MBD-NAV", hashMap.get("demandPaymentNoticeResponse").getQrCode()
-                                .getNoticeNumber())
-                .body(item));
+                .map(item -> {
+                    String noticeNumber = hashMap.get("demandPaymentNoticeResponse").getQrCode().getNoticeNumber();
+                    item.setMbdNav(noticeNumber);
+                    item.setNavDownloadLink(StringUtils.joinWith("/", mdbLinkBaseUrl,
+                            "organizations", fiscalCodeEC,
+                            "receipt", noticeNumber));
+                    return ResponseEntity.ok().header(CONTENT_TYPE, APPLICATION_JSON_VALUE).body(item);
+                });
 
     }
 
@@ -121,7 +125,7 @@ public class MbdServiceImpl implements MbdService {
                     return Mono.error(new AppException(AppError.PAYMENT_RECEIPTS_CALL_ERROR, e));
                 })
                 .map(item -> ResponseEntity.ok()
-                        .header("Content-Type", MediaType.APPLICATION_JSON_VALUE)
+                        .header("Content-Type", APPLICATION_JSON_VALUE)
                         .body(GetMdbReceipt.builder().content(item.getMBDAttachment()).build()));
     }
 
