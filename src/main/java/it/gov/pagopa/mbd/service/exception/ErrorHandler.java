@@ -142,7 +142,8 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
   }
 
   @ExceptionHandler({WebClientException.class})
-  public Mono<ResponseEntity<ProblemJson>> handleWebClientException(WebClientException ex, ServerWebExchange exchange) {
+  public Mono<ResponseEntity<ProblemJson>> handleWebClientException(
+      WebClientException ex, ServerWebExchange exchange) {
     log.warn("Validation Error raised:", ex);
     var errorResponse =
             ProblemJson.builder()
