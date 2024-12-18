@@ -104,53 +104,41 @@ public class PaSendRTV2Request {
     return idBrokerPA;
   }
 
-    /**
-     * Recupera il valore della proprietà idStation.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getIdStation() {
-        return idStation;
-    }
+  /**
+   * Recupera il valore della proprietà idStation.
+   *
+   * @return possible object is {@link String }
+   */
+  public String getIdStation() {
+    return idStation;
+  }
 
-    /**
-     * Imposta il valore della proprietà idStation.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setIdStation(String value) {
-        this.idStation = value;
-    }
+  /**
+   * Imposta il valore della proprietà idStation.
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setIdStation(String value) {
+    this.idStation = value;
+  }
 
-    /**
-     * Recupera il valore della proprietà receipt.
-     * 
-     * @return
-     *     possible object is
-     *     {@link CtReceiptV2 }
-     *     
-     */
-    public CtReceiptV2 getReceipt() {
-        return receipt;
-    }
+  /**
+   * Recupera il valore della proprietà receipt.
+   *
+   * @return possible object is {@link CtReceiptV2 }
+   */
+  public CtReceiptV2 getReceipt() {
+    return receipt;
+  }
 
-    /**
-     * Imposta il valore della proprietà receipt.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link CtReceiptV2 }
-     *     
-     */
-    public void setReceipt(CtReceiptV2 value) {
-        this.receipt = value;
-    }
+  /**
+   * Imposta il valore della proprietà receipt.
+   *
+   * @param value allowed object is {@link CtReceiptV2 }
+   */
+  public void setReceipt(CtReceiptV2 value) {
+    this.receipt = value;
+  }
 
   /**
    * Imposta il valore della proprietà receipt.
