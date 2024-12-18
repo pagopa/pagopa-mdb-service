@@ -6,8 +6,7 @@ import reactor.core.publisher.Mono;
 
 public interface MbdService {
 
-    Mono<ResponseEntity> getMbd(String fiscalCodeEC, GetMbdRequest request);
+  Mono<ResponseEntity> getMbd(String fiscalCodeEC, GetMbdRequest request);
 
-    Mono<ResponseEntity> getPaymentReceipts(String fiscalCode, String nav);
-
+  Mono<ResponseEntity> getPaymentReceipts(String fiscalCode, String nav);
 }

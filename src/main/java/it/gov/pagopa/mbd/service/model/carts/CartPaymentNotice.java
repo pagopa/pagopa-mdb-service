@@ -11,10 +11,9 @@ import lombok.NoArgsConstructor;
 @Builder
 public class CartPaymentNotice {
 
-    private String noticeNumber;
-    private String fiscalCode;
-    private Long amount;
-    private String companyName;
-    private String description;
-
+  private String noticeNumber;
+  private String fiscalCode;
+  private Long amount;
+  private String companyName;
+  private String description;
 }

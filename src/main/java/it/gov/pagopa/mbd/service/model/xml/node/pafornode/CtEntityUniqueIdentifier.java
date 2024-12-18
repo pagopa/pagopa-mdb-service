@@ -10,10 +10,10 @@ package it.gov.pagopa.mbd.service.model.xml.node.pafornode;
 import jakarta.xml.bind.annotation.*;
 
 /**
- * <p>Classe Java per ctEntityUniqueIdentifier complex type.
- * 
+ * Classe Java per ctEntityUniqueIdentifier complex type.
+ *
  * <p>Il seguente frammento di schema specifica il contenuto previsto contenuto in questa classe.
- * 
+ *
  * <pre>
  * &lt;complexType name="ctEntityUniqueIdentifier"&gt;
  *   &lt;complexContent&gt;
@@ -26,68 +26,53 @@ import jakarta.xml.bind.annotation.*;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- * 
- * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "ctEntityUniqueIdentifier", propOrder = {
-    "entityUniqueIdentifierType",
-    "entityUniqueIdentifierValue"
-})
+@XmlType(
+    name = "ctEntityUniqueIdentifier",
+    propOrder = {"entityUniqueIdentifierType", "entityUniqueIdentifierValue"})
 public class CtEntityUniqueIdentifier {
 
-    @XmlElement(required = true)
-    @XmlSchemaType(name = "string")
-    protected StEntityUniqueIdentifierType entityUniqueIdentifierType;
-    @XmlElement(required = true)
-    protected String entityUniqueIdentifierValue;
+  @XmlElement(required = true)
+  @XmlSchemaType(name = "string")
+  protected StEntityUniqueIdentifierType entityUniqueIdentifierType;
 
-    /**
-     * Recupera il valore della proprietà entityUniqueIdentifierType.
-     * 
-     * @return
-     *     possible object is
-     *     {@link StEntityUniqueIdentifierType }
-     *     
-     */
-    public StEntityUniqueIdentifierType getEntityUniqueIdentifierType() {
-        return entityUniqueIdentifierType;
-    }
+  @XmlElement(required = true)
+  protected String entityUniqueIdentifierValue;
 
-    /**
-     * Imposta il valore della proprietà entityUniqueIdentifierType.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link StEntityUniqueIdentifierType }
-     *     
-     */
-    public void setEntityUniqueIdentifierType(StEntityUniqueIdentifierType value) {
-        this.entityUniqueIdentifierType = value;
-    }
+  /**
+   * Recupera il valore della proprietà entityUniqueIdentifierType.
+   *
+   * @return possible object is {@link StEntityUniqueIdentifierType }
+   */
+  public StEntityUniqueIdentifierType getEntityUniqueIdentifierType() {
+    return entityUniqueIdentifierType;
+  }
 
-    /**
-     * Recupera il valore della proprietà entityUniqueIdentifierValue.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getEntityUniqueIdentifierValue() {
-        return entityUniqueIdentifierValue;
-    }
+  /**
+   * Imposta il valore della proprietà entityUniqueIdentifierType.
+   *
+   * @param value allowed object is {@link StEntityUniqueIdentifierType }
+   */
+  public void setEntityUniqueIdentifierType(StEntityUniqueIdentifierType value) {
+    this.entityUniqueIdentifierType = value;
+  }
 
-    /**
-     * Imposta il valore della proprietà entityUniqueIdentifierValue.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setEntityUniqueIdentifierValue(String value) {
-        this.entityUniqueIdentifierValue = value;
-    }
+  /**
+   * Recupera il valore della proprietà entityUniqueIdentifierValue.
+   *
+   * @return possible object is {@link String }
+   */
+  public String getEntityUniqueIdentifierValue() {
+    return entityUniqueIdentifierValue;
+  }
 
+  /**
+   * Imposta il valore della proprietà entityUniqueIdentifierValue.
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setEntityUniqueIdentifierValue(String value) {
+    this.entityUniqueIdentifierValue = value;
+  }
 }

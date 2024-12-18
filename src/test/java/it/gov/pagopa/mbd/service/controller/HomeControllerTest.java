@@ -11,16 +11,15 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 @WebFluxTest(controllers = HomeController.class)
 class HomeControllerTest {
 
-    @Autowired
-    private WebTestClient webClient;
+  @Autowired private WebTestClient webClient;
 
-    @Test
-    void healthCheckTestSuccess() throws Exception {
-        webClient.get().uri("/info").exchange().expectStatus().is2xxSuccessful();
-    }
+  @Test
+  void healthCheckTestSuccess() throws Exception {
+    webClient.get().uri("/info").exchange().expectStatus().is2xxSuccessful();
+  }
 
-    @Test
-    void homeTestSuccess() throws Exception {
-        webClient.get().exchange().expectStatus().is2xxSuccessful();
-    }
+  @Test
+  void homeTestSuccess() throws Exception {
+    webClient.get().exchange().expectStatus().is2xxSuccessful();
+  }
 }

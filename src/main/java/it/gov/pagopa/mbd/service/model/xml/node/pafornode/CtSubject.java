@@ -1,10 +1,9 @@
 //
-// Questo file è stato generato dall'Eclipse Implementation of JAXB, v3.0.0 
-// Vedere https://eclipse-ee4j.github.io/jaxb-ri 
-// Qualsiasi modifica a questo file andrà persa durante la ricompilazione dello schema di origine. 
-// Generato il: 2024.12.18 alle 10:59:02 AM CET 
+// Questo file è stato generato dall'Eclipse Implementation of JAXB, v3.0.0
+// Vedere https://eclipse-ee4j.github.io/jaxb-ri
+// Qualsiasi modifica a questo file andrà persa durante la ricompilazione dello schema di origine.
+// Generato il: 2024.12.18 alle 10:59:02 AM CET
 //
-
 
 package it.gov.pagopa.mbd.service.model.xml.node.pafornode;
 
@@ -13,12 +12,11 @@ import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlType;
 
-
 /**
- * <p>Classe Java per ctSubject complex type.
- * 
+ * Classe Java per ctSubject complex type.
+ *
  * <p>Il seguente frammento di schema specifica il contenuto previsto contenuto in questa classe.
- * 
+ *
  * <pre>
  * &lt;complexType name="ctSubject"&gt;
  *   &lt;complexContent&gt;
@@ -38,250 +36,198 @@ import jakarta.xml.bind.annotation.XmlType;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- * 
- * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "ctSubject", propOrder = {
-    "uniqueIdentifier",
-    "fullName",
-    "streetName",
-    "civicNumber",
-    "postalCode",
-    "city",
-    "stateProvinceRegion",
-    "country",
-    "eMail"
-})
+@XmlType(
+    name = "ctSubject",
+    propOrder = {
+      "uniqueIdentifier",
+      "fullName",
+      "streetName",
+      "civicNumber",
+      "postalCode",
+      "city",
+      "stateProvinceRegion",
+      "country",
+      "eMail"
+    })
 public class CtSubject {
 
-    @XmlElement(required = true)
-    protected CtEntityUniqueIdentifier uniqueIdentifier;
-    @XmlElement(required = true)
-    protected String fullName;
-    protected String streetName;
-    protected String civicNumber;
-    protected String postalCode;
-    protected String city;
-    protected String stateProvinceRegion;
-    protected String country;
-    @XmlElement(name = "e-mail")
-    protected String eMail;
+  @XmlElement(required = true)
+  protected CtEntityUniqueIdentifier uniqueIdentifier;
 
-    /**
-     * Recupera il valore della proprietà uniqueIdentifier.
-     * 
-     * @return
-     *     possible object is
-     *     {@link CtEntityUniqueIdentifier }
-     *     
-     */
-    public CtEntityUniqueIdentifier getUniqueIdentifier() {
-        return uniqueIdentifier;
-    }
+  @XmlElement(required = true)
+  protected String fullName;
 
-    /**
-     * Imposta il valore della proprietà uniqueIdentifier.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link CtEntityUniqueIdentifier }
-     *     
-     */
-    public void setUniqueIdentifier(CtEntityUniqueIdentifier value) {
-        this.uniqueIdentifier = value;
-    }
+  protected String streetName;
+  protected String civicNumber;
+  protected String postalCode;
+  protected String city;
+  protected String stateProvinceRegion;
+  protected String country;
 
-    /**
-     * Recupera il valore della proprietà fullName.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getFullName() {
-        return fullName;
-    }
+  @XmlElement(name = "e-mail")
+  protected String eMail;
 
-    /**
-     * Imposta il valore della proprietà fullName.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setFullName(String value) {
-        this.fullName = value;
-    }
+  /**
+   * Recupera il valore della proprietà uniqueIdentifier.
+   *
+   * @return possible object is {@link CtEntityUniqueIdentifier }
+   */
+  public CtEntityUniqueIdentifier getUniqueIdentifier() {
+    return uniqueIdentifier;
+  }
 
-    /**
-     * Recupera il valore della proprietà streetName.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getStreetName() {
-        return streetName;
-    }
+  /**
+   * Imposta il valore della proprietà uniqueIdentifier.
+   *
+   * @param value allowed object is {@link CtEntityUniqueIdentifier }
+   */
+  public void setUniqueIdentifier(CtEntityUniqueIdentifier value) {
+    this.uniqueIdentifier = value;
+  }
 
-    /**
-     * Imposta il valore della proprietà streetName.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setStreetName(String value) {
-        this.streetName = value;
-    }
+  /**
+   * Recupera il valore della proprietà fullName.
+   *
+   * @return possible object is {@link String }
+   */
+  public String getFullName() {
+    return fullName;
+  }
 
-    /**
-     * Recupera il valore della proprietà civicNumber.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getCivicNumber() {
-        return civicNumber;
-    }
+  /**
+   * Imposta il valore della proprietà fullName.
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setFullName(String value) {
+    this.fullName = value;
+  }
 
-    /**
-     * Imposta il valore della proprietà civicNumber.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setCivicNumber(String value) {
-        this.civicNumber = value;
-    }
+  /**
+   * Recupera il valore della proprietà streetName.
+   *
+   * @return possible object is {@link String }
+   */
+  public String getStreetName() {
+    return streetName;
+  }
 
-    /**
-     * Recupera il valore della proprietà postalCode.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getPostalCode() {
-        return postalCode;
-    }
+  /**
+   * Imposta il valore della proprietà streetName.
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setStreetName(String value) {
+    this.streetName = value;
+  }
 
-    /**
-     * Imposta il valore della proprietà postalCode.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setPostalCode(String value) {
-        this.postalCode = value;
-    }
+  /**
+   * Recupera il valore della proprietà civicNumber.
+   *
+   * @return possible object is {@link String }
+   */
+  public String getCivicNumber() {
+    return civicNumber;
+  }
 
-    /**
-     * Recupera il valore della proprietà city.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getCity() {
-        return city;
-    }
+  /**
+   * Imposta il valore della proprietà civicNumber.
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setCivicNumber(String value) {
+    this.civicNumber = value;
+  }
 
-    /**
-     * Imposta il valore della proprietà city.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setCity(String value) {
-        this.city = value;
-    }
+  /**
+   * Recupera il valore della proprietà postalCode.
+   *
+   * @return possible object is {@link String }
+   */
+  public String getPostalCode() {
+    return postalCode;
+  }
 
-    /**
-     * Recupera il valore della proprietà stateProvinceRegion.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getStateProvinceRegion() {
-        return stateProvinceRegion;
-    }
+  /**
+   * Imposta il valore della proprietà postalCode.
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setPostalCode(String value) {
+    this.postalCode = value;
+  }
 
-    /**
-     * Imposta il valore della proprietà stateProvinceRegion.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setStateProvinceRegion(String value) {
-        this.stateProvinceRegion = value;
-    }
+  /**
+   * Recupera il valore della proprietà city.
+   *
+   * @return possible object is {@link String }
+   */
+  public String getCity() {
+    return city;
+  }
 
-    /**
-     * Recupera il valore della proprietà country.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getCountry() {
-        return country;
-    }
+  /**
+   * Imposta il valore della proprietà city.
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setCity(String value) {
+    this.city = value;
+  }
 
-    /**
-     * Imposta il valore della proprietà country.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setCountry(String value) {
-        this.country = value;
-    }
+  /**
+   * Recupera il valore della proprietà stateProvinceRegion.
+   *
+   * @return possible object is {@link String }
+   */
+  public String getStateProvinceRegion() {
+    return stateProvinceRegion;
+  }
 
-    /**
-     * Recupera il valore della proprietà eMail.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getEMail() {
-        return eMail;
-    }
+  /**
+   * Imposta il valore della proprietà stateProvinceRegion.
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setStateProvinceRegion(String value) {
+    this.stateProvinceRegion = value;
+  }
 
-    /**
-     * Imposta il valore della proprietà eMail.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setEMail(String value) {
-        this.eMail = value;
-    }
+  /**
+   * Recupera il valore della proprietà country.
+   *
+   * @return possible object is {@link String }
+   */
+  public String getCountry() {
+    return country;
+  }
 
+  /**
+   * Imposta il valore della proprietà country.
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setCountry(String value) {
+    this.country = value;
+  }
+
+  /**
+   * Recupera il valore della proprietà eMail.
+   *
+   * @return possible object is {@link String }
+   */
+  public String getEMail() {
+    return eMail;
+  }
+
+  /**
+   * Imposta il valore della proprietà eMail.
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setEMail(String value) {
+    this.eMail = value;
+  }
 }

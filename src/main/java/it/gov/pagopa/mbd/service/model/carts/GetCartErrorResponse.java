@@ -11,6 +11,5 @@ import lombok.NoArgsConstructor;
 @Builder
 public class GetCartErrorResponse {
 
-    private String errorUrl;
-
+  private String errorUrl;
 }

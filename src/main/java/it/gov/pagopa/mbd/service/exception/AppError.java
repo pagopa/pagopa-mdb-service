@@ -12,11 +12,26 @@ public enum AppError {
   FORBIDDEN(HttpStatus.FORBIDDEN, "Forbidden", "This method is forbidden"),
   RESPONSE_NOT_READABLE(
       HttpStatus.BAD_GATEWAY, "Response Not Readable", "The response body is not readable"),
-  PAYMENT_NOTICE_REQUEST_MAP_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "Error Mapping DemandPaymentNoticeRequest", "Error Mapping DemandPaymentNoticeRequest"),
-  PAYMENT_NOTICE_REQUEST_CALL_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "Error Calling DemandPaymentNoticeRequest", "Error Calling DemandPaymentNoticeRequest"),
-  CART_REQUEST_MAP_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "Error Calling GetCartRequest", "Error Mapping GetCartRequest"),
-  CART_REQUEST_CALL_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "Error Calling GetCartRequest", "Error Mapping GetCartRequest"),
-  PAYMENT_RECEIPTS_CALL_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "Error Calling Payment Receipts", "Error Mapping GetPaymentReceipts"),
+  PAYMENT_NOTICE_REQUEST_MAP_ERROR(
+      HttpStatus.INTERNAL_SERVER_ERROR,
+      "Error Mapping DemandPaymentNoticeRequest",
+      "Error Mapping DemandPaymentNoticeRequest"),
+  PAYMENT_NOTICE_REQUEST_CALL_ERROR(
+      HttpStatus.INTERNAL_SERVER_ERROR,
+      "Error Calling DemandPaymentNoticeRequest",
+      "Error Calling DemandPaymentNoticeRequest"),
+  CART_REQUEST_MAP_ERROR(
+      HttpStatus.INTERNAL_SERVER_ERROR,
+      "Error Calling GetCartRequest",
+      "Error Mapping GetCartRequest"),
+  CART_REQUEST_CALL_ERROR(
+      HttpStatus.INTERNAL_SERVER_ERROR,
+      "Error Calling GetCartRequest",
+      "Error Mapping GetCartRequest"),
+  PAYMENT_RECEIPTS_CALL_ERROR(
+      HttpStatus.INTERNAL_SERVER_ERROR,
+      "Error Calling Payment Receipts",
+      "Error Mapping GetPaymentReceipts"),
 
   UNKNOWN(null, null, null);
 

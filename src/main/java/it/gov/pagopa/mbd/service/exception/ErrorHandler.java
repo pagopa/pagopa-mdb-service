@@ -4,11 +4,10 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import feign.FeignException;
 import it.gov.pagopa.mbd.service.model.ProblemJson;
+import jakarta.validation.ConstraintViolationException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
-
-import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.TypeMismatchException;
 import org.springframework.http.HttpHeaders;
@@ -21,7 +20,6 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.reactive.result.method.annotation.ResponseEntityExceptionHandler;
 import org.springframework.web.server.ServerWebExchange;
@@ -43,8 +41,10 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
    * @return a {@link ProblemJson} as response with the cause and with a 400 as HTTP status
    */
   @ExceptionHandler({HttpMessageNotReadableException.class})
-
-  protected Mono<ResponseEntity<Object>> handleHttpMessageNotReadable(HttpMessageNotReadableException ex, HttpHeaders headers, HttpStatusCode status,
+  protected Mono<ResponseEntity<Object>> handleHttpMessageNotReadable(
+      HttpMessageNotReadableException ex,
+      HttpHeaders headers,
+      HttpStatusCode status,
       ServerWebExchange request) {
     log.warn("Input not readable: ", ex);
     var errorResponse =
@@ -66,17 +66,21 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
    * @return a {@code ResponseEntity} instance
    */
   @ExceptionHandler({TypeMismatchException.class})
-  protected Mono<ResponseEntity<Object>> handleTypeMismatch(TypeMismatchException ex, HttpHeaders headers, HttpStatusCode status, ServerWebExchange request) {
+  protected Mono<ResponseEntity<Object>> handleTypeMismatch(
+      TypeMismatchException ex,
+      HttpHeaders headers,
+      HttpStatusCode status,
+      ServerWebExchange request) {
     log.warn("Type mismatch: ", ex);
     var errorResponse =
-            ProblemJson.builder()
-                    .status(HttpStatus.BAD_REQUEST.value())
-                    .title(AppError.BAD_REQUEST.getTitle())
-                    .detail(
-                            String.format(
-                                    "Invalid value %s for property %s",
-                                    ex.getValue(), ((MethodArgumentTypeMismatchException) ex).getName()))
-                    .build();
+        ProblemJson.builder()
+            .status(HttpStatus.BAD_REQUEST.value())
+            .title(AppError.BAD_REQUEST.getTitle())
+            .detail(
+                String.format(
+                    "Invalid value %s for property %s",
+                    ex.getValue(), ((MethodArgumentTypeMismatchException) ex).getName()))
+            .build();
     return Mono.just(new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST));
   }
 
@@ -90,7 +94,11 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
    * @return a {@link ProblemJson} as response with the cause and with a 400 as HTTP status
    */
   @Override
-  protected Mono<ResponseEntity<Object>> handleUnsatisfiedRequestParameterException(UnsatisfiedRequestParameterException ex, HttpHeaders headers, HttpStatusCode status, ServerWebExchange exchange) {
+  protected Mono<ResponseEntity<Object>> handleUnsatisfiedRequestParameterException(
+      UnsatisfiedRequestParameterException ex,
+      HttpHeaders headers,
+      HttpStatusCode status,
+      ServerWebExchange exchange) {
     log.warn("Unsatisfied request parameter: ", ex);
     var errorResponse =
         ProblemJson.builder()
@@ -100,7 +108,6 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
             .build();
     return Mono.just(new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST));
   }
-
 
   /**
    * Handle if validation constraints are unsatisfied
@@ -112,8 +119,11 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
    * @return a {@link ProblemJson} as response with the cause and with a 400 as HTTP status
    */
   @ExceptionHandler({MethodArgumentNotValidException.class})
-  protected Mono<ResponseEntity<Object>> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatusCode status,
-                                                                      ServerWebExchange request) {
+  protected Mono<ResponseEntity<Object>> handleMethodArgumentNotValid(
+      MethodArgumentNotValidException ex,
+      HttpHeaders headers,
+      HttpStatusCode status,
+      ServerWebExchange request) {
     List<String> details = new ArrayList<>();
     for (FieldError error : ex.getBindingResult().getFieldErrors()) {
       details.add(error.getField() + ": " + error.getDefaultMessage());
@@ -147,11 +157,11 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
       WebClientException ex, ServerWebExchange exchange) {
     log.warn("Validation Error raised:", ex);
     var errorResponse =
-            ProblemJson.builder()
-                    .status(HttpStatus.BAD_REQUEST.value())
-                    .title(AppError.INTERNAL_SERVER_ERROR.getTitle())
-                    .detail(ex.getMessage())
-                    .build();
+        ProblemJson.builder()
+            .status(HttpStatus.BAD_REQUEST.value())
+            .title(AppError.INTERNAL_SERVER_ERROR.getTitle())
+            .detail(ex.getMessage())
+            .build();
     return Mono.just(new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR));
   }
 
