@@ -10,9 +10,7 @@ import org.springframework.validation.annotation.Validated;
 @Validated
 public class CartMappingException extends RuntimeException {
 
-    public CartMappingException(@NotNull String message,
-                              Throwable cause) {
-        super(message, cause);
-    }
-
+  public CartMappingException(@NotNull String message, Throwable cause) {
+    super(message, cause);
+  }
 }

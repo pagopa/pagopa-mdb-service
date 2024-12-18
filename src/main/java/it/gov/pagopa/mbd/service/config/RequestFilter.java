@@ -1,7 +1,7 @@
 package it.gov.pagopa.mbd.service.config;
 
-import java.util.UUID;
 import it.gov.pagopa.mbd.service.util.Constants;
+import java.util.UUID;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.MDC;
 import org.springframework.core.Ordered;
@@ -12,20 +12,17 @@ import org.springframework.web.server.WebFilter;
 import org.springframework.web.server.WebFilterChain;
 import reactor.core.publisher.Mono;
 
-
 @Component
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @Slf4j
-public class RequestFilter
-        implements WebFilter
-{
+public class RequestFilter implements WebFilter {
 
   /**
    * Get the request ID from the custom header "X-Request-Id" if present, otherwise it generates
    * one. Set the X-Request-Id value in the {@code response} and in the MDC
    *
-   * @param exchange  http exchange
-   * @param chain    next filter
+   * @param exchange http exchange
+   * @param chain next filter
    * @return
    */
   @Override
@@ -48,6 +45,5 @@ public class RequestFilter
     }
 
     return chain.filter(exchange);
-
   }
 }

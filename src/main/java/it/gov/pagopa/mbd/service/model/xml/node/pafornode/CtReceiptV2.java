@@ -1,10 +1,9 @@
 //
-// Questo file è stato generato dall'Eclipse Implementation of JAXB, v3.0.0 
-// Vedere https://eclipse-ee4j.github.io/jaxb-ri 
-// Qualsiasi modifica a questo file andrà persa durante la ricompilazione dello schema di origine. 
-// Generato il: 2024.12.18 alle 10:59:02 AM CET 
+// Questo file è stato generato dall'Eclipse Implementation of JAXB, v3.0.0
+// Vedere https://eclipse-ee4j.github.io/jaxb-ri
+// Qualsiasi modifica a questo file andrà persa durante la ricompilazione dello schema di origine.
+// Generato il: 2024.12.18 alle 10:59:02 AM CET
 //
-
 
 package it.gov.pagopa.mbd.service.model.xml.node.pafornode;
 
@@ -19,10 +18,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * <p>Classe Java per ctReceiptV2 complex type.
- * 
+ * Classe Java per ctReceiptV2 complex type.
+ *
  * <p>Il seguente frammento di schema specifica il contenuto previsto contenuto in questa classe.
- * 
+ *
  * <pre>
  * &lt;complexType name="ctReceiptV2"&gt;
  *   &lt;complexContent&gt;

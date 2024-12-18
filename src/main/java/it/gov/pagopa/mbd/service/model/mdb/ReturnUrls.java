@@ -12,11 +12,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class ReturnUrls {
 
-    @NotBlank
-    private String successUrl;
-    @NotBlank
-    private String cancelUrl;
-    @NotBlank
-    private String errorUrl;
-
+  @NotBlank private String successUrl;
+  @NotBlank private String cancelUrl;
+  @NotBlank private String errorUrl;
 }

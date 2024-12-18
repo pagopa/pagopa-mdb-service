@@ -1,17 +1,14 @@
 package it.gov.pagopa.mbd.service.config;
 
-import static it.gov.pagopa.mbd.service.util.CommonUtility.deNull;
-
 import it.gov.pagopa.mbd.service.exception.AppError;
 import it.gov.pagopa.mbd.service.model.ProblemJson;
 import it.gov.pagopa.mbd.service.util.CommonUtility;
-
+import jakarta.annotation.PostConstruct;
+// import jakarta.servlet.http.HttpServletRequest;
+// import jakarta.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
-import jakarta.annotation.PostConstruct;
-//import jakarta.servlet.http.HttpServletRequest;
-//import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -21,7 +18,6 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.CodeSignature;
 import org.slf4j.MDC;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -42,9 +38,9 @@ public class LoggingAspect {
   public static final String OPERATION_ID = "operationId";
   public static final String ARGS = "args";
 
-//  @Autowired HttpServletRequest httRequest;
-//
-//  @Autowired HttpServletResponse httpResponse;
+  //  @Autowired HttpServletRequest httRequest;
+  //
+  //  @Autowired HttpServletResponse httpResponse;
 
   @Value("${info.application.name}")
   private String name;
@@ -125,7 +121,7 @@ public class LoggingAspect {
     Object result = joinPoint.proceed();
 
     MDC.put(STATUS, "OK");
-    //MDC.put(CODE, String.valueOf(httpResponse.getStatus()));
+    // MDC.put(CODE, String.valueOf(httpResponse.getStatus()));
     MDC.put(RESPONSE_TIME, getExecutionTime());
     log.info(
         "Successful API operation {} - result: {}", joinPoint.getSignature().getName(), result);

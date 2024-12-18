@@ -11,8 +11,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class ReturnUrls {
 
-    private String returnOkUrl;
-    private String returnCancelUrl;
-    private String returnErrorUrl;
-
+  private String returnOkUrl;
+  private String returnCancelUrl;
+  private String returnErrorUrl;
 }

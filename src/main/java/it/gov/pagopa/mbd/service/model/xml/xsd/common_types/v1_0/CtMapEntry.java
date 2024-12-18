@@ -1,10 +1,9 @@
 //
-// Questo file è stato generato dall'Eclipse Implementation of JAXB, v3.0.0 
-// Vedere https://eclipse-ee4j.github.io/jaxb-ri 
-// Qualsiasi modifica a questo file andrà persa durante la ricompilazione dello schema di origine. 
-// Generato il: 2024.11.21 alle 04:46:32 PM CET 
+// Questo file è stato generato dall'Eclipse Implementation of JAXB, v3.0.0
+// Vedere https://eclipse-ee4j.github.io/jaxb-ri
+// Qualsiasi modifica a questo file andrà persa durante la ricompilazione dello schema di origine.
+// Generato il: 2024.11.21 alle 04:46:32 PM CET
 //
-
 
 package it.gov.pagopa.mbd.service.model.xml.xsd.common_types.v1_0;
 
@@ -13,12 +12,11 @@ import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlType;
 
-
 /**
- * <p>Classe Java per ctMapEntry complex type.
- * 
+ * Classe Java per ctMapEntry complex type.
+ *
  * <p>Il seguente frammento di schema specifica il contenuto previsto contenuto in questa classe.
- * 
+ *
  * <pre>
  * &lt;complexType name="ctMapEntry"&gt;
  *   &lt;complexContent&gt;
@@ -31,67 +29,52 @@ import jakarta.xml.bind.annotation.XmlType;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- * 
- * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "ctMapEntry", propOrder = {
-    "key",
-    "value"
-})
+@XmlType(
+    name = "ctMapEntry",
+    propOrder = {"key", "value"})
 public class CtMapEntry {
 
-    @XmlElement(required = true)
-    protected String key;
-    @XmlElement(required = true)
-    protected String value;
+  @XmlElement(required = true)
+  protected String key;
 
-    /**
-     * Recupera il valore della proprietà key.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getKey() {
-        return key;
-    }
+  @XmlElement(required = true)
+  protected String value;
 
-    /**
-     * Imposta il valore della proprietà key.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setKey(String value) {
-        this.key = value;
-    }
+  /**
+   * Recupera il valore della proprietà key.
+   *
+   * @return possible object is {@link String }
+   */
+  public String getKey() {
+    return key;
+  }
 
-    /**
-     * Recupera il valore della proprietà value.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getValue() {
-        return value;
-    }
+  /**
+   * Imposta il valore della proprietà key.
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setKey(String value) {
+    this.key = value;
+  }
 
-    /**
-     * Imposta il valore della proprietà value.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setValue(String value) {
-        this.value = value;
-    }
+  /**
+   * Recupera il valore della proprietà value.
+   *
+   * @return possible object is {@link String }
+   */
+  public String getValue() {
+    return value;
+  }
 
+  /**
+   * Imposta il valore della proprietà value.
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setValue(String value) {
+    this.value = value;
+  }
 }
