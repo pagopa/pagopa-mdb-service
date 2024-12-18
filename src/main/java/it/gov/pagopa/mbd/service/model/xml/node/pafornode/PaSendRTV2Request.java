@@ -98,17 +98,14 @@ public class PaSendRTV2Request {
         return idBrokerPA;
     }
 
-    /**
-     * Imposta il valore della proprietà idBrokerPA.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setIdBrokerPA(String value) {
-        this.idBrokerPA = value;
-    }
+  /**
+   * Recupera il valore della proprietà idBrokerPA.
+   *
+   * @return possible object is {@link String }
+   */
+  public String getIdBrokerPA() {
+    return idBrokerPA;
+  }
 
     /**
      * Recupera il valore della proprietà idStation.
