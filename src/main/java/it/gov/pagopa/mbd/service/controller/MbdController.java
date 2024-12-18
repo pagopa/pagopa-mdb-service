@@ -96,7 +96,7 @@ public class MbdController {
     @GetMapping(value = "/organizations/{fiscalCode}/receipt/{nav}", produces = MediaType.APPLICATION_XML_VALUE)
     public Mono<ResponseEntity> getPaymentReceipts(@PathVariable("fiscalCode") String fiscalCode,
                                                    @PathVariable("nav") String nav) {
-        return mdbService.getPaymentReceipts(fiscalCode, nav);
-    }
+        return mdbService.getPaymentReceipts(fiscalCode, nav).onErrorResume(Mono::error);
 
+    }
 }
