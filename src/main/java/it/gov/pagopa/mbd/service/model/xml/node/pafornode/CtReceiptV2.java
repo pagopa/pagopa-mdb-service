@@ -11,6 +11,8 @@ package it.gov.pagopa.mbd.service.model.xml.node.pafornode;
 import it.gov.pagopa.mbd.service.model.xml.xsd.common_types.v1_0.CtMetadata;
 import it.gov.pagopa.mbd.service.model.xml.xsd.common_types.v1_0.StOutcome;
 import jakarta.xml.bind.annotation.*;
+import java.math.BigDecimal;
+import javax.xml.datatype.XMLGregorianCalendar;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
