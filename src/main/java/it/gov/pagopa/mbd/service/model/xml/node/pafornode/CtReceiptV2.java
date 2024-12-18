@@ -67,36 +67,38 @@ import java.math.BigDecimal;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "ctReceiptV2", propOrder = {
-    "receiptId",
-    "noticeNumber",
-    "fiscalCode",
-    "outcome",
-    "creditorReferenceId",
-    "paymentAmount",
-    "description",
-    "companyName",
-    "officeName",
-    "debtor",
-    "transferList",
-    "idPSP",
-    "pspFiscalCode",
-    "pspPartitaIVA",
-    "pspCompanyName",
-    "idChannel",
-    "channelDescription",
-    "payer",
-    "paymentMethod",
-    "paymentNote",
-    "fee",
-    "primaryCiIncurredFee",
-    "idBundle",
-    "idCiBundle",
-    "paymentDateTime",
-    "applicationDate",
-    "transferDate",
-    "metadata"
-})
+@XmlType(
+    name = "ctReceiptV2",
+    propOrder = {
+      "receiptId",
+      "noticeNumber",
+      "fiscalCode",
+      "outcome",
+      "creditorReferenceId",
+      "paymentAmount",
+      "description",
+      "companyName",
+      "officeName",
+      "debtor",
+      "transferList",
+      "idPSP",
+      "pspFiscalCode",
+      "pspPartitaIVA",
+      "pspCompanyName",
+      "idChannel",
+      "channelDescription",
+      "payer",
+      "paymentMethod",
+      "paymentNote",
+      "fee",
+      "primaryCiIncurredFee",
+      "idBundle",
+      "idCiBundle",
+      "paymentDateTime",
+      "applicationDate",
+      "transferDate",
+      "metadata"
+    })
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
