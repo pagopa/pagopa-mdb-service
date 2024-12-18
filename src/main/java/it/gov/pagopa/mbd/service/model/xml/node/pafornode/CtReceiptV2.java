@@ -18,10 +18,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.xml.datatype.XMLGregorianCalendar;
-import java.math.BigDecimal;
-
-
 /**
  * <p>Classe Java per ctReceiptV2 complex type.
  * 
