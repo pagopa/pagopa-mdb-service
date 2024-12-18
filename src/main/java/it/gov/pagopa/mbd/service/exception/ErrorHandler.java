@@ -130,7 +130,8 @@ public class ErrorHandler extends ResponseEntityExceptionHandler {
   }
 
   @ExceptionHandler({ConstraintViolationException.class})
-  public Mono<ResponseEntity<ProblemJson>> handleConstraintException(ConstraintViolationException ex, ServerWebExchange exchange) {
+  public Mono<ResponseEntity<ProblemJson>> handleConstraintException(
+      ConstraintViolationException ex, ServerWebExchange exchange) {
     log.warn("Validation Error raised:", ex);
     var errorResponse =
         ProblemJson.builder()
