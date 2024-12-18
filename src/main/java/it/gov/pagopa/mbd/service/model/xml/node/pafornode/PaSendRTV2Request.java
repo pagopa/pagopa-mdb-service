@@ -152,4 +152,12 @@ public class PaSendRTV2Request {
         this.receipt = value;
     }
 
+  /**
+   * Imposta il valore della proprietà receipt.
+   *
+   * @param value allowed object is {@link CtReceiptV2 }
+   */
+  public void setReceipt(CtReceiptV2 value) {
+    this.receipt = value;
+  }
 }
