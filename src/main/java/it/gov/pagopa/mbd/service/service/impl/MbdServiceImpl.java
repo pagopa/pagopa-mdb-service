@@ -120,13 +120,18 @@ public class MbdServiceImpl implements MbdService {
     public Mono<ResponseEntity> getPaymentReceipts(String fiscalCode, String nav) {
         return Mono.zip(Mono.just(fiscalCode),Mono.just(nav).map(item -> nav.substring(1)))
                 .flatMap(tuple -> reactiveSoapClient.getPaymentReceipt(tuple.getT1(),tuple.getT2()))
-                .onErrorResume(e -> {
+                .onErrorMap(WebClientException.class, e -> {
                     log.error("Encountered an error during getPaymentReceiptCall Call: {}", e.getMessage());
-                    return Mono.error(new AppException(AppError.PAYMENT_RECEIPTS_CALL_ERROR, e));
+                    return new AppException(AppError.PAYMENT_RECEIPTS_CALL_ERROR, e);
+                })
+                .onErrorMap(IllegalArgumentException.class, e -> {
+                    log.error("Encountered an error extracting receipt content: {}", e.getMessage());
+                    return new AppException(AppError.PAYMENT_RECEIPTS_CALL_ERROR, e);
                 })
                 .map(item -> ResponseEntity.ok()
                         .header("Content-Type", APPLICATION_JSON_VALUE)
-                        .body(GetMdbReceipt.builder().content(item.getMBDAttachment()).build()));
+                        .body(GetMdbReceipt.builder().content(item.getReceipt().getTransferList()
+                                .getTransfer().get(0).getMBDAttachment()).build()));
     }
 
 
