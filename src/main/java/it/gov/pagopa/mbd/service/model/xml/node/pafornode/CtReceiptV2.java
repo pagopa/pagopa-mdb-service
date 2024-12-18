@@ -822,4 +822,568 @@ public class CtReceiptV2 {
         this.metadata = value;
     }
 
+  @XmlElement(required = true)
+  protected String fiscalCode;
+
+  @XmlElement(required = true)
+  @XmlSchemaType(name = "string")
+  protected StOutcome outcome;
+
+  @XmlElement(required = true)
+  protected String creditorReferenceId;
+
+  @XmlElement(required = true)
+  protected BigDecimal paymentAmount;
+
+  @XmlElement(required = true)
+  protected String description;
+
+  @XmlElement(required = true)
+  protected String companyName;
+
+  protected String officeName;
+
+  @XmlElement(required = true)
+  protected CtSubject debtor;
+
+  @XmlElement(required = true)
+  protected CtTransferListPAReceiptV2 transferList;
+
+  @XmlElement(required = true)
+  protected String idPSP;
+
+  protected String pspFiscalCode;
+  protected String pspPartitaIVA;
+
+  @XmlElement(name = "PSPCompanyName", required = true)
+  protected String pspCompanyName;
+
+  @XmlElement(required = true)
+  protected String idChannel;
+
+  @XmlElement(required = true)
+  protected String channelDescription;
+
+  protected CtSubject payer;
+  protected String paymentMethod;
+  protected String paymentNote;
+  protected BigDecimal fee;
+  protected BigDecimal primaryCiIncurredFee;
+  protected String idBundle;
+  protected String idCiBundle;
+
+  @XmlSchemaType(name = "dateTime")
+  protected XMLGregorianCalendar paymentDateTime;
+
+  @XmlSchemaType(name = "date")
+  protected XMLGregorianCalendar applicationDate;
+
+  @XmlSchemaType(name = "date")
+  protected XMLGregorianCalendar transferDate;
+
+  protected CtMetadata metadata;
+
+  /**
+   * Recupera il valore della proprietà receiptId.
+   *
+   * @return possible object is {@link String }
+   */
+  public String getReceiptId() {
+    return receiptId;
+  }
+
+  /**
+   * Imposta il valore della proprietà receiptId.
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setReceiptId(String value) {
+    this.receiptId = value;
+  }
+
+  /**
+   * Recupera il valore della proprietà noticeNumber.
+   *
+   * @return possible object is {@link String }
+   */
+  public String getNoticeNumber() {
+    return noticeNumber;
+  }
+
+  /**
+   * Imposta il valore della proprietà noticeNumber.
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setNoticeNumber(String value) {
+    this.noticeNumber = value;
+  }
+
+  /**
+   * Recupera il valore della proprietà fiscalCode.
+   *
+   * @return possible object is {@link String }
+   */
+  public String getFiscalCode() {
+    return fiscalCode;
+  }
+
+  /**
+   * Imposta il valore della proprietà fiscalCode.
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setFiscalCode(String value) {
+    this.fiscalCode = value;
+  }
+
+  /**
+   * Recupera il valore della proprietà outcome.
+   *
+   * @return possible object is {@link StOutcome }
+   */
+  public StOutcome getOutcome() {
+    return outcome;
+  }
+
+  /**
+   * Imposta il valore della proprietà outcome.
+   *
+   * @param value allowed object is {@link StOutcome }
+   */
+  public void setOutcome(StOutcome value) {
+    this.outcome = value;
+  }
+
+  /**
+   * Recupera il valore della proprietà creditorReferenceId.
+   *
+   * @return possible object is {@link String }
+   */
+  public String getCreditorReferenceId() {
+    return creditorReferenceId;
+  }
+
+  /**
+   * Imposta il valore della proprietà creditorReferenceId.
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setCreditorReferenceId(String value) {
+    this.creditorReferenceId = value;
+  }
+
+  /**
+   * Recupera il valore della proprietà paymentAmount.
+   *
+   * @return possible object is {@link BigDecimal }
+   */
+  public BigDecimal getPaymentAmount() {
+    return paymentAmount;
+  }
+
+  /**
+   * Imposta il valore della proprietà paymentAmount.
+   *
+   * @param value allowed object is {@link BigDecimal }
+   */
+  public void setPaymentAmount(BigDecimal value) {
+    this.paymentAmount = value;
+  }
+
+  /**
+   * Recupera il valore della proprietà description.
+   *
+   * @return possible object is {@link String }
+   */
+  public String getDescription() {
+    return description;
+  }
+
+  /**
+   * Imposta il valore della proprietà description.
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setDescription(String value) {
+    this.description = value;
+  }
+
+  /**
+   * Recupera il valore della proprietà companyName.
+   *
+   * @return possible object is {@link String }
+   */
+  public String getCompanyName() {
+    return companyName;
+  }
+
+  /**
+   * Imposta il valore della proprietà companyName.
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setCompanyName(String value) {
+    this.companyName = value;
+  }
+
+  /**
+   * Recupera il valore della proprietà officeName.
+   *
+   * @return possible object is {@link String }
+   */
+  public String getOfficeName() {
+    return officeName;
+  }
+
+  /**
+   * Imposta il valore della proprietà officeName.
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setOfficeName(String value) {
+    this.officeName = value;
+  }
+
+  /**
+   * Recupera il valore della proprietà debtor.
+   *
+   * @return possible object is {@link CtSubject }
+   */
+  public CtSubject getDebtor() {
+    return debtor;
+  }
+
+  /**
+   * Imposta il valore della proprietà debtor.
+   *
+   * @param value allowed object is {@link CtSubject }
+   */
+  public void setDebtor(CtSubject value) {
+    this.debtor = value;
+  }
+
+  /**
+   * Recupera il valore della proprietà transferList.
+   *
+   * @return possible object is {@link CtTransferListPAReceiptV2 }
+   */
+  public CtTransferListPAReceiptV2 getTransferList() {
+    return transferList;
+  }
+
+  /**
+   * Imposta il valore della proprietà transferList.
+   *
+   * @param value allowed object is {@link CtTransferListPAReceiptV2 }
+   */
+  public void setTransferList(CtTransferListPAReceiptV2 value) {
+    this.transferList = value;
+  }
+
+  /**
+   * Recupera il valore della proprietà idPSP.
+   *
+   * @return possible object is {@link String }
+   */
+  public String getIdPSP() {
+    return idPSP;
+  }
+
+  /**
+   * Imposta il valore della proprietà idPSP.
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setIdPSP(String value) {
+    this.idPSP = value;
+  }
+
+  /**
+   * Recupera il valore della proprietà pspFiscalCode.
+   *
+   * @return possible object is {@link String }
+   */
+  public String getPspFiscalCode() {
+    return pspFiscalCode;
+  }
+
+  /**
+   * Imposta il valore della proprietà pspFiscalCode.
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setPspFiscalCode(String value) {
+    this.pspFiscalCode = value;
+  }
+
+  /**
+   * Recupera il valore della proprietà pspPartitaIVA.
+   *
+   * @return possible object is {@link String }
+   */
+  public String getPspPartitaIVA() {
+    return pspPartitaIVA;
+  }
+
+  /**
+   * Imposta il valore della proprietà pspPartitaIVA.
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setPspPartitaIVA(String value) {
+    this.pspPartitaIVA = value;
+  }
+
+  /**
+   * Recupera il valore della proprietà pspCompanyName.
+   *
+   * @return possible object is {@link String }
+   */
+  public String getPSPCompanyName() {
+    return pspCompanyName;
+  }
+
+  /**
+   * Imposta il valore della proprietà pspCompanyName.
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setPSPCompanyName(String value) {
+    this.pspCompanyName = value;
+  }
+
+  /**
+   * Recupera il valore della proprietà idChannel.
+   *
+   * @return possible object is {@link String }
+   */
+  public String getIdChannel() {
+    return idChannel;
+  }
+
+  /**
+   * Imposta il valore della proprietà idChannel.
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setIdChannel(String value) {
+    this.idChannel = value;
+  }
+
+  /**
+   * Recupera il valore della proprietà channelDescription.
+   *
+   * @return possible object is {@link String }
+   */
+  public String getChannelDescription() {
+    return channelDescription;
+  }
+
+  /**
+   * Imposta il valore della proprietà channelDescription.
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setChannelDescription(String value) {
+    this.channelDescription = value;
+  }
+
+  /**
+   * Recupera il valore della proprietà payer.
+   *
+   * @return possible object is {@link CtSubject }
+   */
+  public CtSubject getPayer() {
+    return payer;
+  }
+
+  /**
+   * Imposta il valore della proprietà payer.
+   *
+   * @param value allowed object is {@link CtSubject }
+   */
+  public void setPayer(CtSubject value) {
+    this.payer = value;
+  }
+
+  /**
+   * Recupera il valore della proprietà paymentMethod.
+   *
+   * @return possible object is {@link String }
+   */
+  public String getPaymentMethod() {
+    return paymentMethod;
+  }
+
+  /**
+   * Imposta il valore della proprietà paymentMethod.
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setPaymentMethod(String value) {
+    this.paymentMethod = value;
+  }
+
+  /**
+   * Recupera il valore della proprietà paymentNote.
+   *
+   * @return possible object is {@link String }
+   */
+  public String getPaymentNote() {
+    return paymentNote;
+  }
+
+  /**
+   * Imposta il valore della proprietà paymentNote.
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setPaymentNote(String value) {
+    this.paymentNote = value;
+  }
+
+  /**
+   * Recupera il valore della proprietà fee.
+   *
+   * @return possible object is {@link BigDecimal }
+   */
+  public BigDecimal getFee() {
+    return fee;
+  }
+
+  /**
+   * Imposta il valore della proprietà fee.
+   *
+   * @param value allowed object is {@link BigDecimal }
+   */
+  public void setFee(BigDecimal value) {
+    this.fee = value;
+  }
+
+  /**
+   * Recupera il valore della proprietà primaryCiIncurredFee.
+   *
+   * @return possible object is {@link BigDecimal }
+   */
+  public BigDecimal getPrimaryCiIncurredFee() {
+    return primaryCiIncurredFee;
+  }
+
+  /**
+   * Imposta il valore della proprietà primaryCiIncurredFee.
+   *
+   * @param value allowed object is {@link BigDecimal }
+   */
+  public void setPrimaryCiIncurredFee(BigDecimal value) {
+    this.primaryCiIncurredFee = value;
+  }
+
+  /**
+   * Recupera il valore della proprietà idBundle.
+   *
+   * @return possible object is {@link String }
+   */
+  public String getIdBundle() {
+    return idBundle;
+  }
+
+  /**
+   * Imposta il valore della proprietà idBundle.
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setIdBundle(String value) {
+    this.idBundle = value;
+  }
+
+  /**
+   * Recupera il valore della proprietà idCiBundle.
+   *
+   * @return possible object is {@link String }
+   */
+  public String getIdCiBundle() {
+    return idCiBundle;
+  }
+
+  /**
+   * Imposta il valore della proprietà idCiBundle.
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setIdCiBundle(String value) {
+    this.idCiBundle = value;
+  }
+
+  /**
+   * Recupera il valore della proprietà paymentDateTime.
+   *
+   * @return possible object is {@link XMLGregorianCalendar }
+   */
+  public XMLGregorianCalendar getPaymentDateTime() {
+    return paymentDateTime;
+  }
+
+  /**
+   * Imposta il valore della proprietà paymentDateTime.
+   *
+   * @param value allowed object is {@link XMLGregorianCalendar }
+   */
+  public void setPaymentDateTime(XMLGregorianCalendar value) {
+    this.paymentDateTime = value;
+  }
+
+  /**
+   * Recupera il valore della proprietà applicationDate.
+   *
+   * @return possible object is {@link XMLGregorianCalendar }
+   */
+  public XMLGregorianCalendar getApplicationDate() {
+    return applicationDate;
+  }
+
+  /**
+   * Imposta il valore della proprietà applicationDate.
+   *
+   * @param value allowed object is {@link XMLGregorianCalendar }
+   */
+  public void setApplicationDate(XMLGregorianCalendar value) {
+    this.applicationDate = value;
+  }
+
+  /**
+   * Recupera il valore della proprietà transferDate.
+   *
+   * @return possible object is {@link XMLGregorianCalendar }
+   */
+  public XMLGregorianCalendar getTransferDate() {
+    return transferDate;
+  }
+
+  /**
+   * Imposta il valore della proprietà transferDate.
+   *
+   * @param value allowed object is {@link XMLGregorianCalendar }
+   */
+  public void setTransferDate(XMLGregorianCalendar value) {
+    this.transferDate = value;
+  }
+
+  /**
+   * Recupera il valore della proprietà metadata.
+   *
+   * @return possible object is {@link CtMetadata }
+   */
+  public CtMetadata getMetadata() {
+    return metadata;
+  }
+
+  /**
+   * Imposta il valore della proprietà metadata.
+   *
+   * @param value allowed object is {@link CtMetadata }
+   */
+  public void setMetadata(CtMetadata value) {
+    this.metadata = value;
+  }
 }
