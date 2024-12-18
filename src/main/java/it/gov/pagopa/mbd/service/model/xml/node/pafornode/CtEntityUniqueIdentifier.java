@@ -9,7 +9,6 @@ package it.gov.pagopa.mbd.service.model.xml.node.pafornode;
 
 import jakarta.xml.bind.annotation.*;
 
-
 /**
  * <p>Classe Java per ctEntityUniqueIdentifier complex type.
  * 
