@@ -5,7 +5,6 @@
 // Generato il: 2024.12.18 alle 10:59:02 AM CET
 //
 
-
 package it.gov.pagopa.mbd.service.model.xml.node.pafornode;
 
 import jakarta.xml.bind.annotation.*;
