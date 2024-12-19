@@ -12,20 +12,13 @@ import lombok.NoArgsConstructor;
 @Builder
 public class PaymentNotice {
 
-    @NotBlank
-    private String firstName;
-    @NotBlank
-    private String lastName;
-    @NotBlank
-    private String fiscalCode;
-    @NotBlank
-    private String email;
-    @NotNull
-    private Long amount;
-    @NotBlank
-    private String province;
+  @NotBlank private String firstName;
+  @NotBlank private String lastName;
+  @NotBlank private String fiscalCode;
+  @NotBlank private String email;
+  @NotNull private Long amount;
+  @NotBlank private String province;
 
-    @Size(min = 44, max = 44)
-    private String documentHash;
-
+  @Size(min = 44, max = 44)
+  private String documentHash;
 }

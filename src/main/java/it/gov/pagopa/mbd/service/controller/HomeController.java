@@ -27,7 +27,6 @@ public class HomeController {
   @Value("${info.properties.environment}")
   private String environment;
 
-
   @Value("${server.servlet.context-path}")
   String basePath;
 
@@ -49,15 +48,14 @@ public class HomeController {
    * @return the app info
    */
   @Operation(
-          summary = "health check",
-          description = "Return OK if application is started",
-          security = {@SecurityRequirement(name = "ApiKey")},
-          tags = {"Home"})
+      summary = "health check",
+      description = "Return OK if application is started",
+      security = {@SecurityRequirement(name = "ApiKey")},
+      tags = {"Home"})
   @GetMapping(value = "/info")
   @ResponseStatus(HttpStatus.OK)
   public Mono<ResponseEntity<AppInfo>> healthCheck() {
     AppInfo info = AppInfo.builder().name(name).version(version).environment(environment).build();
     return Mono.just(ResponseEntity.status(HttpStatus.OK).body(info));
   }
-
 }

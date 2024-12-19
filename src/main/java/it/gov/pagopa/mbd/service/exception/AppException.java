@@ -1,8 +1,7 @@
 package it.gov.pagopa.mbd.service.exception;
 
-import java.util.Formatter;
-
 import jakarta.validation.constraints.NotNull;
+import java.util.Formatter;
 import lombok.EqualsAndHashCode;
 import lombok.Value;
 import org.springframework.http.HttpStatus;

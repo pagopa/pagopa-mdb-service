@@ -13,7 +13,7 @@
 
   <groupId>it.gov.pagopa.ebollo</groupId>
   <artifactId>mbd-service</artifactId>
-  <version>1.0.1-4-fix-dati-servizio</version>
+  <version>1.2.3</version>
   <name>MBD Service</name>
   <description>MBD Service</description>
 
@@ -161,9 +161,9 @@
             </executions>
             <configuration>
                 <sources>
-                    <source>${project.basedir}/src/main/resources/service.xsd</source>
+<!--                    <source>${project.basedir}/src/main/resources/service.xsd</source>-->
 <!--                    <source>${project.basedir}/src/main/resources/nodo-for-psp.xsd</source>-->
-<!--                    <source>${project.basedir}/src/main/resources/nodo-for-pa.xsd</source>-->
+                    <source>${project.basedir}/src/main/resources/nodo-for-pa.xsd</source>
 <!--                    <source>${project.basedir}/src/main/resources/MarcaDaBollo.xsd</source>-->
                 </sources>
             </configuration>

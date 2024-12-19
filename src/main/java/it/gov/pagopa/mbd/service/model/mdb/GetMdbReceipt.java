@@ -13,6 +13,5 @@ import lombok.NoArgsConstructor;
 @Valid
 public class GetMdbReceipt {
 
-    private byte[] content;
-
+  private byte[] content;
 }

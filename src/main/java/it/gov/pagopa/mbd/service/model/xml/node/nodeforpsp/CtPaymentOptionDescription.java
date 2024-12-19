@@ -1,31 +1,29 @@
 //
-// Questo file è stato generato dall'Eclipse Implementation of JAXB, v3.0.0 
-// Vedere https://eclipse-ee4j.github.io/jaxb-ri 
-// Qualsiasi modifica a questo file andrà persa durante la ricompilazione dello schema di origine. 
-// Generato il: 2024.11.21 alle 04:46:32 PM CET 
+// Questo file è stato generato dall'Eclipse Implementation of JAXB, v3.0.0
+// Vedere https://eclipse-ee4j.github.io/jaxb-ri
+// Qualsiasi modifica a questo file andrà persa durante la ricompilazione dello schema di origine.
+// Generato il: 2024.11.21 alle 04:46:32 PM CET
 //
-
 
 package it.gov.pagopa.mbd.service.model.xml.node.nodeforpsp;
 
-import java.math.BigDecimal;
-import javax.xml.datatype.XMLGregorianCalendar;
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlSchemaType;
 import jakarta.xml.bind.annotation.XmlType;
+import java.math.BigDecimal;
+import javax.xml.datatype.XMLGregorianCalendar;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
 /**
- * <p>Classe Java per ctPaymentOptionDescription complex type.
- * 
+ * Classe Java per ctPaymentOptionDescription complex type.
+ *
  * <p>Il seguente frammento di schema specifica il contenuto previsto contenuto in questa classe.
- * 
+ *
  * <pre>
  * &lt;complexType name="ctPaymentOptionDescription"&gt;
  *   &lt;complexContent&gt;
@@ -40,125 +38,98 @@ import lombok.NoArgsConstructor;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- * 
- * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "ctPaymentOptionDescription", propOrder = {
-    "amount",
-    "options",
-    "dueDate",
-    "paymentNote"
-})
+@XmlType(
+    name = "ctPaymentOptionDescription",
+    propOrder = {"amount", "options", "dueDate", "paymentNote"})
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Data
 public class CtPaymentOptionDescription {
 
-    @XmlElement(required = true)
-    protected BigDecimal amount;
-    @XmlElement(required = true)
-    @XmlSchemaType(name = "string")
-    protected StAmountOptionPSP options;
-    @XmlSchemaType(name = "date")
-    protected XMLGregorianCalendar dueDate;
-    protected String paymentNote;
+  @XmlElement(required = true)
+  protected BigDecimal amount;
 
-    /**
-     * Recupera il valore della proprietà amount.
-     * 
-     * @return
-     *     possible object is
-     *     {@link BigDecimal }
-     *     
-     */
-    public BigDecimal getAmount() {
-        return amount;
-    }
+  @XmlElement(required = true)
+  @XmlSchemaType(name = "string")
+  protected StAmountOptionPSP options;
 
-    /**
-     * Imposta il valore della proprietà amount.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link BigDecimal }
-     *     
-     */
-    public void setAmount(BigDecimal value) {
-        this.amount = value;
-    }
+  @XmlSchemaType(name = "date")
+  protected XMLGregorianCalendar dueDate;
 
-    /**
-     * Recupera il valore della proprietà options.
-     * 
-     * @return
-     *     possible object is
-     *     {@link StAmountOptionPSP }
-     *     
-     */
-    public StAmountOptionPSP getOptions() {
-        return options;
-    }
+  protected String paymentNote;
 
-    /**
-     * Imposta il valore della proprietà options.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link StAmountOptionPSP }
-     *     
-     */
-    public void setOptions(StAmountOptionPSP value) {
-        this.options = value;
-    }
+  /**
+   * Recupera il valore della proprietà amount.
+   *
+   * @return possible object is {@link BigDecimal }
+   */
+  public BigDecimal getAmount() {
+    return amount;
+  }
 
-    /**
-     * Recupera il valore della proprietà dueDate.
-     * 
-     * @return
-     *     possible object is
-     *     {@link XMLGregorianCalendar }
-     *     
-     */
-    public XMLGregorianCalendar getDueDate() {
-        return dueDate;
-    }
+  /**
+   * Imposta il valore della proprietà amount.
+   *
+   * @param value allowed object is {@link BigDecimal }
+   */
+  public void setAmount(BigDecimal value) {
+    this.amount = value;
+  }
 
-    /**
-     * Imposta il valore della proprietà dueDate.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link XMLGregorianCalendar }
-     *     
-     */
-    public void setDueDate(XMLGregorianCalendar value) {
-        this.dueDate = value;
-    }
+  /**
+   * Recupera il valore della proprietà options.
+   *
+   * @return possible object is {@link StAmountOptionPSP }
+   */
+  public StAmountOptionPSP getOptions() {
+    return options;
+  }
 
-    /**
-     * Recupera il valore della proprietà paymentNote.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getPaymentNote() {
-        return paymentNote;
-    }
+  /**
+   * Imposta il valore della proprietà options.
+   *
+   * @param value allowed object is {@link StAmountOptionPSP }
+   */
+  public void setOptions(StAmountOptionPSP value) {
+    this.options = value;
+  }
 
-    /**
-     * Imposta il valore della proprietà paymentNote.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setPaymentNote(String value) {
-        this.paymentNote = value;
-    }
+  /**
+   * Recupera il valore della proprietà dueDate.
+   *
+   * @return possible object is {@link XMLGregorianCalendar }
+   */
+  public XMLGregorianCalendar getDueDate() {
+    return dueDate;
+  }
 
+  /**
+   * Imposta il valore della proprietà dueDate.
+   *
+   * @param value allowed object is {@link XMLGregorianCalendar }
+   */
+  public void setDueDate(XMLGregorianCalendar value) {
+    this.dueDate = value;
+  }
+
+  /**
+   * Recupera il valore della proprietà paymentNote.
+   *
+   * @return possible object is {@link String }
+   */
+  public String getPaymentNote() {
+    return paymentNote;
+  }
+
+  /**
+   * Imposta il valore della proprietà paymentNote.
+   *
+   * @param value allowed object is {@link String }
+   */
+  public void setPaymentNote(String value) {
+    this.paymentNote = value;
+  }
 }

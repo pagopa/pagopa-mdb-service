@@ -1,10 +1,9 @@
 //
-// Questo file è stato generato dall'Eclipse Implementation of JAXB, v3.0.0 
-// Vedere https://eclipse-ee4j.github.io/jaxb-ri 
-// Qualsiasi modifica a questo file andrà persa durante la ricompilazione dello schema di origine. 
+// Questo file è stato generato dall'Eclipse Implementation of JAXB, v3.0.0
+// Vedere https://eclipse-ee4j.github.io/jaxb-ri
+// Qualsiasi modifica a questo file andrà persa durante la ricompilazione dello schema di origine.
 // Generato il: 2024.11.27 alle 04:50:09 PM CET
 //
-
 
 package it.gov.pagopa.mbd.service.model.xml.node.soap.envelope;
 
@@ -19,9 +18,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
 /**
- * <p>Classe Java per Body complex type.
+ * Classe Java per Body complex type.
  *
  * <p>Il seguente frammento di schema specifica il contenuto previsto contenuto in questa classe.
  *
@@ -36,24 +34,26 @@ import lombok.NoArgsConstructor;
  *   &lt;/complexContent&gt;
  * &lt;/complexType&gt;
  * </pre>
- *
- *
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "Body", propOrder = {
-        "demandPaymentNoticeRequest",
-        "demandPaymentNoticeResponse"
-})
+@XmlType(
+    name = "Body",
+    propOrder = {"demandPaymentNoticeRequest", "demandPaymentNoticeResponse"})
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Builder
 public class Body {
 
-    @XmlElement(name = "demandPaymentNoticeRequest", required = false, namespace = "http://pagopa-api.pagopa.gov.it/node/nodeForPsp.xsd")
-    protected DemandPaymentNoticeRequest demandPaymentNoticeRequest;
+  @XmlElement(
+      name = "demandPaymentNoticeRequest",
+      required = false,
+      namespace = "http://pagopa-api.pagopa.gov.it/node/nodeForPsp.xsd")
+  protected DemandPaymentNoticeRequest demandPaymentNoticeRequest;
 
-    @XmlElement(name = "demandPaymentNoticeResponse", required = false, namespace = "http://pagopa-api.pagopa.gov.it/node/nodeForPsp.xsd")
-    protected DemandPaymentNoticeResponse demandPaymentNoticeResponse;
-
+  @XmlElement(
+      name = "demandPaymentNoticeResponse",
+      required = false,
+      namespace = "http://pagopa-api.pagopa.gov.it/node/nodeForPsp.xsd")
+  protected DemandPaymentNoticeResponse demandPaymentNoticeResponse;
 }
