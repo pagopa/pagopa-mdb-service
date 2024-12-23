@@ -3,6 +3,7 @@ const axios = require("axios");
 const uri = process.env.SERVICE_URI;
 const gpd_payment_uri = process.env.GPD_SERVICE_URI;
 const environment = process.env.ENVIRONMENT;
+const idCIService = process.env.CI_SERVICE || '00005';
 
 axios.defaults.headers.common['Ocp-Apim-Subscription-Key'] = process.env.SUBKEY || ""; // for all requests
 if (process.env.canary) {
@@ -17,14 +18,14 @@ function getBody() {
             {
                 "firstName": "Mario",
                 "lastName": "Rossi",
-                "fiscalCodeEC": "77777777777",
+                "fiscalCode": "77777777777",
                 "amount": 16,
                 "email": "test@pagopa.it",
                 "province": "RM",
-                "documentHash": "QUJDREVGR0hJSktMTU5PUFFSU1RVVldYWVpBQkNERQ=="
+                "documentHash": "PHJvb3Q+PC9yb290Pg=========================="
             }
         ],
-        "idCIService": "01000",
+        "idCIService": idCIService,
         "returnUrls": {
             "successUrl": "https://url1.it",
             "cancelUrl": "https://url2.it",
@@ -37,9 +38,8 @@ function getBody() {
 async function getDebtPositions(fiscalCodeEC, dueDate) {
 
     let headers = {
-        "Ocp-Apim-Subscription-Key": process.env.GPD_SUBKEY;
+        "Ocp-Apim-Subscription-Key": process.env.GPD_SUBKEY
     };
-
 
   	return await axios.get(gpd_payment_uri+"/organizations/"+fiscalCodeEC+"/debtpositions?due_date_from="+dueDate, { headers })
   		.then(res => {
@@ -48,14 +48,14 @@ async function getDebtPositions(fiscalCodeEC, dueDate) {
   		.catch(error => {
   			return error.response;
   		});
+
 }
 
 async function deleteDebtPositions(fiscalCodeEC, iupd) {
 
     let headers = {
-        "Ocp-Apim-Subscription-Key": process.env.GPD_SUBKEY;
+        "Ocp-Apim-Subscription-Key": process.env.GPD_SUBKEY
     };
-
 
   	return await axios.delete(gpd_payment_uri+"/organizations/"+fiscalCodeEC+"/debtpositions/"+iupd, { headers })
   		.then(res => {
@@ -64,31 +64,33 @@ async function deleteDebtPositions(fiscalCodeEC, iupd) {
   		.catch(error => {
   			return error.response;
   		});
+
 }
 
 
 async function getPayPosition(fiscalCodeEC, nav) {
 
     let headers = {
-        "Ocp-Apim-Subscription-Key": process.env.GPD_SUBKEY;
+        "Ocp-Apim-Subscription-Key": process.env.GPD_SUBKEY
     };
 
-  	return await axios.post(gpd_payment_uri+"/organizations/{organizationfiscalcode}/paymentoptions/{nav}", { headers })
+  	return await axios.post(gpd_payment_uri+"/organizations/"+fiscalCodeEC+"/paymentoptions/"+nav, { headers })
   		.then(res => {
-  			return res.data;
+  			return res;
   		})
   		.catch(error => {
   			return error.response;
   		});
+
 }
 
 async function payReceipt(fiscalCodeEC, nav, body) {
 
     let headers = {
-        "Ocp-Apim-Subscription-Key": process.env.GPD_SUBKEY;
+        "Ocp-Apim-Subscription-Key": process.env.GPD_SUBKEY
     };
 
-  	return await axios.post(gpd_payment_uri+"/organizations/{organizationfiscalcode}/paymentoptions/{nav}/pay", body, { headers })
+  	return await axios.post(gpd_payment_uri+"/organizations/"+fiscalCodeEC+"/paymentoptions/"+nav+"/pay", body, { headers })
   		.then(res => {
   			return res.data;
   		})
@@ -102,9 +104,9 @@ async function getMDB(fiscalCodeEC, body) {
 
 	let headers = {};
 
-  	return await axios.post(uri+"organizations"+fiscalCodeEC+"/mbd", body, { headers })
+  	return await axios.post(uri+"/organizations/"+fiscalCodeEC+"/mbd", body, { headers })
   		.then(res => {
-  			return res.data;
+  			return res;
   		})
   		.catch(error => {
   			return error.response;
@@ -118,7 +120,7 @@ async function getMdbReceipt(organizationalFiscalCode, nav) {
 
   	return await axios.get(uri+"/organizations/"+organizationalFiscalCode+"/receipt/"+nav, { headers })
   		.then(res => {
-  			return res.data;
+  			return res;
   		})
   		.catch(error => {
   			return error.response;
@@ -127,5 +129,5 @@ async function getMdbReceipt(organizationalFiscalCode, nav) {
 }
 
 module.exports = {
-	getMDB, getMdbReceipt, getBody, getPayPosition, payReceipt, getDebtPositions, deleteDebtPosition
+	getMDB, getMdbReceipt, getBody, getPayPosition, payReceipt, getDebtPositions, deleteDebtPositions
 }

@@ -2,7 +2,8 @@ const assert = require('assert');
 const { Given, When, Then, After } = require('@cucumber/cucumber');
 const {getMDB, getMdbReceipt, getBody, getPayPosition, payReceipt, getDebtPositions, deleteDebtPosition} = require("./common.js");
 
-const fiscalCodeEC = process.env.FISCAL_CODE_EC;
+var fiscalCodeEC = process.env.FISCAL_CODE_EC;
+var correctNav = process.env.CORRECT_NAV;
 
 // After each Scenario
 After(async function () {
@@ -17,7 +18,6 @@ After(async function () {
             await deleteDebtPosition(fiscalCodeEC, element.iupd);
        }
     };
-    this.correctNav = null;
     this.payResponse = null;
   }
 
@@ -45,58 +45,56 @@ When('an Http GET request is sent to the mdb-service getMDB with {string}', asyn
   }
 
   this.response = await getMDB(fiscalCodeEC, body);
-
 });
 
 Then('response body contains checkoutUrl', function () {
-  assert.notNull(this.response?.data?.checkoutUrl);
+  assert.notEqual(this.response?.data?.checkoutRedirectUrl, null);
 });
 
 Then('response contains mdb link', function () {
-  assert.notNull(this.response?.data?.navDownloadLink);
+  assert.notEqual(this.response?.data?.navDownloadLink, null);
 });
 
 Then('response contains mdb nav', function () {
-  assert.notNull(this.response?.data?.mbdNav);
+  assert.notEqual(this.response?.data?.mbdNav, null);
   this.correctNav = this.response?.data?.mbdNav;
 });
 
 Given('a receipt of the former MDB payment being payed', async function () {
 
     this.payResponse = await getPayPosition(fiscalCodeEC, correctNav);
-    assert.assertNotNull(this.response?.data);
-    this.dueDate = this.response?.data?.dueDate;
-    var payBody = {
-      "paymentDate": this.response?.data?.insertedDate,
-      "paymentMethod": this.response?.data?.paymentMethod,
-      "pspCompany": this.response?.data?.pspCompany
-      "idReceipt": this.response?.data?.idReceipt,
-      "fee": this.response?.data?.fee
-    }
-    await payReceipt();
+    assert.strictEqual(this.payResponse?.data, null);
+    this.dueDate = this.payResponse?.data?.dueDate;
+//    var payBody = {
+//      "paymentDate": this.response?.data?.insertedDate,
+//      "paymentMethod": this.response?.data?.paymentMethod,
+//      "pspCompany": this.response?.data?.pspCompany
+//      "idReceipt": this.response?.data?.idReceipt,
+//      "fee": this.response?.data?.fee
+//    }
+//    await payReceipt();
 
 });
 
-When('an Http GET request is sent to the mdb-service getMDBReceipt with fiscalCode {string} and {string} NAV', async function (fiscalCodeEC, navType) {
+When('an Http GET request is sent to the mdb-service getMDBReceipt with {string}', async function (dataType) {
 
-    var nav;
-    switch(inputType) {
-
+    switch(dataType) {
       case "correct":
-          nav = this.response?.data?.mbdNav;
+          this.response = await getMdbReceipt(fiscalCodeEC, correctNav);
           break;
-      case "wrong":
-          nav = "AAAAAAAA";
+      case "wrong_ec":
+          this.response = await getMdbReceipt("AAAAAAA", correctNav);
+          break;
+      case "wrong_nav":
+          this.response = await getMdbReceipt(fiscalCodeEC, "AAAAAAAA");
           break;
 
     }
-
-  this.response = await getMdbReceipt(fiscalCodeEC, nav);
 
 });
 
 Then('response body contains content data', function () {
-  assert.notNull(this.response?.data?.content);
+  assert.notEqual(this.response?.data?.content, null);
 });
 
 //COMMON

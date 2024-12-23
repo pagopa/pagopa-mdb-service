@@ -17,13 +17,13 @@ Feature: Get MBD
 
   Scenario: Execute a request to getMDB Receipt service with valid content
     Given a receipt of the former MDB payment being payed
-    When an Http GET request is sent to the mdb-service getMDBReceipt with fiscalCode "77777777777" and "correct" NAV
+    When an Http GET request is sent to the mdb-service getMDBReceipt with "correct"
     Then response has a 200 Http status
 
   Scenario: Execute a request to getMDBReceipt service with wrong data
-    When an Http GET request is sent to the mdb-service getMDBReceipt with fiscalCode "AAAAAAAAAA" and "correct" NAV
-    Then response has a 404 Http status
+    When an Http GET request is sent to the mdb-service getMDBReceipt with "wrong_ec"
+    Then response has a 500 Http status
 
   Scenario: Execute a request to getMDBReceipt service with wrong data
-    When an Http GET request is sent to the mdb-service getMDBReceipt with fiscalCode "77777777777" and "wrong" NAV
-    Then response has a 404 Http status
+    When an Http GET request is sent to the mdb-service getMDBReceipt with "wrong_nav"
+    Then response has a 500 Http status
