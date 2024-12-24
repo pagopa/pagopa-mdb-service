@@ -59,7 +59,7 @@ async function deleteDebtPositions(fiscalCodeEC, iupd) {
 
   	return await axios.delete(gpd_payment_uri+"/organizations/"+fiscalCodeEC+"/debtpositions/"+iupd, { headers })
   		.then(res => {
-  			return res.data;
+  			return res;
   		})
   		.catch(error => {
   			return error.response;
@@ -74,7 +74,7 @@ async function getPayPosition(fiscalCodeEC, nav) {
         "Ocp-Apim-Subscription-Key": process.env.GPD_SUBKEY
     };
 
-  	return await axios.post(gpd_payment_uri+"/organizations/"+fiscalCodeEC+"/paymentoptions/"+nav, { headers })
+  	return await axios.get(gpd_payment_uri+"/organizations/"+fiscalCodeEC+"/paymentoptions/"+nav, { headers })
   		.then(res => {
   			return res;
   		})

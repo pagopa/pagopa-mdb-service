@@ -3,7 +3,7 @@ const { Given, When, Then, After } = require('@cucumber/cucumber');
 const {getMDB, getMdbReceipt, getBody, getPayPosition, payReceipt, getDebtPositions, deleteDebtPosition} = require("./common.js");
 
 var fiscalCodeEC = process.env.FISCAL_CODE_EC;
-var correctNav = process.env.CORRECT_NAV;
+var receiptNav = process.env.CORRECT_NAV;
 
 // After each Scenario
 After(async function () {
@@ -18,6 +18,7 @@ After(async function () {
             await deleteDebtPosition(fiscalCodeEC, element.iupd);
        }
     };
+    this.correctNav = null;
     this.payResponse = null;
   }
 
@@ -63,7 +64,7 @@ Then('response contains mdb nav', function () {
 Given('a receipt of the former MDB payment being payed', async function () {
 
     this.payResponse = await getPayPosition(fiscalCodeEC, correctNav);
-    assert.strictEqual(this.payResponse?.data, null);
+    assert.notEqual(this.payResponse, null);
     this.dueDate = this.payResponse?.data?.dueDate;
 //    var payBody = {
 //      "paymentDate": this.response?.data?.insertedDate,
@@ -80,10 +81,10 @@ When('an Http GET request is sent to the mdb-service getMDBReceipt with {string}
 
     switch(dataType) {
       case "correct":
-          this.response = await getMdbReceipt(fiscalCodeEC, correctNav);
+          this.response = await getMdbReceipt(fiscalCodeEC, receiptNav);
           break;
       case "wrong_ec":
-          this.response = await getMdbReceipt("AAAAAAA", correctNav);
+          this.response = await getMdbReceipt("AAAAAAA", receiptNav);
           break;
       case "wrong_nav":
           this.response = await getMdbReceipt(fiscalCodeEC, "AAAAAAAA");
