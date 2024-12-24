@@ -11,10 +11,9 @@ import lombok.NoArgsConstructor;
 @Builder
 public class GetCartResponse {
 
-    private String checkoutRedirectUrl;
+  private String checkoutRedirectUrl;
 
-    private String navDownloadLink;
+  private String navDownloadLink;
 
-    private String mbdNav;
-
+  private String mbdNav;
 }

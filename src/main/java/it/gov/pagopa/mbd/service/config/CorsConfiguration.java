@@ -11,17 +11,17 @@ import org.springframework.web.reactive.config.WebFluxConfigurer;
 @Configuration
 public class CorsConfiguration implements WebFluxConfigurer {
 
-    @Value("${cors.configuration}")
-    private String corsConfiguration;
+  @Value("${cors.configuration}")
+  private String corsConfiguration;
 
-    @Override
-    @SneakyThrows
-    public void addCorsMappings(CorsRegistry registry) {
-        AppCorsConfiguration appCorsConfiguration = new ObjectMapper().readValue(corsConfiguration,
-                AppCorsConfiguration.class);
-        registry.addMapping("/**")
-                .allowedOrigins(appCorsConfiguration.getOrigins())
-                .allowedMethods(appCorsConfiguration.getMethods());
-    }
-
+  @Override
+  @SneakyThrows
+  public void addCorsMappings(CorsRegistry registry) {
+    AppCorsConfiguration appCorsConfiguration =
+        new ObjectMapper().readValue(corsConfiguration, AppCorsConfiguration.class);
+    registry
+        .addMapping("/**")
+        .allowedOrigins(appCorsConfiguration.getOrigins())
+        .allowedMethods(appCorsConfiguration.getMethods());
+  }
 }

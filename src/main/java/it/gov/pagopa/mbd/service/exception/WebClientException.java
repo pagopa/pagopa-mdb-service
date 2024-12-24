@@ -10,9 +10,7 @@ import org.springframework.validation.annotation.Validated;
 @Validated
 public class WebClientException extends RuntimeException {
 
-    public WebClientException(@NotNull String message,
-                              Throwable cause) {
-        super(message, cause);
-    }
-
+  public WebClientException(@NotNull String message, Throwable cause) {
+    super(message, cause);
+  }
 }

@@ -96,4 +96,88 @@
         </xsd:sequence>
     </xsd:complexType>
 
+    <xsd:complexType name="paSendRTV2Request">
+        <xsd:sequence>
+            <xsd:element name="idPA" type="common:stText35" />
+            <xsd:element name="idBrokerPA" type="common:stText35" />
+            <xsd:element name="idStation" type="common:stText35" />
+            <xsd:element name="receipt" type="tns:ctReceiptV2" />
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="ctReceiptV2">
+        <xsd:sequence>
+            <!--unique id -->
+            <xsd:element name="receiptId" type="xsd:string" />
+            <xsd:element name="noticeNumber" type="common:stNoticeNumber" />
+            <xsd:element name="fiscalCode" type="common:stFiscalCodePA" />
+            <xsd:element name="outcome" type="common:stOutcome" />
+            <xsd:element name="creditorReferenceId" type="common:stText35" />
+            <xsd:element name="paymentAmount" type="common:stAmount" />
+            <xsd:element name="description" type="common:stText140" />
+
+            <xsd:element name="companyName" type="common:stText140" />
+            <xsd:element name="officeName" type="common:stText140" minOccurs="0" />
+
+            <xsd:element name="debtor" type="tns:ctSubject" />
+            <xsd:element name="transferList" type="tns:ctTransferListPAReceiptV2" />
+            <xsd:element name="idPSP" type="common:stText35" />
+            <xsd:element name="pspFiscalCode" type="common:stText70" minOccurs="0" />
+            <xsd:element name="pspPartitaIVA" type="tns:stText20" minOccurs="0" />
+            <xsd:element name="PSPCompanyName" type="common:stText70" />
+            <xsd:element name="idChannel" type="common:stText35" />
+            <xsd:element name="channelDescription" type="common:stText35" />
+
+            <xsd:element name="payer" type="tns:ctSubject" minOccurs="0" />
+            <xsd:element name="paymentMethod" type="common:stText35" minOccurs="0" />
+            <xsd:element name="paymentNote" type="tns:stText210" minOccurs="0" />
+
+            <xsd:element name="fee" type="common:stAmount" minOccurs="0" />
+            <xsd:element name="primaryCiIncurredFee" type="common:stAmount" minOccurs="0" />
+            <xsd:element name="idBundle" type="common:stText70" minOccurs="0" />
+            <xsd:element name="idCiBundle" type="common:stText70" minOccurs="0" />
+            <xsd:element name="paymentDateTime" type="common:stISODateTime" minOccurs="0" />
+            <xsd:element name="applicationDate" type="common:stISODate" minOccurs="0" />
+            <xsd:element name="transferDate" type="common:stISODate" minOccurs="0" />
+            <xsd:element name="metadata" type="common:ctMetadata" minOccurs="0" />
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="ctSubject">
+        <xsd:sequence>
+            <xsd:element name="uniqueIdentifier" type="tns:ctEntityUniqueIdentifier" />
+            <xsd:element name="fullName" type="common:stText70" />
+            <xsd:element name="streetName" type="common:stText70" minOccurs="0" />
+            <xsd:element name="civicNumber" type="common:stText16" minOccurs="0" />
+            <xsd:element name="postalCode" type="common:stText16" minOccurs="0" />
+            <xsd:element name="city" type="common:stText35" minOccurs="0" />
+            <xsd:element name="stateProvinceRegion" type="common:stText35" minOccurs="0" />
+            <xsd:element name="country" type="common:stNazioneProvincia" minOccurs="0" />
+            <xsd:element name="e-mail" type="common:stEMail" minOccurs="0" />
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="ctEntityUniqueIdentifier">
+        <xsd:sequence>
+            <xsd:element name="entityUniqueIdentifierType" type="tns:stEntityUniqueIdentifierType" />
+            <xsd:element name="entityUniqueIdentifierValue" type="tns:stEntityUniqueIdentifierValue" />
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:simpleType name="stEntityUniqueIdentifierType">
+        <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="F" />
+            <!-- Persona Fisica -->
+            <xsd:enumeration value="G" />
+            <!-- Persona Giuridica -->
+            <xsd:length value="1" />
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <xsd:complexType name="ctTransferListPAReceiptV2">
+        <xsd:sequence>
+            <xsd:element name="transfer" type="tns:ctTransferPAReceiptV2" maxOccurs="5" />
+        </xsd:sequence>
+    </xsd:complexType>
+
 </xsd:schema>
