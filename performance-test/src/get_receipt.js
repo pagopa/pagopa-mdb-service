@@ -24,7 +24,7 @@ export default function () {
     check(response, {
         'Get MBD Receipt status is 200': (response) => response.status === 200,
         'Get MDB Receipt content_type is the expected one':
-            (response) => response.headers["Content-Type"] === "application/xml"
+            (response) => response.headers["Content-Type"] === "application/json"
     });
 
 }
