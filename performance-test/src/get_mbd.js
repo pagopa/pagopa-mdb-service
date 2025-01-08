@@ -1,7 +1,6 @@
 import {check} from 'k6';
-import {getMDB} from './modules/client.js';
+import {getMBD} from './modules/client.js';
 import {SharedArray} from 'k6/data';
-import {retrieveNoticeItemData} from './modules/common.js';
 
 const varsArray = new SharedArray('vars', function () {
     return JSON.parse(open(`./${__ENV.VARS}`)).environment;
@@ -12,19 +11,22 @@ let attachmentUrl = "";
 
 const vars = varsArray[0];
 const mbdServiceUri = `${vars.mbdServiceUri}`;
-const subKey = `${__ENV.SUBSCRIPTION_KEY}`;
-const fiscalCodeEC = `${__ENV.FISCAL_CODE_EC}`;
+const subKey = `${__ENV.API_SUBSCRIPTION_KEY}`;
+const fiscalCodeEC = `${vars.fiscalCodeEC}`;
+const idCIService = `${vars.idCIService}`;
+
 
 export default function () {
 
-    let response = getMDB(mbdServiceUri, fiscalCodeEC);
+    let response = getMBD(mbdServiceUri, fiscalCodeEC, idCIService);
 
     console.log("Get MBD call, Status " + response.status);
+    console.log(response);
 
     check(response, {
         'Get MBD status is 200': (response) => response.status === 200,
         'Get MDB content_type is the expected one':
-            (response) => response.headers["Content-Type"] === "application/pdf"
+            (response) => response.headers["Content-Type"] === "application/json"
     });
 
 }

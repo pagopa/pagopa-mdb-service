@@ -3,8 +3,9 @@
     {
       "env": "local",
       "mbdServiceUri": "http://localhost:8080/organizations",
-      "fiscalCodeEC": "77777777",
-      "nav": "TBD"
+      "fiscalCodeEC": "99999000013",
+      "nav": "348173447377455101",
+      "idCIService": "00005"
     }
   ]
 }
