@@ -11,7 +11,6 @@ let attachmentUrl = "";
 
 const vars = varsArray[0];
 const mbdServiceUri = `${vars.mbdServiceUri}`;
-const subKey = `${__ENV.SUBSCRIPTION_KEY}`;
 const fiscalCodeEC = `${vars.fiscalCodeEC}`;
 const nav = `${vars.nav}`;
 

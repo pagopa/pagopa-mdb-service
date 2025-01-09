@@ -11,7 +11,6 @@ let attachmentUrl = "";
 
 const vars = varsArray[0];
 const mbdServiceUri = `${vars.mbdServiceUri}`;
-const subKey = `${__ENV.API_SUBSCRIPTION_KEY}`;
 const fiscalCodeEC = `${vars.fiscalCodeEC}`;
 const idCIService = `${vars.idCIService}`;
 
@@ -20,7 +19,7 @@ export default function () {
 
     let response = getMBD(mbdServiceUri, fiscalCodeEC, idCIService);
 
-    console.log("Get MBD call, Status " + response.status);
+    console.log("Post MBD call, Status " + response.status);
 
     check(response, {
         'Get MBD status is 200': (response) => response.status === 200,

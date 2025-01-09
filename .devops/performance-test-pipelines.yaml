@@ -24,7 +24,7 @@ parameters:
     displayName: "Script name"
     type: string
     values:
-      - get_mbd
+      - post_mbd
       - get_receipt
 variables:
   ${{ if eq(parameters['ENVIRONMENT'], 'dev') }}:
