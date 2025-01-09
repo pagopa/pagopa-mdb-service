@@ -1,5 +1,3 @@
-const axios = require("axios");
-
 const uri = process.env.SERVICE_URI;
 const gpd_payment_uri = process.env.GPD_SERVICE_URI;
 const environment = process.env.ENVIRONMENT;
@@ -31,31 +29,32 @@ function getBody() {
             "cancelUrl": "https://url2.it",
             "errorUrl": "https://url3.it"
         }
-	};
+    };
 
 }
 
 async function getDebtPositions(fiscalCodeEC, dueDate) {
 
     let headers = {
-        "Ocp-Apim-Subscription-Key": process.env.GPD_SUBKEY
+        "Ocp-Apim-Subscription-Key": process.env.GPD_SUBKEY;
     };
+
 
   	return await axios.get(gpd_payment_uri+"/organizations/"+fiscalCodeEC+"/debtpositions?due_date_from="+dueDate, { headers })
   		.then(res => {
-  			return res.data;
+  			return res;
   		})
   		.catch(error => {
   			return error.response;
   		});
-
 }
 
 async function deleteDebtPositions(fiscalCodeEC, iupd) {
 
     let headers = {
-        "Ocp-Apim-Subscription-Key": process.env.GPD_SUBKEY
+        "Ocp-Apim-Subscription-Key": process.env.GPD_SUBKEY;
     };
+
 
   	return await axios.delete(gpd_payment_uri+"/organizations/"+fiscalCodeEC+"/debtpositions/"+iupd, { headers })
   		.then(res => {
@@ -64,35 +63,33 @@ async function deleteDebtPositions(fiscalCodeEC, iupd) {
   		.catch(error => {
   			return error.response;
   		});
-
 }
 
 
 async function getPayPosition(fiscalCodeEC, nav) {
 
     let headers = {
-        "Ocp-Apim-Subscription-Key": process.env.GPD_SUBKEY
+        "Ocp-Apim-Subscription-Key": process.env.GPD_SUBKEY;
     };
 
-  	return await axios.get(gpd_payment_uri+"/organizations/"+fiscalCodeEC+"/paymentoptions/"+nav, { headers })
+  	return await axios.post(gpd_payment_uri+"/organizations/"+fiscalCodeEC+"/paymentoptions/"+nav, { headers })
   		.then(res => {
   			return res;
   		})
   		.catch(error => {
   			return error.response;
   		});
-
 }
 
 async function payReceipt(fiscalCodeEC, nav, body) {
 
     let headers = {
-        "Ocp-Apim-Subscription-Key": process.env.GPD_SUBKEY
+        "Ocp-Apim-Subscription-Key": process.env.GPD_SUBKEY;
     };
 
   	return await axios.post(gpd_payment_uri+"/organizations/"+fiscalCodeEC+"/paymentoptions/"+nav+"/pay", body, { headers })
   		.then(res => {
-  			return res.data;
+  			return res;
   		})
   		.catch(error => {
   			return error.response;
@@ -129,5 +126,5 @@ async function getMdbReceipt(organizationalFiscalCode, nav) {
 }
 
 module.exports = {
-	getMDB, getMdbReceipt, getBody, getPayPosition, payReceipt, getDebtPositions, deleteDebtPositions
+	getMDB, getMdbReceipt, getBody, getPayPosition, payReceipt, getDebtPositions, deleteDebtPosition
 }
