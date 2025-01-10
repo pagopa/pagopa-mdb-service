@@ -25,7 +25,7 @@ locals {
     "TENANT_ID" : data.azurerm_client_config.current.tenant_id,
     "SUBSCRIPTION_ID" : data.azurerm_subscription.current.subscription_id,
     "SUBKEY" : data.azurerm_key_vault_secret.key_vault_integration_test_subkey.value,
-    "GPD_SUBKEY" : data.azurerm_key_vault_secret.key_vault_gpd_api_key.value
+    "GPD_SUBKEY" : var.env_short != "p" ? data.azurerm_key_vault_secret.key_vault_gpd_api_key[0].value : "-"
 
   }
   env_variables = {
@@ -52,7 +52,7 @@ locals {
     },
     "GPD_SUBKEY" : {
       "key" : "${upper(var.env)}_GPD_SUBKEY",
-      "value" : data.azurerm_key_vault_secret.key_vault_gpd_api_key.value
+      "value" : var.env_short != "p" ? data.azurerm_key_vault_secret.key_vault_gpd_api_key[0].value : "-"
     },
   }
 }
